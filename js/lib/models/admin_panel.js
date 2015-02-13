@@ -2,19 +2,19 @@ var __extends = function(child, parent) { for (var key in parent) { if (__hasPro
   __hasProp = {}.hasOwnProperty;
 
 define(['jquery', 'backbone'], function($, Backbone) {
-  var Dashboard;
-  return Dashboard = (function(_super) {
-    __extends(Dashboard, _super);
+  var AdminPanel;
+  return AdminPanel = (function(_super) {
+    __extends(AdminPanel, _super);
 
-    function Dashboard() {
-      return Dashboard.__super__.constructor.apply(this, arguments);
+    function AdminPanel() {
+      return AdminPanel.__super__.constructor.apply(this, arguments);
     }
 
-    Dashboard.prototype.defaults = {
-      name: 'こやっほーんにちは'
+    AdminPanel.prototype.defaults = {
+      isOpen: false
     };
 
-    return Dashboard;
+    return AdminPanel;
 
   })(Backbone.Model);
 });

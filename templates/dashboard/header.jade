@@ -1,0 +1,16 @@
+h1.text-center(data-js='logoTitle') UNITUS
+.dropdown
+  #account(data-js='dropdown', data-toggle="dropdown", aria-expanded="false")
+    = user.get('name')
+    span.caret
+  ul.dropdown-menu(role='menu', aria-labelledby='account')
+    if user.get('isAdmin')
+      li.author.menu 管理者メニュー
+      li.item(data-js='adminToggle') 管理画面を開く
+      li.divider
+    // (管理者用ここまで)
+    li.author.menu アカウントメニュー
+    li.item 設定
+    li.divider
+    li.item(data-js='logout') ログアウト
+    li.divider

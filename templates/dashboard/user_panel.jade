@@ -1,0 +1,63 @@
+#userSidebar.sidebar
+  // Nav tabs
+  ul.nav.nav-tabs(role='tablist')
+    li.active(role='presentation')
+      a(href='#circleList', aria-controls='circleList', role='tab', data-toggle='tab')
+        i.glyphicon.glyphicon-th
+        span.title 加盟団体一覧
+    li(role='presentation')
+      a(href='#mail', aria-controls='mail', role='tab', data-toggle='tab')
+        i.glyphicon.glyphicon-envelope
+        span.title 部員招待
+    li(role='presentation')
+      a(href='#profile', aria-controls='profile', role='tab', data-toggle='tab')
+        i.glyphicon.glyphicon-user
+        span.title プロフィール
+#userContent.content
+  .tab-content
+    #circleList.tab-pane.fade.in.active(role='tabpanel')
+      h1 加盟団体一覧
+      table
+        thead
+          tr
+            th.name_w 名前
+            th.author_w 権限
+            th.number_w 人数
+            th.university_w 大学名
+            th.update_w 更新日
+        tbody(data-js='circleList')
+    #mail.tab-pane.fade(role='tabpanel')
+      h1 メンバー招待
+      p このページでは、自分が権限を与えられているサークルないし部活のメンバーを招待することが出来ます。
+      form
+        .form-group
+          label(for='circle_name') 団体名
+          input#circle_name.form-control(type='text', placeholder='応用数学研究部')
+          label(for='circle_description') 団体説明
+          textarea#circle_description.form-control(placeholder='団体説明を記入', rows='10')
+          label(for='circle_num') 人数
+          input#circle_num.form-control(type='text', placeholder='18')
+          label(for='site_name') ウェブサイト
+          input#site_name.form-control(type='text', placeholder='http://unitus-ac.com')
+          label(for='university') 所属大学
+          input#university.form-control(type='text', placeholder='東京理科大学')
+          label(for='remarks') 備考
+          textarea#remarks.form-control(placeholder='インカレサークルです。')
+          label(for='contact') 連絡先
+          input#contact.form-control(type='text', placeholder='Tel: 090123456')
+          label(for='leader') 代表者
+          input#leader.form-control(type='text', placeholder='@hogehoge')
+          .checkbox
+            label
+              input#isAcceptOutside(type='checkbox')
+              |  外部生のサークル加入可否
+          .pull-right
+            button.btn.btn-primary(type='submit') 保存する
+
+    #profile.tab-pane.fade(role='tabpanel')
+      h1 プロフィール
+      .content
+        .row
+          .col-xs-3
+            h1.profile_name 種市 隼兵
+            h2.profile_id @gamerinshaft

@@ -1,7 +1,7 @@
 var __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __hasProp = {}.hasOwnProperty;
 
-define(['jquery', 'backbone', 'templates/dashboard/dashboard', "views/dashboard/header", 'models/dashboard'], function($, Backbone, template, HeaderView, Dashboard) {
+define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel'], function($, Backbone, template, HeaderView, PanelView, User, AdminPanel) {
   var DashboadView;
   return DashboadView = (function(_super) {
     __extends(DashboadView, _super);
@@ -11,18 +11,56 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', "views/dashboard/
     }
 
     DashboadView.prototype.initialize = function(option) {
-      var model;
-      console.log("waa");
-      model = new Dashboard();
-      console.log(model.get("name"));
-      this.renderDashboard();
-      return new HeaderView({
-        el: $("[data-js=header]")
+      this.user = new User();
+      return $.ajax({
+        url: 'https://core.unitus-ac.com/Dashboard/Dummy',
+        data: {
+          validationToken: 'abc'
+        },
+        type: 'GET',
+        success: (function(_this) {
+          return function(msg) {
+            var data;
+            console.log(msg.Content);
+            data = msg.Content;
+            _this.user.set({
+              name: data.Name
+            });
+            _this.user.set({
+              mail: data.UserName
+            });
+            _this.user.set({
+              avatar: data.AvatarUri
+            });
+            _this.user.set({
+              isAdmin: data.IsAdministrator
+            });
+            if (_this.user.get("isAdmin")) {
+              _this.admin_panel = new AdminPanel();
+            }
+            _this.renderDashboard();
+            new HeaderView({
+              el: $("[data-js=header]"),
+              user: _this.user,
+              admin_panel: _this.admin_panel
+            });
+            return new PanelView({
+              el: $("[data-js=panel]"),
+              user: _this.user,
+              admin_panel: _this.admin_panel
+            });
+          };
+        })(this),
+        error: function(msg) {
+          return console.log(msg);
+        }
       });
     };
 
     DashboadView.prototype.renderDashboard = function() {
-      return this.$el.html(template());
+      return this.$el.html(template({
+        user: this.user
+      }));
     };
 
     return DashboadView;
