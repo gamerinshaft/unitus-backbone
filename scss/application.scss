@@ -1,3 +1,6 @@
+//=======================
+//       基本設定
+//=======================
 body, html{
   height: 100%;
   width: 100%;
@@ -6,8 +9,462 @@ body, html{
   background-color: white;
   margin: 0;
 }
-
-.app > .container{
+section#body{
   height: 100%;
-  width: 1040px;
+  position: relative;
+}
+#basicUser, #adminUser {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  top: 42px;
+}
+#adminUser{
+  -webkit-transition: -webkit-transform 0.5s ease-out;
+  -moz-transition: -moz-transform 0.5s ease-out;
+  -ms-transition: -ms-transform 0.5s ease-out;
+  -o-transition: -o-transform 0.5s ease-out;
+    transition: transform 0.5s ease-out;
+}
+#adminUser.hidden_panel{
+  -webkit-transform:translateX(-1010px);
+  -moz-transform: translateX(-1010px);
+  -ms-transform: translateX(-1010px);
+  -o-transform: translateX(-1010px);
+  transform: translateX(-1010px);
+}
+#adminUser {
+  z-index: 10;
+}
+#basicUser {
+    z-index: 5;
+}
+.clear{
+  clear: both;
+}
+
+//=======================
+//         app
+//=======================
+#app{
+  width: 100%;
+  height: 100%;
+}
+
+//=======================
+//         main
+//=======================
+
+section#main{
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+  width: 1010px;
+  height: 100%;
+  background-color: white;
+  box-shadow: 0px 0px 64px rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+
+//=======================
+//        header
+//=======================
+
+section#header{
+  width: 100%;
+  position: absolute;
+  background-image: -webkit-linear-gradient(top, rgb(53,63,77) 0%,  rgb(53,63,77) 100%);
+  background-image:      -o-linear-gradient(top, rgb(53,63,77) 0%,  rgb(53,63,77) 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(53,63,77)), to( rgb(53,63,77)));
+  background-image:         linear-gradient(to bottom, rgb(53,63,77) 0%,  rgb(53,63,77) 100%);
+  background-color: rgb(53,63,77);
+  z-index: 50;
+  h1{
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    font-size: 24px;
+    padding: 8px;
+    letter-spacing: 8px;
+    color: whitesmoke;
+    font-weight: normal;
+    font-family: sans-serif;
+  }
+  .dropdown{
+    display: inline-block;
+    color: whitesmoke;
+    position: absolute;
+    z-index: 5;
+    top: 0px;
+    right: 0px;
+  }
+  .dropdown #account{
+    cursor: pointer;
+    padding: 10px 24px;
+  }
+  .dropdown .dropdown-menu{
+    margin: 0px;
+  }
+  .dropdown.open .dropdown-menu{
+    height: 200px;
+  }
+  .dropdown .dropdown-menu .divider{
+    border-top: 1px solid #A1A5B2;
+    border-bottom: 1px solid #152545;
+    height: 0px;
+    margin: 0px;
+  }
+  .dropdown .dropdown-menu{
+    -webkit-transition: .2s ease-in-out height;
+         -o-transition: .2s ease-in-out height;
+            transition: .2s ease-in-out height;
+    right: 0px;
+    left: auto;
+    background-color: rgb(53,63,77);
+    border-radius: 0px;
+    display: block;
+    height: 0px;
+    overflow: hidden;
+    padding: 0px;
+    border: none;
+  }
+  .dropdown .dropdown-menu li.menu{
+    padding: 6px 8px;
+    font-size: 10px;
+    color: rgb(174, 197, 216)
+  }
+  .dropdown .dropdown-menu li.item{
+    font-size: 12px;
+    padding: 4px 16px;
+    cursor: pointer;
+  }
+  .dropdown .dropdown-menu li.item:hover{
+    background-color: rgb(67, 81, 98);
+  }
+}
+
+//==============================================
+//                サイドバー
+//==============================================
+.sidebar{
+  overflow: scroll;
+  position: absolute;
+  width: 200px;
+  display: inline-block;
+  top: 0px;
+  left: 0px;
+  right: 200px;
+  bottom: 0px;
+  padding: 16px 0px;
+  background-color: rgb(239,242,245);
+  z-index: 40;
+  ul li{
+    width: 100%;
+    margin: 0px;
+  }
+  ul li a{
+    border: none;
+    border-radius: 0px;
+    color: rgb(183, 185, 193);
+    margin: 0px;
+  }
+  ul li a .glyphicon{
+    font-size: 24px;
+    vertical-align: top;
+    display: inline-block;
+  }
+  ul li a .title{
+    vertical-align: top;
+    font-size: 12px;
+    display: inline-block;
+    padding: 2px 8px;
+  }
+  ul li.active a{
+    border: none !important;
+    margin: 0px;
+    border-radius: 0px;
+    background-color: white;
+    border-color: white;
+    right: 0px;
+  }
+  ul li a:hover{
+    border: none;
+    margin: 0;
+  }
+  ul li.active a:hover{
+    margin-top: 0px;
+    border: none;
+    border-radius: 0px;
+  }
+}
+
+
+//==============================================
+//           一般ユーザー > コンテンツ
+//==============================================
+#userContent, #adminContent{
+
+  top: 0px;
+  background-color: white;
+  display: inline-block;
+  position: absolute;
+  left: 200px;
+  right: 0px;
+  bottom: 0px;
+  padding: 24px;
+  overflow: scroll;
+  z-index: 30;
+}
+
+#adminContent{
+  right: 40px;
+}
+
+//=======================
+//   section content
+//=======================
+.content{
+  overflow: scroll;
+  top: 0px;
+  background-color: white;
+  display: inline-block;
+  position: absolute;
+  left: 200px;
+  right: 0px;
+  bottom: 0px;
+  padding: 24px;
+  z-index: 30;
+}
+
+.content h1{
+  color: rgb(85, 85, 90);
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: 1.4px;
+}
+//=======================
+//       circles
+//=======================
+#circleList{
+  table{
+    width: 100%;
+    margin-top: 40px;
+  }
+
+  table thead{
+    border-bottom: solid 3px #ccc;
+  }
+  table thead tr th{
+    border-right: 1px solid #ccc;
+    padding-left: 8px;
+    font-weight: normal;
+    font-size: 13px;
+  }
+  table thead tr th.name_w{
+    width: 40%;
+  }
+  table thead tr th.number_w{
+    width: 10%;
+  }
+  table thead tr th.university_w{
+    width: 20%;
+  }
+  table thead tr th.update_w{
+    width: 30%;
+  }
+  table thead tr th.author_w{
+    width: 10%;
+  }
+  table tbody{
+    font-size: 12px;
+  }
+  table tbody tr{
+    border-bottom: solid 1px white;
+  }
+  table tbody tr td{
+    padding: 8px;
+    position: relative;
+  }
+  table tbody tr.self .name{
+    background-color: rgb(22, 160, 133);
+    color: white;
+  }
+  table tbody tr .name{
+    font-weight: bold;
+    letter-spacing: 1px;
+    background-color: rgba(87, 214, 141, 0.45);
+  }
+  table tbody tr:hover .name{
+    background-color: rgb(87, 214, 141);
+    color: white;
+  }
+  table tbody tr:hover .update,table tbody tr:hover .number,table tbody tr:hover .author, table tbody tr:hover .university{
+    background-color: rgba(87, 214, 141, 0.45);
+  }
+  table tbody tr.self .name:hover{
+    opacity: 0.8;
+  }
+  table tbody tr.self .update,table tbody tr.self .number,table tbody tr.self .author, table tbody tr.self .university{
+    background-color: rgb(26, 188, 156);
+    color: white;
+  }
+
+  table tbody:before{
+    content: "";
+    margin-top: 16px;
+    display: block;
+    width: 100%;
+    background-color: transparent;
+  }
+  table tr i{
+    position: absolute;
+    right: 10px;
+    font-size: 18px;
+    padding: 7px 0px;
+    display: none;
+    color: white;
+  }
+  table tr.self i{
+    color: white;
+    display: block;
+  }
+  table tr:hover i{
+    display: block;
+  }
+}
+//=======================
+//      new_circle
+//=======================
+#adminNewCircle{
+  h1{
+    margin-bottom: 32px;
+  }
+  .label{
+    font-size: 14px;
+    font-weight: normal;
+    background-color: rgba(35, 129, 58, 0.67);
+    padding: 6px 8px;
+    cursor: pointer;
+    vertical-align: top;
+    margin: 0px 23px;
+    display: inline-block;
+    font-weight: normal;
+    cursor: pointer;
+  }
+  label{
+    color: #555;
+    margin-top: 12px;
+    padding: 0px 2px;
+  }
+  .checkbox label{
+    margin-left: 20px;
+  }
+}
+//=======================
+//     admin_userList
+//=======================
+#adminUserList{
+  table{
+    width: 100%;
+    margin-top: 40px;
+  }
+
+  table thead{
+    border-bottom: solid 3px #ccc;
+  }
+  table thead tr th{
+    border-right: 1px solid #ccc;
+    padding-left: 8px;
+    font-weight: normal;
+    font-size: 13px;
+  }
+  table thead tr th.name_w{
+    width: 20%;
+  }
+  table thead tr th.number_w{
+    width: 10%;
+  }
+  table thead tr th.university_w{
+    width: 25%;
+  }
+  table thead tr th.mail_w{
+    width: 45%;
+  }
+  table thead tr th.author_w{
+    width: 10%;
+  }
+  table tbody{
+    font-size: 12px;
+  }
+  table tbody tr{
+    border-bottom: solid 1px white;
+  }
+  table tbody tr td{
+    padding: 8px;
+    position: relative;
+  }
+  table tbody tr.self .name{
+    background-color: rgb(22, 160, 133);
+    color: white;
+  }
+  table tbody tr .name{
+    font-weight: bold;
+    letter-spacing: 1px;
+    background-color: rgba(44, 134, 210, 0.45);
+    color: #555;
+  }
+  table tbody tr:hover .name{
+    background-color: rgba(44, 153, 210, 0.45);
+    color: whitesmoke;
+  }
+  table tbody tr:hover .mail,table tbody tr:hover .number,table tbody tr:hover .author, table tbody tr:hover .university{
+    background-color: rgba(44, 166, 210, 0.3);
+  }
+
+
+  table tbody:before{
+    content: "";
+    margin-top: 16px;
+    display: block;
+    width: 100%;
+    background-color: transparent;
+  }
+  table tr i{
+    display: none;
+    color: rgb(104, 125, 157);
+    position: absolute;
+    right: 10px;
+    font-size: 18px;
+    padding: 7px 0px;
+    top: 0px;
+  }
+  table tr i[data-js="copyMail"]{
+    display: block;
+  }
+  table tr:hover .name i{
+    display: block;
+    cursor: pointer;
+    color: white;
+  }
+}
+
+//=======================
+//     optionBar
+//=======================
+#adminOptionbar{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0px;
+  width: 40px;
+  background-color: rgb(119, 142, 173);
+  z-index: 5;
+  .close_btn{
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    padding: 10px 13px;
+    color: white;
+  }
 }
