@@ -34,7 +34,7 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
       };
       return $.ajax({
         type: "GET",
-        url: "http://unitus-core.azurewebsites.net/Circle/Dummy",
+        url: "https://unitus-core.azurewebsites.net/Circle/Dummy",
         data: sendData,
         success: function(msg) {
           return $.each(msg.Content.Circle, function() {
