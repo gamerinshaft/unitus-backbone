@@ -304,11 +304,11 @@ section#header {
 
 #profile .profilebar {
   overflow: scroll;
-  -webkit-transition: left 0.5s ease-out;
-  -moz-transition: left 0.5s ease-out;
-  -ms-transition: left 0.5s ease-out;
-  -o-transition: left 0.5s ease-out;
-  transition: left 0.5s ease-out;
+  -webkit-transition: left 0.3s ease-out;
+  -moz-transition: left 0.3s ease-out;
+  -ms-transition: left 0.3s ease-out;
+  -o-transition: left 0.3s ease-out;
+  transition: left 0.3s ease-out;
   position: absolute;
   left: -240px;
   background-color: white;
@@ -323,7 +323,12 @@ section#header {
     font-size: 16px;
     padding: 8px; }
     #profile .profilebar .profile_name i {
-      margin-right: 8px; }
+      margin-right: 8px;
+      -webkit-transform: rotate(90deg);
+      -moz-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      -o-transform: rotate(90deg);
+      transform: rotate(90deg); }
   #profile .profilebar img {
     width: 80%;
     margin: 15px auto;
@@ -356,8 +361,22 @@ section#header {
       border-bottom: 2px solid #B5B5B5;
       color: #555;
       background: white; }
+      #profile .profilebar .panel .panel-heading i {
+        margin-right: 8px;
+        color: #555;
+        -webkit-transition: -webkit-transform 0.3s ease-out;
+        -moz-transition: -moz-transform 0.3s ease-out;
+        -ms-transition: -ms-transform 0.3s ease-out;
+        -o-transition: -o-transform 0.3s ease-out;
+        transition: transform 0.3s ease-out; }
     #profile .profilebar .panel .list-group {
       border: none; }
+  #profile .profilebar a[aria-expanded="true"] i {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg); }
 #profile .profilecontent {
   background-color: #e5e5e5;
   position: absolute;

@@ -26,6 +26,7 @@
       #headingOne.panel-heading(role='tab')
         h4.panel-title
           a(data-toggle='collapse', data-parent='#accordion', href='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
+            i.glyphicon.glyphicon-chevron-right
             | プロフィール
       #collapseOne.panel-collapse.collapse.in(role='tabpanel', aria-labelledby='headingOne')
         ul.list-group
@@ -40,6 +41,7 @@
       #headingTwo.panel-heading(role='tab')
         h4.panel-title
           a.collapsed(data-toggle='collapse', data-parent='#accordion', href='#collapseTwo', aria-expanded='false', aria-controls='collapseTwo')
+            i.glyphicon.glyphicon-chevron-right
             | 各種アカウント
       #collapseTwo.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingTwo')
         ul.list-group
@@ -53,6 +55,7 @@
       #headingThree.panel-heading(role='tab')
         h4.panel-title
           a.collapsed(data-toggle='collapse', data-parent='#accordion', href='#collapseThree', aria-expanded='false', aria-controls='collapseThree')
+            i.glyphicon.glyphicon-chevron-right
             | 実績
       #collapseThree.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingThree')
         .panel-body
