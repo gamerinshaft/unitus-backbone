@@ -26,12 +26,8 @@ define ['jquery', 'backbone','templates/dashboard/admin_panel'], ($, Backbone, A
           console.log msg
 
       @admin_panel = option.admin_panel
-      @admin_panel.on "change", =>
-        if @admin_panel.get("isOpen")
-          @$el.removeClass("hidden_panel")
-        else
-          @$el.addClass("hidden_panel")
-
+      @admin_panel.on "change:isOpen", =>
+        @$el.toggleClass("hidden_panel")
       @renderAdminPanel()
 
     events:

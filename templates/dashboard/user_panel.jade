@@ -1,6 +1,6 @@
 #userSidebar.sidebar
   // Nav tabs
-  ul.nav.nav-tabs(role='tablist')
+  ul.nav.nav-tabs(role='tablist' data-js='userSideList')
     li.active(role='presentation')
       a(href='#circleList', aria-controls='circleList', role='tab', data-toggle='tab')
         i.glyphicon.glyphicon-th
@@ -14,7 +14,7 @@
         i.glyphicon.glyphicon-user
         span.title プロフィール
 #userContent.content
-  .tab-content
+  .tab-content(data-js='userPanelList')
     #circleList.tab-pane.fade.in.active(role='tabpanel')
       h1 加盟団体一覧
       table
@@ -54,10 +54,4 @@
           .pull-right
             button.btn.btn-primary(type='submit') 保存する
 
-    #profile.tab-pane.fade(role='tabpanel')
-      h1 プロフィール
-      .content
-        .row
-          .col-xs-3
-            h1.profile_name 種市 隼兵
-            h2.profile_id @gamerinshaft
+    #profile.tab-pane.fade(data-js='myProfile' role='tabpanel')

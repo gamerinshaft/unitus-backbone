@@ -35,6 +35,9 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
             _this.user.set({
               isAdmin: data.IsAdministrator
             });
+            _this.user.set({
+              circles: data.CircleBelonging
+            });
             if (_this.user.get("isAdmin")) {
               _this.admin_panel = new AdminPanel();
             }

@@ -57,11 +57,11 @@ section#main {
 section#header {
   width: 100%;
   position: absolute;
-  background-image: -webkit-linear-gradient(top, #353f4d 0%, #353f4d 100%);
-  background-image: -o-linear-gradient(top, #353f4d 0%, #353f4d 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#353f4d), to(#353f4d));
-  background-image: linear-gradient(to bottom, #353f4d 0%, #353f4d 100%);
-  background-color: #353f4d;
+  background-image: -webkit-linear-gradient(top, #262B34 0%, #262B34 100%);
+  background-image: -o-linear-gradient(top, #262B34 0%, #262B34 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#262B34), to(#262B34));
+  background-image: linear-gradient(to bottom, #262B34 0%, #262B34 100%);
+  background-color: #262B34;
   z-index: 50; }
   section#header h1 {
     width: 100%;
@@ -98,7 +98,7 @@ section#header {
     transition: .2s ease-in-out height;
     right: 0px;
     left: auto;
-    background-color: #353f4d;
+    background-color: #262B34;
     border-radius: 0px;
     display: block;
     height: 0px;
@@ -126,20 +126,43 @@ section#header {
   right: 200px;
   bottom: 0px;
   padding: 16px 0px;
-  background-color: #eff2f5;
+  background-color: #39414D;
   z-index: 40; }
+  .sidebar .tablist {
+    border-bottom: solid 1px #B7C5D0; }
   .sidebar ul li {
     width: 100%;
     margin: 0px; }
+  .sidebar ul li.divider {
+    border-top: none; }
+  .sidebar ul li.divider h1 {
+    font-size: 12px;
+    padding-left: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: #FFFFFF;
+    background-color: #31343E;
+    margin: 0; }
   .sidebar ul li a {
     border: none;
     border-radius: 0px;
-    color: #b7b9c1;
+    color: #9BA7AB;
     margin: 0px; }
+  .sidebar ul li a:hover {
+    background-color: #525D71;
+    color: white; }
   .sidebar ul li a .glyphicon {
     font-size: 24px;
     vertical-align: top;
     display: inline-block; }
+  .sidebar ul li a .circleIcon {
+    font-size: 18px;
+    width: 24px;
+    font-weight: bold;
+    padding: 1px;
+    display: inline-block;
+    border-radius: 1px;
+    text-align: center; }
   .sidebar ul li a .title {
     vertical-align: top;
     font-size: 12px;
@@ -275,6 +298,75 @@ section#header {
   padding: 0px 2px; }
 #adminNewCircle .checkbox label {
   margin-left: 20px; }
+
+#profile.fade.active.in .profilebar {
+  left: 0px; }
+
+#profile .profilebar {
+  overflow: scroll;
+  -webkit-transition: left 0.5s ease-out;
+  -moz-transition: left 0.5s ease-out;
+  -ms-transition: left 0.5s ease-out;
+  -o-transition: left 0.5s ease-out;
+  transition: left 0.5s ease-out;
+  position: absolute;
+  left: -240px;
+  background-color: white;
+  top: 0px;
+  bottom: 0px;
+  width: 240px;
+  border-right: 1px solid #ddd;
+  z-index: 2;
+  box-shadow: 1px 1px 10px #B3B3B3; }
+  #profile .profilebar .profile_name {
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    padding: 8px; }
+    #profile .profilebar .profile_name i {
+      margin-right: 8px; }
+  #profile .profilebar img {
+    width: 80%;
+    margin: 15px auto;
+    display: block; }
+  #profile .profilebar hr.style-line {
+    margin: 16px 32px;
+    padding: 0;
+    border: none;
+    border-top: medium double #555;
+    text-align: center;
+    color: #555; }
+  #profile .profilebar hr.style-line:after {
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 14px;
+    padding: 0 0.25em;
+    background: white;
+    letter-spacing: 6px; }
+  #profile .profilebar hr.style-line.profile:after {
+    content: "PROFILE"; }
+  #profile .profilebar hr.style-line.activity:after {
+    content: "ACTIVITY"; }
+  #profile .profilebar .panel {
+    margin: 0px;
+    padding: 0px;
+    border: none; }
+    #profile .profilebar .panel .panel-heading {
+      border-radius: 0px;
+      border-bottom: 2px solid #B5B5B5;
+      color: #555;
+      background: white; }
+    #profile .profilebar .panel .list-group {
+      border: none; }
+#profile .profilecontent {
+  background-color: #e5e5e5;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  top: 0px;
+  width: 810px;
+  z-index: 1;
+  padding-left: 240px; }
 
 #adminUserList table {
   width: 100%;

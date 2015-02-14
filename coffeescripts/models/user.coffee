@@ -4,7 +4,7 @@ define ['jquery', 'backbone'], ($, Backbone) ->
       name: 'サンプル太郎'
       mail: 'example.com'
       avatar: 'noImage'
-      circle: 'EspicaCompute'
+      circles: ''
       isAdmin: true
       valdationToken: 'abc'
 

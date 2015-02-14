@@ -5,6 +5,6 @@ define ['jquery', 'backbone', 'views/dashboard/user_panel','views/dashboard/admi
       @admin_panel = option.admin_panel
       @renderDashboard();
     renderDashboard: ->
-      new UserPanelView(el: $("[data-js=basic]"))
+      new UserPanelView(el: $("[data-js=basic]"), user: @user)
       if @user.get("isAdmin")
         new AdminPanelView(el: $("[data-js=admin]"), admin_panel: @admin_panel)

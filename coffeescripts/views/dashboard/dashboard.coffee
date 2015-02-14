@@ -15,6 +15,7 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
           @user.set mail: data.UserName
           @user.set avatar: data.AvatarUri
           @user.set isAdmin: data.IsAdministrator
+          @user.set circles: data.CircleBelonging
 
           if @user.get("isAdmin")
             @admin_panel = new AdminPanel()

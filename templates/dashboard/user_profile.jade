@@ -1,0 +1,62 @@
+.profilebar
+  h1.profile_name
+    i.glyphicon.glyphicon-chevron-right
+    = user.get("name")
+  img(src="#{user.get('avatar')}")
+  //- hr.style-line.profile
+  //- table
+  //-   tr
+  //-     td name
+  //-     td たねいてぃ
+  //-   tr
+  //-     td mail
+  //-     td
+  //-       = user.get("mail")
+  //-   tr
+  //-     td 所属サークル
+  //-     td うわああ
+  //- hr.style-line.activity
+
+
+  //- h2.profile_id @gamerinshaft
+  //- each key, val in user.get("circles")
+  //-   li #{key.CircleName}
+  #accordion.panel-group(role='tablist', aria-multiselectable='true')
+    .panel.panel-default
+      #headingOne.panel-heading(role='tab')
+        h4.panel-title
+          a(data-toggle='collapse', data-parent='#accordion', href='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
+            | プロフィール
+      #collapseOne.panel-collapse.collapse.in(role='tabpanel', aria-labelledby='headingOne')
+        ul.list-group
+          li.list-group-item
+            | hoge
+          li.list-group-item
+            | hoge
+          li.list-group-item
+            | hoge
+
+    .panel.panel-default
+      #headingTwo.panel-heading(role='tab')
+        h4.panel-title
+          a.collapsed(data-toggle='collapse', data-parent='#accordion', href='#collapseTwo', aria-expanded='false', aria-controls='collapseTwo')
+            | 各種アカウント
+      #collapseTwo.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingTwo')
+        ul.list-group
+          li.list-group-item
+            | hoge
+          li.list-group-item
+            | hoge
+          li.list-group-item
+            | hoge
+    .panel.panel-default
+      #headingThree.panel-heading(role='tab')
+        h4.panel-title
+          a.collapsed(data-toggle='collapse', data-parent='#accordion', href='#collapseThree', aria-expanded='false', aria-controls='collapseThree')
+            | 実績
+      #collapseThree.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingThree')
+        .panel-body
+          | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven&apos;t heard of them accusamus labore sustainable VHS.
+
+.profilecontent
+
