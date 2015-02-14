@@ -23,12 +23,12 @@
   //-   li #{key.CircleName}
   #accordion.panel-group(role='tablist', aria-multiselectable='true')
     .panel.panel-default
-      #headingOne.panel-heading(role='tab')
+      #profileAccordion.panel-heading(role='tab')
         h4.panel-title
-          a(data-toggle='collapse', data-parent='#accordion', href='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
+          a(data-toggle='collapse', data-parent='#accordion', href='#profileCollapse', aria-expanded='true', aria-controls='profileCollapse')
             i.glyphicon.glyphicon-chevron-right
             | プロフィール
-      #collapseOne.panel-collapse.collapse.in(role='tabpanel', aria-labelledby='headingOne')
+      #profileCollapse.panel-collapse.collapse.in(role='tabpanel', aria-labelledby='profileAccordion')
         ul.list-group
           li.list-group-item
             | hoge
@@ -38,12 +38,12 @@
             | hoge
 
     .panel.panel-default
-      #headingTwo.panel-heading(role='tab')
+      #accountAccordion.panel-heading(role='tab')
         h4.panel-title
-          a.collapsed(data-toggle='collapse', data-parent='#accordion', href='#collapseTwo', aria-expanded='false', aria-controls='collapseTwo')
+          a.collapsed(data-toggle='collapse', data-parent='#accordion', href='#accountCollapse', aria-expanded='false', aria-controls='accountCollapse')
             i.glyphicon.glyphicon-chevron-right
             | 各種アカウント
-      #collapseTwo.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingTwo')
+      #accountCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='accountAccordion')
         ul.list-group
           li.list-group-item
             | hoge
@@ -52,14 +52,16 @@
           li.list-group-item
             | hoge
     .panel.panel-default
-      #headingThree.panel-heading(role='tab')
+      #achievementAccordion.panel-heading(role='tab')
         h4.panel-title
-          a.collapsed(data-toggle='collapse', data-parent='#accordion', href='#collapseThree', aria-expanded='false', aria-controls='collapseThree')
+          a.collapsed(data-toggle='collapse', data-parent='#accordion', href='#achivementCollapse', aria-expanded='false', aria-controls='achivementCollapse')
             i.glyphicon.glyphicon-chevron-right
             | 実績
-      #collapseThree.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingThree')
-        .panel-body
-          | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven&apos;t heard of them accusamus labore sustainable VHS.
-
+      #achivementCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='achievementAccordion')
+        ul.list-group
+          li.list-group-item
+            | 全て
 .profilecontent
+  #achivementPanel
+    h1 hello!
 

@@ -19,7 +19,7 @@ define(['jquery', 'backbone', 'templates/dashboard/admin_panel'], function($, Ba
       };
       $.ajax({
         type: "GET",
-        url: "https://unitus-core.azurewebsites.net/Person/Dummy",
+        url: "http://unitus-core.azurewebsites.net/Person/Dummy",
         data: sendData,
         success: function(msg) {
           return $.each(msg.Content.Persons, function() {

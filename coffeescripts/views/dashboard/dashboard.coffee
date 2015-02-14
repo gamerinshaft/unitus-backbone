@@ -1,6 +1,7 @@
 define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel'], ($, Backbone, template, HeaderView, PanelView, User, AdminPanel) ->
   class DashboadView extends Backbone.View
     initialize: (option) ->
+      $("[data-js=loading]").fadeOut()
       @user = new User()
       $.ajax
         url: 'https://core.unitus-ac.com/Dashboard/Dummy'
@@ -9,7 +10,6 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
         type: 'GET'
 
         success: (msg) =>
-          console.log msg.Content
           data = msg.Content
           @user.set name: data.Name
           @user.set mail: data.UserName
@@ -23,7 +23,7 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
           @renderDashboard();
           new HeaderView(el: $("[data-js=header]"), user: @user, admin_panel:  @admin_panel)
           new PanelView(el: $("[data-js=panel]"), user: @user, admin_panel: @admin_panel)
-
+          @$el.fadeIn()
         error: (msg) ->
           console.log msg
 

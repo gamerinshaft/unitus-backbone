@@ -1,4 +1,18 @@
 //=======================
+//       utility
+//=======================
+.table{
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+.table-cell{
+  display: table-cell;
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+}
+//=======================
 //       基本設定
 //=======================
 body, html{
@@ -8,6 +22,15 @@ body, html{
 body, html{
   background-color: white;
   margin: 0;
+}
+section#app{
+  display: none;
+}
+section#loading{
+  height: 100%;
+  img{
+    width: 96px;
+  }
 }
 section#panel{
   height: 100%;

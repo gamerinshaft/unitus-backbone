@@ -11,6 +11,7 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
     }
 
     DashboadView.prototype.initialize = function(option) {
+      $("[data-js=loading]").fadeOut();
       this.user = new User();
       return $.ajax({
         url: 'https://core.unitus-ac.com/Dashboard/Dummy',
@@ -21,7 +22,6 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
         success: (function(_this) {
           return function(msg) {
             var data;
-            console.log(msg.Content);
             data = msg.Content;
             _this.user.set({
               name: data.Name
@@ -47,11 +47,12 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
               user: _this.user,
               admin_panel: _this.admin_panel
             });
-            return new PanelView({
+            new PanelView({
               el: $("[data-js=panel]"),
               user: _this.user,
               admin_panel: _this.admin_panel
             });
+            return _this.$el.fadeIn();
           };
         })(this),
         error: function(msg) {
