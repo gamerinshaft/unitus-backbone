@@ -7,7 +7,7 @@ define ['jquery', 'backbone','templates/dashboard/admin_panel'], ($, Backbone, A
         validationToken: "abc"
       $.ajax
         type: "GET",
-        url:"http://unitus-core.azurewebsites.net/Person/Dummy",
+        url:"https://unitus-core.azurewebsites.net/Person",
         data: sendData,
         success: (msg)->
           $.each msg.Content.Persons, ->

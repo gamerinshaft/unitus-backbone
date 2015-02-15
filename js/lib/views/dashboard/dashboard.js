@@ -14,7 +14,7 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
       $("[data-js=loading]").fadeOut();
       this.user = new User();
       return $.ajax({
-        url: 'https://core.unitus-ac.com/Dashboard/Dummy',
+        url: 'https://core.unitus-ac.com/Dashboard',
         data: {
           validationToken: 'abc'
         },

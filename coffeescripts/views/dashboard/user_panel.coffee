@@ -20,7 +20,7 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
         validationToken: 'abc'
       $.ajax
         type: "GET",
-        url:"https://unitus-core.azurewebsites.net/Circle/Dummy",
+        url:"https://unitus-core.azurewebsites.net/Circle",
         data: sendData,
         success: (msg)->
           $.each msg.Content.Circle, ->
