@@ -7,7 +7,7 @@ define ['jquery', 'backbone','templates/dashboard/admin_panel'], ($, Backbone, A
         validationToken: "abc"
       $.ajax
         type: "GET",
-        url:"https://unitus-core.azurewebsites.net/Person",
+        url:"https://core.unitus-ac.com/Person",
         data: sendData,
         success: (msg)->
           $.each msg.Content.Persons, ->
@@ -22,7 +22,6 @@ define ['jquery', 'backbone','templates/dashboard/admin_panel'], ($, Backbone, A
             $("[data-js=userList]").append(text);
 
         error: (msg)->
-          console.log "false"
           console.log msg
 
       @admin_panel = option.admin_panel
