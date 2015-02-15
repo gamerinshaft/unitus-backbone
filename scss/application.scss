@@ -51,11 +51,11 @@ section#panel{
     transition: transform 0.5s ease-out;
 }
 #adminUser.hidden_panel{
-  -webkit-transform:translateX(-1010px);
-  -moz-transform: translateX(-1010px);
-  -ms-transform: translateX(-1010px);
-  -o-transform: translateX(-1010px);
-  transform: translateX(-1010px);
+  -webkit-transform:translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 #adminUser {
   z-index: 10;
@@ -83,7 +83,7 @@ section#main{
   margin-right: auto;
   margin-left: auto;
   position: relative;
-  width: 1010px;
+  width: 100%;
   height: 100%;
   background-color: white;
   box-shadow: 0px 0px 64px rgba(0,0,0,0.4);
@@ -173,11 +173,10 @@ section#header{
 .sidebar{
   overflow: scroll;
   position: absolute;
-  width: 200px;
+  width: 220px;
   display: inline-block;
   top: 0px;
   left: 0px;
-  right: 200px;
   bottom: 0px;
   padding: 16px 0px;
   background-color: #39414D;
@@ -260,7 +259,7 @@ section#header{
   background-color: white;
   display: inline-block;
   position: absolute;
-  left: 200px;
+  left: 220px;
   right: 0px;
   bottom: 0px;
   padding: 24px;
@@ -281,7 +280,7 @@ section#header{
   background-color: white;
   display: inline-block;
   position: absolute;
-  left: 200px;
+  left: 220px;
   right: 0px;
   bottom: 0px;
   padding: 24px;
@@ -510,14 +509,15 @@ section#header{
     }
   }
   .profilecontent{
-    background-color: rgb(229, 229, 229);
-    position:absolute;
+    background-color: #e5e5e5;
+    position: absolute;
     right: 0px;
     bottom: 0px;
     top: 0px;
-    width: 810px;
     z-index: 1;
     padding-left: 240px;
+    left: 0px;
+    right: 0px;
   }
 }
 
