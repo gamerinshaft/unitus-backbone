@@ -13,15 +13,21 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
     DashboadView.prototype.initialize = function(option) {
       $("[data-js=loading]").fadeOut();
       this.user = new User();
+      $.ajaxSetup({
+        xhrFields: {
+          withCredentials: true
+        },
+        data: {
+          ValidationToken: 'abc'
+        }
+      });
       return $.ajax({
         url: 'https://core.unitus-ac.com/Dashboard',
-        data: {
-          validationToken: 'abc'
-        },
         type: 'GET',
         success: (function(_this) {
           return function(msg) {
             var data;
+            console.log("ok");
             data = msg.Content;
             _this.user.set({
               name: data.Name

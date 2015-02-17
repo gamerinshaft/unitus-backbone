@@ -29,8 +29,7 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
       var sendData;
       sendData = {
         count: 40,
-        offset: 0,
-        validationToken: 'abc'
+        offset: 0
       };
       return $.ajax({
         type: "GET",

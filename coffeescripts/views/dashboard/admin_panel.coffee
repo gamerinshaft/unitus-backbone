@@ -3,7 +3,6 @@ define ['jquery', 'backbone','templates/dashboard/admin_panel'], ($, Backbone, A
     initialize: (option) ->
       sendData =
         count: 40
-        offset: 0
         validationToken: "abc"
       $.ajax
         type: "GET",

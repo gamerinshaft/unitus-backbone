@@ -17,7 +17,6 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
       sendData =
         count: 40
         offset: 0
-        validationToken: 'abc'
       $.ajax
         type: "GET",
         url:"https://core.unitus-ac.com/Circle",

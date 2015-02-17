@@ -3,13 +3,17 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
     initialize: (option) ->
       $("[data-js=loading]").fadeOut()
       @user = new User()
+      $.ajaxSetup
+        xhrFields:
+          withCredentials: true
+        data:
+          ValidationToken: 'abc'
       $.ajax
         url: 'https://core.unitus-ac.com/Dashboard'
-        data:
-          validationToken: 'abc'
         type: 'GET'
 
         success: (msg) =>
+          console.log "ok"
           data = msg.Content
           @user.set name: data.Name
           @user.set mail: data.UserName
