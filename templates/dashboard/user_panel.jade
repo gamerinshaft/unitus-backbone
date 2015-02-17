@@ -2,6 +2,10 @@
   // Nav tabs
   ul.nav.nav-tabs(role='tablist' data-js='userSideList')
     li.active(role='presentation')
+      a(href='#profile', aria-controls='profile', role='tab', data-toggle='tab')
+        i.glyphicon.glyphicon-user
+        span.title プロフィール
+    li(role='presentation')
       a(href='#circleList', aria-controls='circleList', role='tab', data-toggle='tab')
         i.glyphicon.glyphicon-th
         span.title 加盟団体一覧
@@ -9,13 +13,9 @@
       a(href='#mail', aria-controls='mail', role='tab', data-toggle='tab')
         i.glyphicon.glyphicon-envelope
         span.title 部員招待
-    li(role='presentation')
-      a(href='#profile', aria-controls='profile', role='tab', data-toggle='tab')
-        i.glyphicon.glyphicon-user
-        span.title プロフィール
 #userContent.content
   .tab-content(data-js='userPanelList')
-    #circleList.tab-pane.fade.in.active(role='tabpanel')
+    #circleList.tab-pane.fade(role='tabpanel')
       h1 加盟団体一覧
       table
         thead
@@ -54,4 +54,4 @@
           .pull-right
             button.btn.btn-primary(type='submit') 保存する
 
-    #profile.tab-pane.fade(data-js='myProfile' role='tabpanel')
+    #profile.tab-pane.fade.in.active(data-js='myProfile' role='tabpanel')

@@ -375,6 +375,17 @@ section#header{
     display: none;
     color: white;
   }
+  table tr .update i{
+    color: rgb(15, 150, 27);
+    cursor: pointer;
+    vertical-align: top;
+    height: auto;
+    padding: 0;
+    display: none;
+  }
+  table tr:hover .update i{
+    display: inline-block;
+  }
   table tr.self i{
     color: white;
     display: block;

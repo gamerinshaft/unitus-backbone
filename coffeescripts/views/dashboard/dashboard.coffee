@@ -1,7 +1,7 @@
 define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel'], ($, Backbone, template, HeaderView, PanelView, User, AdminPanel) ->
   class DashboadView extends Backbone.View
     initialize: (option) ->
-      $("[data-js=loading]").fadeOut()
+
       @user = new User()
       $.ajaxSetup
         xhrFields:
@@ -13,7 +13,8 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
         type: 'GET'
 
         success: (msg) =>
-          console.log "ok"
+          console.log msg
+          $("[data-js=loading]").fadeOut()
           data = msg.Content
           @user.set name: data.Name
           @user.set mail: data.UserName
@@ -30,6 +31,7 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
           @$el.fadeIn()
         error: (msg) ->
           console.log msg
-
+          if msg.statusText == "Unauthorized API Access"
+            location.assign "https://core.unitus-ac.com/Account/Login"
     renderDashboard: ->
       @$el.html template(user: @user)
