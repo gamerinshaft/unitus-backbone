@@ -8,7 +8,7 @@ define ['jquery', 'backbone','models/achivement', 'collections/achivements', 'te
           @achivements = new Achivements()
           achivements = @achivements
           $.each data.Content.Achivements, ->
-            achivement = new Achivement(Name: this.AchivementName, AwardedDate: this.AwardedDate, BadgeImageUrl: this.BadgeImageUrl, CurrentProgress: this.CurrentProgress.toFixed(2), IsAwarded: this.IsAwarded, ProgressDiff: this.ProgressDiff)
+            achivement = new Achivement(Name: this.AchivementName, AwardedDate: this.AwardedDate, BadgeImageUrl: this.BadgeImageUrl, CurrentProgress: this.CurrentProgress.toFixed(2), IsAwarded: this.IsAwarded, ProgressDiff: this.ProgressDiff.toFixed(2))
             achivements.add achivement
           achivements.each (a) =>
             @$el.append AchivementListTemplate(achivement: a)
@@ -31,7 +31,7 @@ define ['jquery', 'backbone','models/achivement', 'collections/achivements', 'te
           success: (data)=>
             achivement.set(isDetailGetting: true)
             values = data.Content
-            achivement.set(Description: values.AchivementDescription, AwardedPerson: values.AwardedPerson, AwardedRate: values.AwardedRate, AcuireRateGraphPoints: values.AcuireRateGraphPoints, AwardedPerson: values.AwardedPerson, AwardedRate: values.AwardedRate, CircleStatistics: values.CircleStatistics, ProgressGraphPoints: values.ProgressGraphPoints, SumPerson: values.SumPerson)
+            achivement.set(Description: values.AchivementDescription, AwardedPerson: values.AwardedPerson, AwardedRate: values.AwardedRate.toFixed(2), AcuireRateGraphPoints: values.AcuireRateGraphPoints, AwardedPerson: values.AwardedPerson,  CircleStatistics: values.CircleStatistics, ProgressGraphPoints: values.ProgressGraphPoints, SumPerson: values.SumPerson)
             $(@$el.children("[data-js=achivementPanel]")[0])
             .html AchivementShowTemplate(achivement: achivement)
             .removeClass("hidden_panel")

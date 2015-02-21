@@ -5,4 +5,66 @@
     | Achivement
     span （実績）
 .main
-  = achivement.get("Name")
+  .main_title
+    span.sub 実績名：
+    | "#{achivement.get("Name")}"
+    .achive_progress(style="width: #{achivement.get('CurrentProgress') * 100}%; background-color: rgb(220,#{achivement.get('CurrentProgress')*100+120},0)")
+    .achive_progress-wrap
+  .main_content
+    .info_panel
+      .info_title
+        | 達成
+      .info_content.type-pict
+        .table
+          .table-cell
+            .percent
+              | #{achivement.get("CurrentProgress")*100}%
+            .img_box.type-2
+              style(type='text/css').
+                <!--
+                  .img_box.type-2:after{margin-top: #{100 - achivement.get("CurrentProgress")*100}%;}
+                  -->
+            .diff
+              | 前日比
+              .value
+                | +#{achivement.get("ProgressDiff")}%
+    .info_panel
+      .info_title
+        | 収得条件
+      .info_content
+        | #{achivement.get("Description")}
+    .info_panel
+      .info_title
+        | 収得率
+      .info_content.type-pict
+        .table
+          .table-cell
+            .percent
+              | #{achivement.get("AwardedRate")*100}%
+            .img_box.type-1
+              style(type='text/css').
+                <!--
+                  .img_box.type-1:after{margin-top: #{100 - achivement.get("AwardedRate")*100}%;}
+                  -->
+              .sum
+                | 収得者数
+                .value
+                  | #{achivement.get("AwardedPerson")}名
+                  span /#{achivement.get("SumPerson")}名
+            .diff
+              | 前日比
+              .value
+                | +#{achivement.get("ProgressDiff")}%
+    .info_panel
+      .info_title
+        | 達成率の推移
+      .info_content
+    .info_panel
+      .info_title
+        | サークルメンバーの状況
+      .info_content
+    .info_panel
+      .info_title
+        | 習得率の推移
+      .info_content
+

@@ -29,7 +29,7 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
                 BadgeImageUrl: this.BadgeImageUrl,
                 CurrentProgress: this.CurrentProgress.toFixed(2),
                 IsAwarded: this.IsAwarded,
-                ProgressDiff: this.ProgressDiff
+                ProgressDiff: this.ProgressDiff.toFixed(2)
               });
               return achivements.add(achivement);
             });
@@ -75,10 +75,9 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
               achivement.set({
                 Description: values.AchivementDescription,
                 AwardedPerson: values.AwardedPerson,
-                AwardedRate: values.AwardedRate,
+                AwardedRate: values.AwardedRate.toFixed(2),
                 AcuireRateGraphPoints: values.AcuireRateGraphPoints,
                 AwardedPerson: values.AwardedPerson,
-                AwardedRate: values.AwardedRate,
                 CircleStatistics: values.CircleStatistics,
                 ProgressGraphPoints: values.ProgressGraphPoints,
                 SumPerson: values.SumPerson
