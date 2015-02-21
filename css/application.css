@@ -570,6 +570,13 @@ section#header {
       #achivementPanel .optionbar .option_title span {
         font-size: 19px;
         color: #888; }
+  #achivementPanel .main {
+    position: absolute;
+    background-color: white;
+    right: 0;
+    left: 288px;
+    bottom: 0;
+    top: 0; }
 
 #adminUserList table {
   width: 100%;

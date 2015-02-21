@@ -7,7 +7,10 @@
     .achive_date.col-xs-6
       .tag
         | 取得日
-      = achivement.get('AwardedDate')
+      if achivement.get('AwardedDate') == ""
+        | -
+      else
+        = achivement.get('AwardedDate')
     .achive_progressDiff.col-xs-6
       .tag
         | 前日差
