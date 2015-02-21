@@ -52,12 +52,12 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
     };
 
     AchivementView.prototype.achiveShow = function(e) {
-      var achive_name, achivement, sendData;
+      var achive_name, sendData;
       achive_name = $($(e.currentTarget).children(".achive_name")[0]).text();
-      achivement = this.achivements.where({
+      this.achivement = this.achivements.where({
         Name: achive_name
       })[0];
-      if (!achivement.get("isDetailGetting")) {
+      if (!this.achivement.get("isDetailGetting")) {
         sendData = {
           achivementName: achive_name
         };
@@ -68,11 +68,11 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
           success: (function(_this) {
             return function(data) {
               var values;
-              achivement.set({
+              _this.achivement.set({
                 isDetailGetting: true
               });
               values = data.Content;
-              achivement.set({
+              _this.achivement.set({
                 Description: values.AchivementDescription,
                 AwardedPerson: values.AwardedPerson,
                 AwardedRate: values.AwardedRate.toFixed(2),
@@ -83,8 +83,8 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
                 SumPerson: values.SumPerson
               });
               return $(_this.$el.children("[data-js=achivementPanel]")[0]).html(AchivementShowTemplate({
-                achivement: achivement
-              })).removeClass("hidden_panel");
+                achivement: _this.achivement
+              })).removeClass("hidden_panel_r");
             };
           })(this),
           error: function(data) {
@@ -93,14 +93,43 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
         });
       } else {
         $(this.$el.children("[data-js=achivementPanel]")[0]).html(AchivementShowTemplate({
-          achivement: achivement
-        })).removeClass("hidden_panel");
+          achivement: this.achivement
+        })).removeClass("hidden_panel_r");
         return console.log("取得済み");
       }
     };
 
     AchivementView.prototype.closePanel = function(e) {
-      return $(this.$el.children("[data-js=achivementPanel]")[0]).addClass("hidden_panel");
+      return $(this.$el.children("[data-js=achivementPanel]")[0]).addClass("hidden_panel_r");
+    };
+
+    AchivementView.prototype.renderCChart = function() {
+      var circle_people_num;
+      console.log(this.achivement.get("AcuireRateGraphPoints"));
+      circle_people_num = {
+        "config": {
+          "title": "加盟サークル総人数",
+          "titleColor": "#454545",
+          "subTitle": "Unitusに関わっている加盟団体の総人数です。",
+          "subTitleColor": "#555",
+          "unit": {
+            "unit": "本/ A自販機の販売本数",
+            "left": 10,
+            "top": 20,
+            "align": "left",
+            "color": "#000",
+            "font": "100 12px 'Arial'"
+          },
+          "bg": "whitesmoke",
+          "lineWidth": 2,
+          "useShadow": "no",
+          "type": "line",
+          "xScaleRotate": -45
+        },
+        "data": this.achivement.get("AcuireRateGraphPoints")
+      };
+      console.log(ccchart());
+      return ccchart.init('AcuireRateGraph', circle_people_num);
     };
 
     return AchivementView;

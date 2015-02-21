@@ -22,7 +22,14 @@
   left: 0px;
   top: 0px; }
 
-.hidden_panel {
+.hidden_panel_r {
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  -o-transform: translateX(100%);
+  transform: translateX(100%); }
+
+.hidden_panel_l {
   -webkit-transform: translateX(-100%);
   -moz-transform: translateX(-100%);
   -ms-transform: translateX(-100%);
@@ -534,7 +541,7 @@ section#header {
   transition: transform 0.5s ease-out;
   position: fixed;
   right: 0;
-  left: 220px;
+  left: 460px;
   top: 42px;
   bottom: 0;
   padding-left: 240px;
@@ -547,7 +554,8 @@ section#header {
     height: 100%;
     color: #888;
     border-right: 2px solid #888;
-    width: 48px; }
+    width: 48px;
+    left: 0px; }
     #achivementPanel .optionbar .close_btn {
       font-size: 24px;
       padding: 11px;
@@ -574,7 +582,7 @@ section#header {
   #achivementPanel .main {
     position: absolute;
     right: 0;
-    left: 288px;
+    left: 48px;
     bottom: 0;
     top: 0; }
     #achivementPanel .main .main_title {
@@ -610,10 +618,9 @@ section#header {
         display: inline-block;
         width: 33.33455%;
         min-width: 248px;
-        height: 50%;
         border-right: solid 2px #888;
         border-bottom: solid 2px #888;
-        min-height: 264px;
+        height: 264px;
         cursor: pointer; }
         #achivementPanel .main .main_content .info_panel:nth-of-type(3n) {
           border-right: none; }
@@ -684,9 +691,11 @@ section#header {
           #achivementPanel .main .main_content .info_panel .info_content.type-pict .sum {
             display: block;
             position: absolute;
-            right: -72px;
+            bottom: 18px;
             font-size: 12px;
-            color: #888; }
+            color: #888;
+            width: 100%;
+            text-align: center; }
             #achivementPanel .main .main_content .info_panel .info_content.type-pict .sum .value {
               font-size: 24px;
               color: whitesmoke; }

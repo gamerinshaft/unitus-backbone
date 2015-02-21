@@ -5,6 +5,7 @@ require.config
     bootstrap: '../../bower_components/bootstrap/dist/js/bootstrap'
     backbone: '../../bower_components/backbone/backbone'
     jade: '../../bower_components/jade/runtime'
+
   shim:
     'bootstrap':
       deps: ["jquery"]

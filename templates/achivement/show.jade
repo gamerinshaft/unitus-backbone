@@ -46,19 +46,16 @@
                 <!--
                   .img_box.type-1:after{margin-top: #{100 - achivement.get("AwardedRate")*100}%;}
                   -->
-              .sum
-                | 収得者数
-                .value
-                  | #{achivement.get("AwardedPerson")}名
-                  span /#{achivement.get("SumPerson")}名
-            .diff
-              | 前日比
+            .sum
+              | 収得者数
               .value
-                | +#{achivement.get("ProgressDiff")}%
+                | #{achivement.get("AwardedPerson")}名
+                span /#{achivement.get("SumPerson")}名
     .info_panel
       .info_title
         | 達成率の推移
       .info_content
+        #AcuireRateGraph
     .info_panel
       .info_title
         | サークルメンバーの状況
