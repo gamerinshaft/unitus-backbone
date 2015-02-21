@@ -24,6 +24,13 @@
   left: 0px;
   top: 0px;
 }
+.hidden_panel{
+  -webkit-transform:translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
 //=======================
 //       基本設定
 //=======================
@@ -69,13 +76,7 @@ section#panel{
   -o-transition: -o-transform 0.5s ease-out;
     transition: transform 0.5s ease-out;
 }
-#adminUser.hidden_panel{
-  -webkit-transform:translateX(-100%);
-  -moz-transform: translateX(-100%);
-  -ms-transform: translateX(-100%);
-  -o-transform: translateX(-100%);
-  transform: translateX(-100%);
-}
+
 #adminUser {
   z-index: 10;
 }
@@ -585,7 +586,7 @@ section#header{
     &:hover .image-wrap{
       margin-top: -4px;
     }
-    &:nth-child(4n+1){
+    &:nth-of-type(4n+2){
       border-right: none;
     }
     .image-wrap{
@@ -638,10 +639,10 @@ section#header{
   @media (max-width: 1200px){
     .achive_badge{
       width: 33.33%;
-      &:nth-child(4n+1){
+      &:nth-of-type(4n+2){
         border-right: solid 2px #888;
       }
-      &:nth-child(3n+1){
+      &:nth-of-type(3n+2){
         border-right: none;
       }
     }
@@ -649,10 +650,10 @@ section#header{
   @media (max-width: 984px){
     .achive_badge{
       width: 50%;
-      &:nth-child(3n+1){
+      &:nth-of-type(3n+2){
         border-right: solid 2px #888;
       }
-      &:nth-child(2n+1){
+      &:nth-of-type(2n+2){
         border-right: none;
       }
     }
@@ -662,6 +663,56 @@ section#header{
       width: 100%;
       border-right: none;
       border-bottom: none;
+    }
+  }
+}
+#achivementPanel{
+  -webkit-transition: -webkit-transform 0.5s ease-out;
+  -moz-transition: -moz-transform 0.5s ease-out;
+  -ms-transition: -ms-transform 0.5s ease-out;
+  -o-transition: -o-transform 0.5s ease-out;
+    transition: transform 0.5s ease-out;
+  position: fixed;
+  right: 0;
+  left: 220px;
+  top: 42px;
+  bottom: 0;
+  padding-left: 240px;
+  background-color: #39414D;
+  z-index: 50;
+  border-right: 2px solid #888;
+  .optionbar{
+    position: absolute;
+    background-color: rgb(38, 43, 52);
+    height: 100%;
+    color: #888;
+    border-right: 2px solid #888;
+    width: 48px;
+    .close_btn{
+      font-size: 24px;
+      padding: 11px;
+      cursor: pointer;
+    }
+    .option_title{
+      -webkit-font-smoothing: antialiased;
+      width: 224px;
+      margin: 0px 24px;
+      font-size: 24px;
+      color: whitesmoke;
+      -webkit-transform: rotate(90deg);
+         -moz-transform: rotate(90deg);
+          -ms-transform: rotate(90deg);
+           -o-transform: rotate(90deg);
+              transform: rotate(90deg);
+      -webkit-transform-origin: 1px;
+         -moz-transform-origin: 1px;
+          -ms-transform-origin: 1px;
+           -o-transform-origin: 1px;
+              transform-origin: 1px;
+      span{
+        font-size: 19px;
+        color: #888;
+      }
     }
   }
 }

@@ -46,8 +46,18 @@
             | hoge
 .panels
   h1 hello
-  #allUserAchivement.panelcontent.tab-pane.fade(role='tabpanel' data-js='achivementList')
+  #allUserAchivement.panelcontent.tab-pane.fade.in.active(role='tabpanel' data-js='achivementList')
     .row
       .col-xs-12
         .title.text-center
           | 実績一覧
+    #achivementPanel.hidden_panel(data-js="achivementPanel")
+      .optionbar
+        .close_btn(data-js='closePanel')
+          .glyphicon.glyphicon-remove-sign
+        .option_title
+          | Achivement
+          span （実績）
+
+
+      h1 huga
