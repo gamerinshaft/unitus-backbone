@@ -8,10 +8,10 @@
     .panel.panel-default
       #profileAccordion.panel-heading(role='tab')
         h4.panel-title
-          a(data-toggle='collapse', data-parent='#accordion', href='#profileCollapse', aria-expanded='true', aria-controls='profileCollapse')
+          a(data-toggle='collapse', data-parent='#accordion', href='#profileCollapse', aria-expanded='false', aria-controls='profileCollapse')
             i.glyphicon.glyphicon-chevron-right
             | プロフィール
-      #profileCollapse.panel-collapse.collapse.in(role='tabpanel', aria-labelledby='profileAccordion')
+      #profileCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='profileAccordion')
         ul.list-group(role='tablist')
           li.list-group-item
             | Archi
