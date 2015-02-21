@@ -3,24 +3,7 @@
     i.glyphicon.glyphicon-chevron-right
     = user.get("name")
   img(src="#{user.get('avatar')}")
-  //- hr.style-line.profile
-  //- table
-  //-   tr
-  //-     td name
-  //-     td たねいてぃ
-  //-   tr
-  //-     td mail
-  //-     td
-  //-       = user.get("mail")
-  //-   tr
-  //-     td 所属サークル
-  //-     td うわああ
-  //- hr.style-line.activity
 
-
-  //- h2.profile_id @gamerinshaft
-  //- each key, val in user.get("circles")
-  //-   li #{key.CircleName}
   #accordion.panel-group(role='tablist', aria-multiselectable='true')
     .panel.panel-default
       #profileAccordion.panel-heading(role='tab')
@@ -29,24 +12,9 @@
             i.glyphicon.glyphicon-chevron-right
             | プロフィール
       #profileCollapse.panel-collapse.collapse.in(role='tabpanel', aria-labelledby='profileAccordion')
-        ul.list-group
+        ul.list-group(role='tablist')
           li.list-group-item
-            | hoge
-          li.list-group-item
-            | hoge
-          li.list-group-item
-            | hoge
-
-    .panel.panel-default
-      #accountAccordion.panel-heading(role='tab')
-        h4.panel-title
-          a.collapsed(data-toggle='collapse', data-parent='#accordion', href='#accountCollapse', aria-expanded='false', aria-controls='accountCollapse')
-            i.glyphicon.glyphicon-chevron-right
-            | 各種アカウント
-      #accountCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='accountAccordion')
-        ul.list-group
-          li.list-group-item
-            | hoge
+            | Archi
           li.list-group-item
             | hoge
           li.list-group-item
@@ -58,10 +26,38 @@
             i.glyphicon.glyphicon-chevron-right
             | 実績
       #achivementCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='achievementAccordion')
-        ul.list-group
+        ul.list-group(role="tablist")
+          a(href='#allUserAchivement', aria-controls='allUserAchivement', role='tab', data-toggle='tab')
+            li.list-group-item
+              | 全て
+    .panel.panel-default
+      #accountAccordion.panel-heading(role='tab')
+        h4.panel-title
+          a.collapsed(data-toggle='collapse', data-parent='#accordion', href='#accountCollapse', aria-expanded='false', aria-controls='accountCollapse')
+            i.glyphicon.glyphicon-chevron-right
+            | 各種アカウント
+      #accountCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='accountAccordion')
+        ul.list-group(role="")
           li.list-group-item
-            | 全て
-.profilecontent
-  #achivementPanel
-    h1 hello!
+            | hoge
+          li.list-group-item
+            | hoge
+          li.list-group-item
+            | hoge
+.panels
+  h1 hello
+  #allUserAchivement.panelcontent.tab-pane.fade.in.active(role='tabpanel')
+    .row
+      .col-xs-12
+        .title.text-center
+          | 実績一覧
+    .achive_badge
+      | a
+    .achive_badge
+      | a
+    .achive_badge
+      | a
+    .achive_badge
+      | a
+
 

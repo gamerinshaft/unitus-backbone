@@ -1,13 +1,16 @@
-define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel'], ($, Backbone, template, HeaderView, PanelView, User, AdminPanel) ->
+define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel', 'models/circle'], ($, Backbone, template, HeaderView, PanelView, User, AdminPanel, Circle) ->
   class DashboadView extends Backbone.View
     initialize: (option) ->
-
+      @circle = new Circle()
+      console.log @circle.get("CircleName")
       @user = new User()
       $.ajaxSetup
         xhrFields:
           withCredentials: true
+        dataType:'json'
         data:
           ValidationToken: 'abc'
+
       $.ajax
         url: 'https://core.unitus-ac.com/Dashboard'
         type: 'GET'
@@ -29,9 +32,10 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
           new HeaderView(el: $("[data-js=header]"), user: @user, admin_panel:  @admin_panel)
           new PanelView(el: $("[data-js=panel]"), user: @user, admin_panel: @admin_panel)
           @$el.fadeIn()
-        error: (msg) ->
-          console.log msg
-          if msg.statusText == "Unauthorized API Access"
-            location.assign "https://core.unitus-ac.com/Account/Login"
+        error: (XMLHttpRequest, textStatus) ->
+          console.log XMLHttpRequest
+          console.log textStatus
+          if textStatus == "error" || XMLHttpRequest.ErrorMessage == "Unauthorized API Access"
+             location.assign "https://core.unitus-ac.com/Account/Login"
     renderDashboard: ->
       @$el.html template(user: @user)

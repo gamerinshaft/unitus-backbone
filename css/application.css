@@ -17,6 +17,13 @@ body, html {
   background-color: white;
   margin: 0; }
 
+.list-group .list-group-item:hover {
+  background-color: #eee; }
+
+.list-group a {
+  color: #555;
+  text-decoration: none; }
+
 section#app {
   display: none; }
 
@@ -210,7 +217,8 @@ section#header {
   right: 0px;
   bottom: 0px;
   padding: 24px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   z-index: 30; }
 
 #adminContent {
@@ -344,7 +352,7 @@ section#header {
   width: 240px;
   border-right: 1px solid #ddd;
   z-index: 2;
-  box-shadow: 1px 1px 10px #B3B3B3; }
+  box-shadow: 1px 1px 4px #555; }
   #profile .profilebar .profile_name {
     border-bottom: 1px solid #ddd;
     font-size: 16px;
@@ -404,7 +412,7 @@ section#header {
     -ms-transform: rotate(90deg);
     -o-transform: rotate(90deg);
     transform: rotate(90deg); }
-#profile .profilecontent {
+#profile .panels {
   background-color: #e5e5e5;
   position: absolute;
   right: 0px;
@@ -414,6 +422,30 @@ section#header {
   padding-left: 240px;
   left: 0px;
   right: 0px; }
+#profile .panelcontent {
+  position: absolute;
+  right: 0px;
+  padding-left: 240px;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  background-color: #37414b; }
+
+#allUserAchivement .title {
+  color: white;
+  font-size: 24px;
+  border-bottom: 2px solid #888;
+  -webkit-font-smoothing: antialiased;
+  padding: 4px 0px; }
+#allUserAchivement .achive_badge {
+  display: inline-block;
+  width: 25%;
+  padding: 0px 15px;
+  border-right: solid 2px #888;
+  border-bottom: solid 2px #888;
+  height: 200px; }
+  #allUserAchivement .achive_badge:last-child {
+    border-right: none; }
 
 #adminUserList table {
   width: 100%;
