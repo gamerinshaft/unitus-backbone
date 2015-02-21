@@ -103,35 +103,6 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
       return $(this.$el.children("[data-js=achivementPanel]")[0]).addClass("hidden_panel_r");
     };
 
-    AchivementView.prototype.renderCChart = function() {
-      var circle_people_num;
-      console.log(this.achivement.get("AcuireRateGraphPoints"));
-      circle_people_num = {
-        "config": {
-          "title": "加盟サークル総人数",
-          "titleColor": "#454545",
-          "subTitle": "Unitusに関わっている加盟団体の総人数です。",
-          "subTitleColor": "#555",
-          "unit": {
-            "unit": "本/ A自販機の販売本数",
-            "left": 10,
-            "top": 20,
-            "align": "left",
-            "color": "#000",
-            "font": "100 12px 'Arial'"
-          },
-          "bg": "whitesmoke",
-          "lineWidth": 2,
-          "useShadow": "no",
-          "type": "line",
-          "xScaleRotate": -45
-        },
-        "data": this.achivement.get("AcuireRateGraphPoints")
-      };
-      console.log(ccchart());
-      return ccchart.init('AcuireRateGraph', circle_people_num);
-    };
-
     return AchivementView;
 
   })(Backbone.View);
