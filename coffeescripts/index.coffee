@@ -5,10 +5,13 @@ require.config
     bootstrap: '../../bower_components/bootstrap/dist/js/bootstrap'
     backbone: '../../bower_components/backbone/backbone'
     jade: '../../bower_components/jade/runtime'
+    highcharts: '../../bower_components/highcharts/highcharts'
 
   shim:
     'bootstrap':
       deps: ["jquery"]
-require ['jquery', 'bootstrap', 'views/dashboard/dashboard'], ($, bootstrap, DashboardView) ->
+    'highcharts':
+      deps: ["jquery"]
+require ['jquery', 'bootstrap', 'highcharts', 'views/dashboard/dashboard'], ($, bootstrap, highcharts, DashboardView) ->
   $ ->
     new DashboardView(el: $('[data-js=app]'))
