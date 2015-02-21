@@ -581,10 +581,19 @@ section#header{
     border-right: solid 2px #888;
     border-bottom: solid 2px #888;
     min-height: 216px;
+    cursor: pointer;
+    &:hover .image-wrap{
+      margin-top: -4px;
+    }
     &:nth-child(4n+1){
       border-right: none;
     }
     .image-wrap{
+      -webkit-transition: margin 0.2s ease-out;
+      -moz-transition: margin 0.2s ease-out;
+      -ms-transition: margin 0.2s ease-out;
+      -o-transition: margin 0.2s ease-out;
+        transition: margin 0.2s ease-out;
       width: 100%;
       img{
         display: block;
