@@ -1,0 +1,18 @@
+.achive_badge
+  .image-wrap
+    img(src="#{achivement.get('BadgeImageUrl')}")
+  .achive_name
+    = achivement.get('Name')
+  .row.info
+    .achive_date.col-xs-6
+      .tag
+        | 取得日
+      = achivement.get('AwardedDate')
+    .achive_progressDiff.col-xs-6
+      .tag
+        | 前日差
+      = achivement.get('ProgressDiff')
+  .achive_progress-wrap
+  .achive_progress(style="width: #{achivement.get('CurrentProgress') * 100}%; background-color: rgb(220,#{achivement.get('CurrentProgress')*100+120},0)")
+  unless achivement.get('IsAwarded')
+    .smoke

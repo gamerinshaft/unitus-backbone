@@ -1,4 +1,4 @@
-define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashboard/user_profile'], ($, Backbone, UserTemplate, UserProfile) ->
+define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashboard/user_profile', 'models/achivement', 'collections/achivements', 'templates/achivement/index'], ($, Backbone, UserTemplate, UserProfile, Achivement, Achivements, AchivementListTemplate) ->
   class UserPanelView extends Backbone.View
     initialize: (option) ->
       @user = option.user
@@ -6,6 +6,7 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
       @renderUserPanel()
       @renderUserProfile()
       @renderCircleList()
+      @getAjaxAchivement()
 
       if @belongingCircles.length > 0
         @renderBelongingCircles()
@@ -42,6 +43,7 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
             $("[data-js=circleList]").append(text);
         error: (msg)->
           console.log msg
+
     renderUserProfile: ->
       @$('[data-js="myProfile"]').html UserProfile(user: @user)
 
@@ -62,6 +64,20 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
       $("[data-js=userSideList]").append textSidebar
       $("[data-js=userPanelList]").append textPanel
 
+    getAjaxAchivement: ->
+      $.ajax
+        type: "GET",
+        url:"https://core.unitus-ac.com/Achivements",
+        success: (data)->
+          achivements = new Achivements()
+          $.each data.Content.Achivements, ->
+            achivement = new Achivement(Name: this.AchivementName, AwardedDate: this.AwardedDate, BadgeImageUrl: this.BadgeImageUrl, CurrentProgress: this.CurrentProgress.toFixed(2), IsAwarded: this.IsAwarded, ProgressDiff: this.ProgressDiff)
+            achivements.add achivement
+            console.log this.CurrentProgress.toFixed(2)
+          achivements.each (a) ->
+            @$('[data-js=achivementList]').append AchivementListTemplate(achivement: a)
+        error: (data)->
+          console.log data
 
     deleteCircle: (e)->
       e.preventDefault()
