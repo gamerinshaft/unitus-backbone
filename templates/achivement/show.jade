@@ -33,7 +33,7 @@
         | 収得条件
       .info_content
         | #{achivement.get("Description")}
-    .info_panel.box
+    .info_panel.box.nbr
       .info_title
         | 収得率
       .info_content.type-pict
@@ -64,14 +64,15 @@
       .info_title
         | 習得率の推移
       .info_content
+    .info_panel.box.nbr
+      .info_title
+        | ステータス
+      .info_content
 script(type='text/javascript', src='bower_components/highcharts/theme.js')
 
 script.
-  $.each(#{achivement.get("AcuireRateGraphPoints").xAxis}, function() {
-    console.log(this);
-  });
   $(function() {
-    return $('#AcuireRateGraph').highcharts({
+    $('#AcuireRateGraph').highcharts({
       chart: {
         width: 744,
         height: 240
@@ -85,7 +86,7 @@ script.
         x: -20
       },
       xAxis: {
-        categories: ["hu.ge"]
+        categories: ["huge", "hoge"]
       },
       yAxis: {
         title: {

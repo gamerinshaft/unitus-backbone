@@ -773,7 +773,7 @@ section#header{
         border-bottom: solid 2px #888;
         height: 264px;
         cursor: pointer;
-        &.box:nth-of-type(3n){
+        &.nbr{
           border-right: none;
         }
         &.graph{
