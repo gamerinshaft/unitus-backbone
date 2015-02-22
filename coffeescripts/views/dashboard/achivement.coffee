@@ -9,7 +9,7 @@ define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
           @achivements = new Achivements()
           achivements = @achivements
           $.each data.Content.Achivements, ->
-            achivement = new Achivement(Name: this.AchivementName, AwardedDate: this.AwardedDate, BadgeImageUrl: this.BadgeImageUrl, CurrentProgress: this.CurrentProgress.toFixed(2), IsAwarded: this.IsAwarded, ProgressDiff: this.ProgressDiff.toFixed(2))
+            achivement = new Achivement(Name: this.AchivementName, AwardedDate: this.AwardedDate, BadgeImageUrl: this.BadgeImageUrl, CurrentProgress: (if this.CurrentProgress == "NaN" then "-" else this.CurrentProgress.toFixed(2)), IsAwarded: this.IsAwarded, ProgressDiff: (if this.ProgressDiff == "NaN" then "-" else this.ProgressDiff.toFixed(2)) )
             achivements.add achivement
           achivements.each (a) =>
             @$el.append AchivementListTemplate(achivement: a)
@@ -31,10 +31,11 @@ define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
           success: (data)=>
             @achivement.set(isDetailGetting: true)
             values = data.Content
-            console.log values.AcuireRateGraphPoints.xAxis.categories
-            @achivement.set(Description: values.AchivementDescription, AwardedPerson: values.AwardedPerson, AwardedRate: values.AwardedRate.toFixed(2), AcuireRateGraphPoints: values.AcuireRateGraphPoints, AwardedPerson: values.AwardedPerson,  CircleStatistics: values.CircleStatistics, ProgressGraphPoints: values.ProgressGraphPoints, SumPerson: values.SumPerson)
+            console.log values.AcuireRateGraphPoints
+
+            @achivement.set(Description: values.AchivementDescription, AwardedPerson: values.AwardedPerson, AwardedRate: (if values.AwardedRate == "NaN" then "-" else values.AwardedRate.toFixed(2)), AcuireRateGraphPoints: values.AcuireRateGraphPoints, AwardedPerson: values.AwardedPerson,  CircleStatistics: values.CircleStatistics, ProgressGraphPoints: values.ProgressGraphPoints, SumPerson: values.SumPerson)
             $(@$el.children("[data-js=achivementPanel]")[0])
-            .html AchivementShowTemplate(achivement: @achivement, user: @user, acGraphXAxis: values.AcuireRateGraphPoints.xAxis.categories)
+            .html AchivementShowTemplate(achivement: @achivement, user: @user)
             .removeClass("hidden_panel_r")
           error: (data)->
             console.log data
