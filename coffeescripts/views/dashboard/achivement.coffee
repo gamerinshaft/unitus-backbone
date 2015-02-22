@@ -1,6 +1,7 @@
 define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 'templates/achivement/index', 'templates/achivement/show'], ($, Backbone, Achivement, Achivements, AchivementListTemplate, AchivementShowTemplate) ->
   class AchivementView extends Backbone.View
     initialize: (option) ->
+      @user = option.user
       $.ajax
         type: "GET",
         url:"https://core.unitus-ac.com/Achivements",
@@ -13,7 +14,6 @@ define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
           achivements.each (a) =>
             @$el.append AchivementListTemplate(achivement: a)
         error: (data)->
-          console.log data
     events:
       "click [data-js=badge]" : "achiveShow"
       "click [data-js=closePanel]" : "closePanel"
@@ -31,9 +31,10 @@ define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
           success: (data)=>
             @achivement.set(isDetailGetting: true)
             values = data.Content
+            console.log values.AcuireRateGraphPoints.xAxis.categories
             @achivement.set(Description: values.AchivementDescription, AwardedPerson: values.AwardedPerson, AwardedRate: values.AwardedRate.toFixed(2), AcuireRateGraphPoints: values.AcuireRateGraphPoints, AwardedPerson: values.AwardedPerson,  CircleStatistics: values.CircleStatistics, ProgressGraphPoints: values.ProgressGraphPoints, SumPerson: values.SumPerson)
             $(@$el.children("[data-js=achivementPanel]")[0])
-            .html AchivementShowTemplate(achivement: @achivement)
+            .html AchivementShowTemplate(achivement: @achivement, user: @user, acGraphXAxis: values.AcuireRateGraphPoints.xAxis.categories)
             .removeClass("hidden_panel_r")
           error: (data)->
             console.log data
@@ -45,4 +46,6 @@ define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
 
     closePanel: (e)->
       $(@$el.children("[data-js=achivementPanel]")[0]).addClass("hidden_panel_r")
+
+
 

@@ -17,7 +17,8 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
       this.renderUserProfile();
       this.renderCircleList();
       new AchivementView({
-        el: '[data-js=achivementList]'
+        el: '[data-js=achivementList]',
+        user: this.user
       });
       if (this.belongingCircles.length > 0) {
         return this.renderBelongingCircles();

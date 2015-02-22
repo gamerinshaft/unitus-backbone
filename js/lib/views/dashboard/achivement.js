@@ -13,6 +13,7 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
     }
 
     AchivementView.prototype.initialize = function(option) {
+      this.user = option.user;
       return $.ajax({
         type: "GET",
         url: "https://core.unitus-ac.com/Achivements",
@@ -40,9 +41,7 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
             });
           };
         })(this),
-        error: function(data) {
-          return console.log(data);
-        }
+        error: function(data) {}
       });
     };
 
@@ -72,6 +71,7 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
                 isDetailGetting: true
               });
               values = data.Content;
+              console.log(values.AcuireRateGraphPoints.xAxis.categories);
               _this.achivement.set({
                 Description: values.AchivementDescription,
                 AwardedPerson: values.AwardedPerson,
@@ -83,7 +83,9 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
                 SumPerson: values.SumPerson
               });
               return $(_this.$el.children("[data-js=achivementPanel]")[0]).html(AchivementShowTemplate({
-                achivement: _this.achivement
+                achivement: _this.achivement,
+                user: _this.user,
+                acGraphXAxis: values.AcuireRateGraphPoints.xAxis.categories
               })).removeClass("hidden_panel_r");
             };
           })(this),

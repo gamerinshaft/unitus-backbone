@@ -6,7 +6,7 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
       @renderUserPanel()
       @renderUserProfile()
       @renderCircleList()
-      new AchivementView(el: '[data-js=achivementList]')
+      new AchivementView(el: '[data-js=achivementList]', user: @user)
 
       if @belongingCircles.length > 0
         @renderBelongingCircles()

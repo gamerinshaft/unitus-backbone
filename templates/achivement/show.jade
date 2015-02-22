@@ -11,7 +11,7 @@
     .achive_progress(style="width: #{achivement.get('CurrentProgress') * 100}%; background-color: rgb(220,#{achivement.get('CurrentProgress')*100+120},0)")
     .achive_progress-wrap
   .main_content
-    .info_panel
+    .info_panel.box
       .info_title
         | 達成
       .info_content.type-pict
@@ -28,12 +28,12 @@
               | 前日比
               .value
                 | +#{achivement.get("ProgressDiff")}%
-    .info_panel
+    .info_panel.box
       .info_title
         | 収得条件
       .info_content
         | #{achivement.get("Description")}
-    .info_panel
+    .info_panel.box
       .info_title
         | 収得率
       .info_content.type-pict
@@ -51,17 +51,114 @@
               .value
                 | #{achivement.get("AwardedPerson")}名
                 span /#{achivement.get("SumPerson")}名
-    .info_panel
+    .info_panel.graph
       .info_title
         | 達成率の推移
       .info_content
         #AcuireRateGraph
-    .info_panel
+    .info_panel.box
       .info_title
         | サークルメンバーの状況
       .info_content
-    .info_panel
+    .info_panel.box
       .info_title
         | 習得率の推移
       .info_content
-
+script(type='text/javascript', src='bower_components/highcharts/theme.js')
+script
+  :coffee
+    $ ->
+      $('#AcuireRateGraph').highcharts
+        chart:
+          width: 744
+          height: 240
+        title:
+          text: '達成率の推移グラフ'
+          x: -20
+        subtitle:
+          text: '12日前~現在'
+          x: -20
+        xAxis: categories: ["これは", "テストのための", "横軸", "座標"]
+        yAxis:
+          title: text: 'Percent (%)'
+          plotLines: [ {
+            value: 0
+            width: 1
+            color: '#888'
+          } ]
+        tooltip: valueSuffix: '°C'
+        legend:
+          layout: 'vertical'
+          align: 'right'
+          verticalAlign: 'middle'
+          borderWidth: 0
+        series: [
+          {
+            name: 'Tokyo'
+            data: [
+              7.0
+              6.9
+              9.5
+              14.5
+              18.2
+              21.5
+              25.2
+              26.5
+              23.3
+              18.3
+              13.9
+              9.6
+            ]
+          }
+          {
+            name: 'New York'
+            data: [
+              -0.2
+              0.8
+              5.7
+              11.3
+              17.0
+              22.0
+              24.8
+              24.1
+              20.1
+              14.1
+              8.6
+              2.5
+            ]
+          }
+          {
+            name: 'Berlin'
+            data: [
+              -0.9
+              0.6
+              3.5
+              8.4
+              13.5
+              17.0
+              18.6
+              17.9
+              14.3
+              9.0
+              3.9
+              1.0
+            ]
+          }
+          {
+            name: 'London'
+            data: [
+              3.9
+              4.2
+              5.7
+              8.5
+              11.9
+              15.2
+              17.0
+              16.6
+              14.2
+              10.3
+              6.6
+              4.8
+            ]
+          }
+        ]
