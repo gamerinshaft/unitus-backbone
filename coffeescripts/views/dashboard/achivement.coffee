@@ -9,7 +9,7 @@ define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
           @achivements = new Achivements()
           achivements = @achivements
           $.each data.Content.Achivements, ->
-            achivement = new Achivement(Name: this.AchivementName, AwardedDate: this.AwardedDate, BadgeImageUrl: this.BadgeImageUrl, CurrentProgress: (if this.CurrentProgress == "NaN" then "-" else this.CurrentProgress.toFixed(2)), IsAwarded: this.IsAwarded, ProgressDiff: (if this.ProgressDiff == "NaN" then "-" else this.ProgressDiff.toFixed(2)) )
+            achivement = new Achivement(Name: this.AchivementName, AwardedDate: this.AwardedDate, BadgeImageUrl: this.BadgeImageUrl, CurrentProgress: (if this.CurrentProgress == "NaN" then null else this.CurrentProgress.toFixed(2)), IsAwarded: this.IsAwarded, ProgressDiff: (if this.ProgressDiff == "NaN" then null else this.ProgressDiff.toFixed(2)) )
             achivements.add achivement
           achivements.each (a) =>
             @$el.append AchivementListTemplate(achivement: a)
@@ -30,10 +30,11 @@ define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
           data: sendData,
           success: (data)=>
             @achivement.set(isDetailGetting: true)
-            values = data.Content
-            console.log values.AcuireRateGraphPoints
+            values = data
+            console.log "kokodayo"
+            console.log values
 
-            @achivement.set(Description: values.AchivementDescription, AwardedPerson: values.AwardedPerson, AwardedRate: (if values.AwardedRate == "NaN" then "-" else values.AwardedRate.toFixed(2)), AcuireRateGraphPoints: values.AcuireRateGraphPoints, AwardedPerson: values.AwardedPerson,  CircleStatistics: values.CircleStatistics, ProgressGraphPoints: values.ProgressGraphPoints, SumPerson: values.SumPerson)
+            @achivement.set(Description: values.AchivementDescription, AwardedPerson: values.AwardedPerson, AwardedRate: (if values.AwardedRate == "NaN" then null else values.AwardedRate.toFixed(2)), AcuireRateGraphPoints: values.AcuireRateGraphPoints, AwardedPerson: values.AwardedPerson,  CircleStatistics: values.CircleStatistics, ProgressGraphPoints: values.ProgressGraphPoints, SumPerson: values.SumPerson)
             $(@$el.children("[data-js=achivementPanel]")[0])
             .html AchivementShowTemplate(achivement: @achivement, user: @user)
             .removeClass("hidden_panel_r")

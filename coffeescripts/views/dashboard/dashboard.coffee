@@ -7,7 +7,7 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
       $.ajaxSetup
         xhrFields:
           withCredentials: true
-        dataType:'json'
+        dataType: 'json'
         data:
           ValidationToken: 'abc'
 
@@ -39,3 +39,5 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
              location.assign "https://core.unitus-ac.com/Account/Login"
     renderDashboard: ->
       @$el.html template(user: @user)
+
+
