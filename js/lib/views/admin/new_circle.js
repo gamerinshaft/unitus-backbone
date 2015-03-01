@@ -8,6 +8,7 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
     __extends(AdminNewCircleView, _super);
 
     function AdminNewCircleView() {
+      this.isCircleExist = __bind(this.isCircleExist, this);
       this.validationCreateButton = __bind(this.validationCreateButton, this);
       this.watchNewCircleEvents = __bind(this.watchNewCircleEvents, this);
       this.watchChangeValue = __bind(this.watchChangeValue, this);
@@ -42,9 +43,9 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
     };
 
     AdminNewCircleView.prototype.events = {
-      "focus input": "watchChangeValue",
-      "focus textarea": "watchChangeValue",
-      "focus select": "watchChangeValue",
+      "change input": "watchChangeValue",
+      "change textarea": "watchChangeValue",
+      "change select": "watchChangeValue",
       "click [data-js=createCircle]": "createCircle"
     };
 
@@ -116,23 +117,20 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
     AdminNewCircleView.prototype.watchChangeValue = function(e) {
       var $target;
       $target = $(e.target);
-      return $(e.target).on("change", (function(_this) {
-        return function() {
-          console.log($target.attr("data-js"));
-          $target.removeClass("form-danger");
-          return _this.circle.trigger($target.attr("data-js"));
-        };
-      })(this));
+      console.log($target.attr("data-js"));
+      $target.removeClass("form-danger");
+      return this.circle.trigger($target.attr("data-js"));
     };
 
     AdminNewCircleView.prototype.watchNewCircleEvents = function(e) {
-      console.log("watch 始めました");
       this.circle.on("CircleName", (function(_this) {
         return function() {
           _this.circle.set({
             CircleName: _this.$("[data-js=CircleName]").val()
           });
-          _this.validationCreateButton();
+          if (_this.isCircleExist()) {
+            _this.validationCreateButton();
+          }
           return console.log(_this.circle.get("CircleName"));
         };
       })(this));
@@ -165,6 +163,9 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
           value = _this.$("[data-js=circleSelect]").val();
           if (value === "その他") {
             _this.$("[data-js=formWrap]").addClass("open");
+            _this.circle.set({
+              BelongedSchool: ""
+            });
           } else {
             _this.$("[data-js=formWrap]").removeClass("open");
             $("[data-js=BelongedSchool]").val("");
@@ -178,7 +179,9 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
               });
             }
           }
-          _this.validationCreateButton();
+          if (_this.isCircleExist()) {
+            _this.validationCreateButton();
+          }
           return console.log(_this.circle.get("BelongedSchool"));
         };
       })(this));
@@ -187,7 +190,9 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
           _this.circle.set({
             BelongedSchool: _this.$("[data-js=BelongedSchool]").val()
           });
-          _this.validationCreateButton();
+          if (_this.isCircleExist()) {
+            _this.validationCreateButton();
+          }
           return console.log(_this.circle.get("BelongedSchool"));
         };
       })(this));
@@ -246,6 +251,32 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
       } else {
         return this.$("[data-js=createCircle]").prop("disabled", true);
       }
+    };
+
+    AdminNewCircleView.prototype.isCircleExist = function() {
+      var sendData;
+      console.log("isCircles");
+      sendData = {
+        circleName: "" + (this.circle.get("CircleName")),
+        universityName: "" + (this.circle.get("BelongedSchool"))
+      };
+      return $.ajax({
+        type: "GET",
+        url: "https://core.unitus-ac.com/Circle/CheckExist",
+        dataType: "text",
+        data: sendData,
+        success: (function(_this) {
+          return function(msg) {
+            return false;
+          };
+        })(this),
+        error: (function(_this) {
+          return function(msg) {
+            _this.notyHelper.generate("error", "作成失敗", "既にそのサークルはデータベースに存在しています");
+            return true;
+          };
+        })(this)
+      });
     };
 
     return AdminNewCircleView;

@@ -19,9 +19,9 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
           console.log "栄光ジャナイ"
           console.log msg
     events:
-      "focus input"    : "watchChangeValue"
-      "focus textarea" : "watchChangeValue"
-      "focus select" : "watchChangeValue"
+      "change input"    : "watchChangeValue"
+      "change textarea" : "watchChangeValue"
+      "change select" : "watchChangeValue"
       "click [data-js=createCircle]" : "createCircle"
 
     render: ->
@@ -75,17 +75,16 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
 
     watchChangeValue: (e) =>
       $target = $(e.target)
-      $(e.target).on "change", =>
-        console.log $target.attr("data-js")
-        $target.removeClass "form-danger"
-        @circle.trigger $target.attr("data-js")
+      console.log $target.attr("data-js")
+      $target.removeClass "form-danger"
+      @circle.trigger $target.attr("data-js")
 
 
     watchNewCircleEvents: (e) =>
-      console.log "watch 始めました"
       @circle.on "CircleName", =>
         @circle.set CircleName: @$("[data-js=CircleName]").val()
-        @validationCreateButton()
+        if @isCircleExist()
+          @validationCreateButton()
         console.log @circle.get("CircleName")
       @circle.on "CircleDescription", =>
         @circle.set CircleDescription: @$("[data-js=CircleDescription]").val()
@@ -99,6 +98,7 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
         value = @$("[data-js=circleSelect]").val()
         if value == "その他"
           @$("[data-js=formWrap]").addClass "open"
+          @circle.set BelongedSchool: ""
         else
           @$("[data-js=formWrap]").removeClass "open"
           $("[data-js=BelongedSchool]").val("")
@@ -106,11 +106,13 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
             @circle.set BelongedSchool: ""
           else
             @circle.set BelongedSchool: value
-        @validationCreateButton()
+        if @isCircleExist()
+          @validationCreateButton()
         console.log @circle.get("BelongedSchool")
       @circle.on "BelongedSchool", =>
         @circle.set BelongedSchool: @$("[data-js=BelongedSchool]").val()
-        @validationCreateButton()
+        if @isCircleExist()
+          @validationCreateButton()
         console.log @circle.get("BelongedSchool")
       @circle.on "Notes", =>
         @circle.set Notes: @$("[data-js=Notes]").val()
@@ -138,3 +140,20 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
         @$("[data-js=createCircle]").prop("disabled", false)
       else
         @$("[data-js=createCircle]").prop("disabled", true)
+
+    isCircleExist: =>
+      console.log "isCircles"
+      sendData =
+        circleName: "#{@circle.get("CircleName")}"
+        universityName: "#{@circle.get("BelongedSchool")}"
+      $.ajax
+        type: "GET",
+        url:"https://core.unitus-ac.com/Circle/CheckExist",
+        dataType: "text"
+        data: sendData
+        success: (msg)=>
+          false
+        error: (msg)=>
+          @notyHelper.generate("error", "作成失敗", "既にそのサークルはデータベースに存在しています")
+          true
+
