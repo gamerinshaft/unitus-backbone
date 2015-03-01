@@ -6,11 +6,14 @@ require.config
     backbone: '../../bower_components/backbone/backbone'
     jade: '../../bower_components/jade/runtime'
     highcharts: '../../bower_components/highcharts/highcharts'
+    noty: '../../bower_components/noty/noty'
 
   shim:
     'bootstrap':
       deps: ["jquery"]
     'highcharts':
+      deps: ["jquery"]
+    'noty':
       deps: ["jquery"]
 require ['jquery', 'bootstrap', 'highcharts', 'views/dashboard/dashboard'], ($, bootstrap, highcharts, DashboardView) ->
   $ ->

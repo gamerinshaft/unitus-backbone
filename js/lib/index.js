@@ -5,13 +5,17 @@ require.config({
     bootstrap: '../../bower_components/bootstrap/dist/js/bootstrap',
     backbone: '../../bower_components/backbone/backbone',
     jade: '../../bower_components/jade/runtime',
-    highcharts: '../../bower_components/highcharts/highcharts'
+    highcharts: '../../bower_components/highcharts/highcharts',
+    noty: '../../bower_components/noty/noty'
   },
   shim: {
     'bootstrap': {
       deps: ["jquery"]
     },
     'highcharts': {
+      deps: ["jquery"]
+    },
+    'noty': {
       deps: ["jquery"]
     }
   }
