@@ -8,15 +8,17 @@ define(['jquery', 'backbone', 'templates/dashboard/admin_panel', 'models/circle'
     __extends(AdminPanelView, _super);
 
     function AdminPanelView() {
-      this.debug2 = __bind(this.debug2, this);
-      this.debug = __bind(this.debug, this);
+      this.validationCreateButton = __bind(this.validationCreateButton, this);
+      this.watchNewCircleEvents = __bind(this.watchNewCircleEvents, this);
+      this.watchChangeValue = __bind(this.watchChangeValue, this);
       return AdminPanelView.__super__.constructor.apply(this, arguments);
     }
 
     AdminPanelView.prototype.initialize = function(option) {
       var sendData;
+      this.notyHelper = new NotyHelper();
       this.circle = new Circle();
-      this.debug2();
+      this.watchNewCircleEvents();
       sendData = {
         count: 40
       };
@@ -53,8 +55,8 @@ define(['jquery', 'backbone', 'templates/dashboard/admin_panel', 'models/circle'
 
     AdminPanelView.prototype.events = {
       "click [data-js=close_admin]": "closePanel",
-      "focus #adminNewCircle input": "debug",
-      "focus #adminNewCircle textarea": "debug",
+      "focus #adminNewCircle input": "watchChangeValue",
+      "focus #adminNewCircle textarea": "watchChangeValue",
       "click [data-js=createCircle]": "createCircle"
     };
 
@@ -63,7 +65,6 @@ define(['jquery', 'backbone', 'templates/dashboard/admin_panel', 'models/circle'
       e.preventDefault();
       e.stopPropagation();
       $(e.target).html("<img src='./img/send.gif'>");
-      console.log("create!");
       sendData = {
         Name: this.circle.get("CircleName"),
         Description: this.circle.get("CircleDescription"),
@@ -81,6 +82,7 @@ define(['jquery', 'backbone', 'templates/dashboard/admin_panel', 'models/circle'
         data: sendData,
         success: (function(_this) {
           return function(msg) {
+            _this.notyHelper.generate("success", "作成完了", (_this.circle.get("CircleName")) + "を追加しました。");
             console.log("成功したよ");
             console.log(msg);
             return $(e.target).html("作成する");
@@ -90,30 +92,51 @@ define(['jquery', 'backbone', 'templates/dashboard/admin_panel', 'models/circle'
           return function(msg) {
             console.log("失敗したよ");
             console.log(msg);
+            if (msg.statusText === "Conflict") {
+              _this.notyHelper.generate("error", "作成失敗", (_this.circle.get("CircleName")) + "はすでに存在します。");
+            } else {
+              switch (msg.responseText) {
+                case "Name is empty.":
+                  _this.notyHelper.generate("error", "作成失敗", "団体名が記入されていません。");
+                  _this.$("[data-js=CircleName]").addClass("form-danger");
+                  break;
+                case "LeaderUserName is empty.":
+                  _this.notyHelper.generate("error", "作成失敗", "代表者名が記入されていません。");
+                  _this.$("[data-js=LeaderUserName]").addClass("form-danger");
+                  break;
+                case "BelongedSchool is empty.":
+                  _this.notyHelper.generate("error", "作成失敗", "所属大学が記入されていません。");
+                  _this.$("[data-js=BelongedSchool]").addClass("form-danger");
+                  break;
+                default:
+                  _this.notyHelper.generate("error", "作成失敗", (_this.circle.get("CircleName")) + "は何らかの理由で作成できませんでした。");
+              }
+            }
             return $(e.target).html("作成する");
           };
         })(this)
       });
     };
 
-    AdminPanelView.prototype.debug = function(e) {
-      var target;
-      console.log("あなたのこゝろにロックオン!");
-      target = $(e.target).attr("data-js");
+    AdminPanelView.prototype.watchChangeValue = function(e) {
+      var $target;
+      $target = $(e.target);
       return $(e.target).on("change", (function(_this) {
         return function() {
-          console.log(target);
-          return _this.circle.trigger(target);
+          console.log($target.attr("data-js"));
+          $target.removeClass("form-danger");
+          return _this.circle.trigger($target.attr("data-js"));
         };
       })(this));
     };
 
-    AdminPanelView.prototype.debug2 = function(e) {
+    AdminPanelView.prototype.watchNewCircleEvents = function(e) {
       this.circle.on("CircleName", (function(_this) {
         return function() {
           _this.circle.set({
             CircleName: _this.$("[data-js=CircleName]").val()
           });
+          _this.validationCreateButton();
           return console.log(_this.circle.get("CircleName"));
         };
       })(this));
@@ -145,6 +168,7 @@ define(['jquery', 'backbone', 'templates/dashboard/admin_panel', 'models/circle'
           _this.circle.set({
             BelongedSchool: _this.$("[data-js=BelongedSchool]").val()
           });
+          _this.validationCreateButton();
           return console.log(_this.circle.get("BelongedSchool"));
         };
       })(this));
@@ -191,6 +215,7 @@ define(['jquery', 'backbone', 'templates/dashboard/admin_panel', 'models/circle'
           _this.circle.set({
             LeaderUserName: _this.$("[data-js=LeaderUserName]").val()
           });
+          _this.validationCreateButton();
           return console.log(_this.circle.get("LeaderUserName"));
         };
       })(this));
@@ -204,6 +229,14 @@ define(['jquery', 'backbone', 'templates/dashboard/admin_panel', 'models/circle'
       return this.admin_panel.set({
         isOpen: false
       });
+    };
+
+    AdminPanelView.prototype.validationCreateButton = function() {
+      if (this.circle.get("CircleName") !== "" && this.circle.get("BelongedSchool") !== "" && this.circle.get("LeaderUserName") !== "") {
+        return this.$("[data-js=createCircle]").prop("disabled", false);
+      } else {
+        return this.$("[data-js=createCircle]").prop("disabled", true);
+      }
     };
 
     return AdminPanelView;

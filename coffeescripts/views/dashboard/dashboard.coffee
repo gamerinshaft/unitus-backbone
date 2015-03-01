@@ -1,7 +1,6 @@
 define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel'], ($, Backbone, template, HeaderView, PanelView, User, AdminPanel) ->
   class DashboadView extends Backbone.View
     initialize: (option) ->
-      @generate('error', "通信失敗", "不正な値が入力されました")
       @user = new User()
       $.ajaxSetup
         xhrFields:
@@ -38,31 +37,4 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
              location.assign "https://core.unitus-ac.com/Account/Login"
     renderDashboard: ->
       @$el.html template(user: @user)
-
-    generate: (type, title, content) ->
-      icon = ''
-      if type == 'error'
-        icon = 'fa-bolt'
-      else if type == 'success'
-        icon = 'fa-thumbs-o-up'
-      else if type == 'info'
-        icon = 'fa-info'
-      text = '<div class="noty_title"><i class="fa ' + icon + '"></i>' + title + '</div><div class="noty_content">' + content + '</div>'
-      n = noty(
-        text: text
-        type: type
-        dismissQueue: true
-        layout: 'topLeft'
-        closeWith: [ 'click' ]
-        theme: 'relax'
-        maxVisible: 10
-        animation:
-          open: 'animated fadeInLeft'
-          close: 'animated fadeOutLeft'
-          easing: 'swing'
-          speed: 100)
-      setTimeout (->
-        $('#' + n.options.id).trigger 'click'
-      ), 3000
-
 

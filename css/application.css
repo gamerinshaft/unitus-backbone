@@ -35,6 +35,9 @@
 .animated .noty_content {
   padding-left: 24px; }
 
+.form-danger {
+  border: solid 2px #ed3b3b; }
+
 .table {
   display: table;
   width: 100%;

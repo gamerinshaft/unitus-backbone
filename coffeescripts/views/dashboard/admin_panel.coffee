@@ -1,8 +1,10 @@
 define ['jquery', 'backbone','templates/dashboard/admin_panel', 'models/circle'], ($, Backbone, AdminTemplate, Circle) ->
   class AdminPanelView extends Backbone.View
     initialize: (option) ->
+      @notyHelper = new NotyHelper()
       @circle =  new Circle()
-      @debug2()
+      @watchNewCircleEvents()
+
       sendData =
         count: 40
       $.ajax
@@ -31,15 +33,14 @@ define ['jquery', 'backbone','templates/dashboard/admin_panel', 'models/circle']
 
     events:
       "click [data-js=close_admin]" : "closePanel"
-      "focus #adminNewCircle input"    : "debug"
-      "focus #adminNewCircle textarea" : "debug"
+      "focus #adminNewCircle input"    : "watchChangeValue"
+      "focus #adminNewCircle textarea" : "watchChangeValue"
       "click [data-js=createCircle]" : "createCircle"
 
     createCircle: (e)->
       e.preventDefault()
       e.stopPropagation()
       $(e.target).html "<img src='./img/send.gif'>"
-      console.log "create!"
       sendData =
         Name: @circle.get("CircleName")
         Description: @circle.get("CircleDescription")
@@ -55,23 +56,42 @@ define ['jquery', 'backbone','templates/dashboard/admin_panel', 'models/circle']
         url:"https://core.unitus-ac.com/Circle",
         data: sendData
         success: (msg)=>
+          @notyHelper.generate("success", "作成完了", "#{@circle.get("CircleName")}を追加しました。")
           console.log "成功したよ"
           console.log msg
           $(e.target).html "作成する"
         error: (msg)=>
           console.log "失敗したよ"
           console.log msg
+          if msg.statusText == "Conflict"
+            @notyHelper.generate("error", "作成失敗", "#{@circle.get("CircleName")}はすでに存在します。")
+          else
+            switch msg.responseText
+              when "Name is empty."
+                @notyHelper.generate("error", "作成失敗", "団体名が記入されていません。")
+                @$("[data-js=CircleName]").addClass "form-danger"
+              when "LeaderUserName is empty."
+                @notyHelper.generate("error", "作成失敗", "代表者名が記入されていません。")
+                @$("[data-js=LeaderUserName]").addClass "form-danger"
+              when "BelongedSchool is empty."
+                @notyHelper.generate("error", "作成失敗", "所属大学が記入されていません。")
+                @$("[data-js=BelongedSchool]").addClass "form-danger"
+              else
+                @notyHelper.generate("error", "作成失敗", "#{@circle.get("CircleName")}は何らかの理由で作成できませんでした。")
           $(e.target).html "作成する"
-    debug: (e) =>
-      console.log "あなたのこゝろにロックオン!"
-      target = $(e.target).attr("data-js")
+    watchChangeValue: (e) =>
+      $target = $(e.target)
       $(e.target).on "change", =>
-        console.log target
-        @circle.trigger target
+        console.log $target.attr("data-js")
+        $target.removeClass "form-danger"
+        @circle.trigger $target.attr("data-js")
 
-    debug2: (e) =>
+
+    watchNewCircleEvents: (e) =>
+
       @circle.on "CircleName", =>
         @circle.set CircleName: @$("[data-js=CircleName]").val()
+        @validationCreateButton()
         console.log @circle.get("CircleName")
       @circle.on "CircleDescription", =>
         @circle.set CircleDescription: @$("[data-js=CircleDescription]").val()
@@ -83,6 +103,7 @@ define ['jquery', 'backbone','templates/dashboard/admin_panel', 'models/circle']
         @circle.set WebAddress: @$("[data-js=WebAddress]").val()
       @circle.on "BelongedSchool", =>
         @circle.set BelongedSchool: @$("[data-js=BelongedSchool]").val()
+        @validationCreateButton()
         console.log @circle.get("BelongedSchool")
       @circle.on "Notes", =>
         @circle.set Notes: @$("[data-js=Notes]").val()
@@ -101,6 +122,7 @@ define ['jquery', 'backbone','templates/dashboard/admin_panel', 'models/circle']
         console.log @circle.get("ActivityDate")
       @circle.on "LeaderUserName", =>
         @circle.set LeaderUserName: @$("[data-js=LeaderUserName]").val()
+        @validationCreateButton()
         console.log @circle.get("LeaderUserName")
 
     renderAdminPanel: ->
@@ -108,3 +130,9 @@ define ['jquery', 'backbone','templates/dashboard/admin_panel', 'models/circle']
 
     closePanel: ->
       @admin_panel.set isOpen: false
+
+    validationCreateButton: =>
+      if @circle.get("CircleName") != "" && @circle.get("BelongedSchool") != "" && @circle.get("LeaderUserName") != ""
+        @$("[data-js=createCircle]").prop("disabled", false)
+      else
+        @$("[data-js=createCircle]").prop("disabled", true)

@@ -1,14 +1,14 @@
 define ['jquery', 'backbone'], ($, Backbone) ->
   class Circle extends Backbone.Model
     defaults:
-      CircleName: '応用数学研究部'
+      CircleName: '' #必須
       CircleDescription: ''
-      Membercount: 5
-      WebAddress: 'hoge.com'
-      BelongedSchool: '東京理科大学'
-      Notes: 'サークルじゃなくて部活です。'
-      Contact: 'twitter: @_HTTP418'
-      CanInterColledge: true
+      Membercount: ''
+      WebAddress: ''
+      BelongedSchool: '' #必須
+      Notes: ''
+      Contact: ''
+      CanInterColledge: false
       ActivityDate: ''
-      LeaderUserName: 'trytestjapan@gmail.com'
+      LeaderUserName: '' #必須
 

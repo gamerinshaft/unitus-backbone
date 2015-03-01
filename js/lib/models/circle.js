@@ -11,16 +11,16 @@ define(['jquery', 'backbone'], function($, Backbone) {
     }
 
     Circle.prototype.defaults = {
-      CircleName: '応用数学研究部',
+      CircleName: '',
       CircleDescription: '',
-      Membercount: 5,
-      WebAddress: 'hoge.com',
-      BelongedSchool: '東京理科大学',
-      Notes: 'サークルじゃなくて部活です。',
-      Contact: 'twitter: @_HTTP418',
-      CanInterColledge: true,
+      Membercount: '',
+      WebAddress: '',
+      BelongedSchool: '',
+      Notes: '',
+      Contact: '',
+      CanInterColledge: false,
       ActivityDate: '',
-      LeaderUserName: 'trytestjapan@gmail.com'
+      LeaderUserName: ''
     };
 
     return Circle;
