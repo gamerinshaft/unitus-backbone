@@ -1,4 +1,45 @@
 //=======================
+//         noty
+//=======================
+.animated{
+  height: auto !important;
+  background-color: white !important;
+  border: none !important;
+}
+.animated .noty_title{
+  font-weight: bold;
+  font-size: 16px;
+  padding: 8px;
+}
+.animated .noty_type_info {
+  border: solid 1px rgb(79, 149, 216);
+  color: rgb(0, 148, 255);
+}
+.animated .noty_type_info .noty_title {
+  color: rgba(0, 110, 255, 0.8);
+}
+.animated .noty_type_error {
+  color: rgb(200, 100, 100) !important;
+  border: solid 1px darkred;
+}
+.animated .noty_type_success {
+  color: rgb(114, 187, 114) !important;
+  border: solid 1px rgb(0, 139, 23);
+}
+.animated .noty_title i{
+  margin-right: 8px;
+}
+.animated .noty_type_error .noty_title{
+  color: darkred;
+}
+.animated .noty_type_success .noty_title{
+  color: rgb(65, 147, 65);
+}
+.animated .noty_content{
+  padding-left: 24px;
+}
+
+//=======================
 //       utility
 //=======================
 .table{
