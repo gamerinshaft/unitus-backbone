@@ -1,7 +1,8 @@
-define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashboard/user_profile', 'views/dashboard/achivement', 'models/circle', 'collections/circles'], ($, Backbone, UserTemplate, UserProfile, AchivementView, Circle, Circles) ->
+define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashboard/user_profile', 'views/dashboard/achivement', 'models/circle'], ($, Backbone, UserTemplate, UserProfile, AchivementView, Circle) ->
   class UserPanelView extends Backbone.View
     initialize: (option) ->
       @user = option.user
+      @circles = option.circles
       @belongingCircles = @user.attributes.circles
       @notyHelper = new NotyHelper()
       @renderUserPanel()
@@ -19,7 +20,7 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
       @$el.html UserTemplate()
 
      # サークル一覧
-    renderCircleList: ->
+    renderCircleList:=>
       user = @user
       sendData =
         count: 40
@@ -28,12 +29,11 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
         type: "GET",
         url:"https://core.unitus-ac.com/Circle",
         data: sendData,
-        success: (msg)->
+        success: (msg)=>
           console.log msg
-          circles = new Circles()
-          $.each msg.Content.Circle, ->
-            circle = new Circle(CircleID: this.CircleId, CircleName: this.CircleName, MemberCount: this.MemberCount, BelongedUniversity: this.BelongedUniversity, LastUpdateDate: this.LastUpdateDate, IsBelonging: this.IsBelonging)
-            circles.add circle
+          $.each msg.Content.Circle, (index, obj)=>
+            circle = new Circle(CircleID: obj.CircleId, CircleName: obj.CircleName, MemberCount: obj.MemberCount, BelongedUniversity: obj.BelongedUniversity, LastUpdateDate: obj.LastUpdateDate, IsBelonging: obj.IsBelonging)
+            @circles.add circle
             text =  ''
             text += '<tr data-circleID="' +circle.get("CircleId") + '" data-commonId="' + circle.get("CircleId") + '">'
             text += '<td class="name name_w">' + circle.get("CircleName") + '<i class="glyphicon glyphicon-eye-open"></i></td>'

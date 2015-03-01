@@ -1,7 +1,8 @@
-define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel'], ($, Backbone, template, HeaderView, PanelView, User, AdminPanel) ->
+define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel', 'collections/circles'], ($, Backbone, template, HeaderView, PanelView, User, AdminPanel, Circles) ->
   class DashboadView extends Backbone.View
     initialize: (option) ->
       @user = new User()
+      @circles = new Circles()
       $.ajaxSetup
         xhrFields:
           withCredentials: true
@@ -28,7 +29,7 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
 
           @renderDashboard();
           new HeaderView(el: $("[data-js=header]"), user: @user, admin_panel:  @admin_panel)
-          new PanelView(el: $("[data-js=panel]"), user: @user, admin_panel: @admin_panel)
+          new PanelView(el: $("[data-js=panel]"), user: @user, admin_panel: @admin_panel, circles: @circles)
           @$el.fadeIn()
         error: (XMLHttpRequest, textStatus) ->
           console.log XMLHttpRequest

@@ -2,18 +2,20 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __hasProp = {}.hasOwnProperty;
 
-define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashboard/user_profile', 'views/dashboard/achivement', 'models/circle', 'collections/circles'], function($, Backbone, UserTemplate, UserProfile, AchivementView, Circle, Circles) {
+define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashboard/user_profile', 'views/dashboard/achivement', 'models/circle'], function($, Backbone, UserTemplate, UserProfile, AchivementView, Circle) {
   var UserPanelView;
   return UserPanelView = (function(_super) {
     __extends(UserPanelView, _super);
 
     function UserPanelView() {
       this.deleteCircle = __bind(this.deleteCircle, this);
+      this.renderCircleList = __bind(this.renderCircleList, this);
       return UserPanelView.__super__.constructor.apply(this, arguments);
     }
 
     UserPanelView.prototype.initialize = function(option) {
       this.user = option.user;
+      this.circles = option.circles;
       this.belongingCircles = this.user.attributes.circles;
       this.notyHelper = new NotyHelper();
       this.renderUserPanel();
@@ -47,36 +49,36 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
         type: "GET",
         url: "https://core.unitus-ac.com/Circle",
         data: sendData,
-        success: function(msg) {
-          var circles;
-          console.log(msg);
-          circles = new Circles();
-          return $.each(msg.Content.Circle, function() {
-            var circle, text;
-            circle = new Circle({
-              CircleID: this.CircleId,
-              CircleName: this.CircleName,
-              MemberCount: this.MemberCount,
-              BelongedUniversity: this.BelongedUniversity,
-              LastUpdateDate: this.LastUpdateDate,
-              IsBelonging: this.IsBelonging
+        success: (function(_this) {
+          return function(msg) {
+            console.log(msg);
+            return $.each(msg.Content.Circle, function(index, obj) {
+              var circle, text;
+              circle = new Circle({
+                CircleID: obj.CircleId,
+                CircleName: obj.CircleName,
+                MemberCount: obj.MemberCount,
+                BelongedUniversity: obj.BelongedUniversity,
+                LastUpdateDate: obj.LastUpdateDate,
+                IsBelonging: obj.IsBelonging
+              });
+              _this.circles.add(circle);
+              text = '';
+              text += '<tr data-circleID="' + circle.get("CircleId") + '" data-commonId="' + circle.get("CircleId") + '">';
+              text += '<td class="name name_w">' + circle.get("CircleName") + '<i class="glyphicon glyphicon-eye-open"></i></td>';
+              text += '<td class="author author_w">' + "閲覧者" + '</td>';
+              text += '<td class="number number_w">' + circle.get("MemberCount") + '</td>';
+              text += '<td class="university university_w">' + circle.get("BelongedUniversity") + '</td>';
+              if (user.get("isAdmin")) {
+                text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '<i class="fa fa-times-circle" data-js="deleteCircle"></i></td>';
+              } else {
+                text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '</td>';
+              }
+              text += '</tr>';
+              return $("[data-js=circleList]").append(text);
             });
-            circles.add(circle);
-            text = '';
-            text += '<tr data-circleID="' + circle.get("CircleId") + '" data-commonId="' + circle.get("CircleId") + '">';
-            text += '<td class="name name_w">' + circle.get("CircleName") + '<i class="glyphicon glyphicon-eye-open"></i></td>';
-            text += '<td class="author author_w">' + "閲覧者" + '</td>';
-            text += '<td class="number number_w">' + circle.get("MemberCount") + '</td>';
-            text += '<td class="university university_w">' + circle.get("BelongedUniversity") + '</td>';
-            if (user.get("isAdmin")) {
-              text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '<i class="fa fa-times-circle" data-js="deleteCircle"></i></td>';
-            } else {
-              text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '</td>';
-            }
-            text += '</tr>';
-            return $("[data-js=circleList]").append(text);
-          });
-        },
+          };
+        })(this),
         error: function(msg) {
           return console.log(msg);
         }

@@ -1,7 +1,7 @@
 var __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __hasProp = {}.hasOwnProperty;
 
-define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel'], function($, Backbone, template, HeaderView, PanelView, User, AdminPanel) {
+define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel', 'collections/circles'], function($, Backbone, template, HeaderView, PanelView, User, AdminPanel, Circles) {
   var DashboadView;
   return DashboadView = (function(_super) {
     __extends(DashboadView, _super);
@@ -12,6 +12,7 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
 
     DashboadView.prototype.initialize = function(option) {
       this.user = new User();
+      this.circles = new Circles();
       $.ajaxSetup({
         xhrFields: {
           withCredentials: true
@@ -57,7 +58,8 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
             new PanelView({
               el: $("[data-js=panel]"),
               user: _this.user,
-              admin_panel: _this.admin_panel
+              admin_panel: _this.admin_panel,
+              circles: _this.circles
             });
             return _this.$el.fadeIn();
           };
