@@ -393,6 +393,18 @@ section#header {
   padding: 0px 2px; }
 #adminNewCircle .checkbox label {
   margin-left: 20px; }
+#adminNewCircle select {
+  margin-bottom: 18px; }
+#adminNewCircle .form-wrap {
+  height: 0px;
+  overflow: hidden;
+  -webkit-transition: height 0.2s ease-out;
+  -moz-transition: height 0.2s ease-out;
+  -ms-transition: height 0.2s ease-out;
+  -o-transition: height 0.2s ease-out;
+  transition: height 0.2s ease-out; }
+#adminNewCircle .form-wrap.open {
+  height: 34px; }
 #adminNewCircle button {
   width: 82px; }
   #adminNewCircle button img {

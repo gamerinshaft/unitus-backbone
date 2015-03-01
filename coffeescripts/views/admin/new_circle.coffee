@@ -6,9 +6,22 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
       @render()
       @watchNewCircleEvents()
 
+      $.ajax
+        type: "GET"
+        url:  "https://core.unitus-ac.com/Candidate/University"
+        success: (msg)=>
+          console.log "栄光"
+          console.log msg
+          $.each msg.Content, (index, obj)=>
+            @$("[data-js=circleSelect]").append "<option>#{obj}</option>"
+          @$("[data-js=circleSelect]").append "<option>その他</option>"
+        error: (msg)=>
+          console.log "栄光ジャナイ"
+          console.log msg
     events:
       "focus input"    : "watchChangeValue"
       "focus textarea" : "watchChangeValue"
+      "focus select" : "watchChangeValue"
       "click [data-js=createCircle]" : "createCircle"
 
     render: ->
@@ -82,6 +95,19 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
         console.log @circle.get("MemberCount")
       @circle.on "WebAddress", =>
         @circle.set WebAddress: @$("[data-js=WebAddress]").val()
+      @circle.on "circleSelect", =>
+        value = @$("[data-js=circleSelect]").val()
+        if value == "その他"
+          @$("[data-js=formWrap]").addClass "open"
+        else
+          @$("[data-js=formWrap]").removeClass "open"
+          $("[data-js=BelongedSchool]").val("")
+          if value == "-"
+            @circle.set BelongedSchool: ""
+          else
+            @circle.set BelongedSchool: value
+        @validationCreateButton()
+        console.log @circle.get("BelongedSchool")
       @circle.on "BelongedSchool", =>
         @circle.set BelongedSchool: @$("[data-js=BelongedSchool]").val()
         @validationCreateButton()
@@ -108,7 +134,7 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
 
 
     validationCreateButton: =>
-      if @circle.get("CircleName") != "" && @circle.get("BelongedSchool") != "" && @circle.get("LeaderUserName") != ""
+      if @circle.get("CircleName") != "" && @circle.get("LeaderUserName") != "" && @circle.get("BelongedSchool") != ""
         @$("[data-js=createCircle]").prop("disabled", false)
       else
         @$("[data-js=createCircle]").prop("disabled", true)

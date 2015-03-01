@@ -18,12 +18,33 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
       this.notyHelper = new NotyHelper();
       this.circle = new Circle();
       this.render();
-      return this.watchNewCircleEvents();
+      this.watchNewCircleEvents();
+      return $.ajax({
+        type: "GET",
+        url: "https://core.unitus-ac.com/Candidate/University",
+        success: (function(_this) {
+          return function(msg) {
+            console.log("栄光");
+            console.log(msg);
+            $.each(msg.Content, function(index, obj) {
+              return _this.$("[data-js=circleSelect]").append("<option>" + obj + "</option>");
+            });
+            return _this.$("[data-js=circleSelect]").append("<option>その他</option>");
+          };
+        })(this),
+        error: (function(_this) {
+          return function(msg) {
+            console.log("栄光ジャナイ");
+            return console.log(msg);
+          };
+        })(this)
+      });
     };
 
     AdminNewCircleView.prototype.events = {
       "focus input": "watchChangeValue",
       "focus textarea": "watchChangeValue",
+      "focus select": "watchChangeValue",
       "click [data-js=createCircle]": "createCircle"
     };
 
@@ -138,6 +159,29 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
           });
         };
       })(this));
+      this.circle.on("circleSelect", (function(_this) {
+        return function() {
+          var value;
+          value = _this.$("[data-js=circleSelect]").val();
+          if (value === "その他") {
+            _this.$("[data-js=formWrap]").addClass("open");
+          } else {
+            _this.$("[data-js=formWrap]").removeClass("open");
+            $("[data-js=BelongedSchool]").val("");
+            if (value === "-") {
+              _this.circle.set({
+                BelongedSchool: ""
+              });
+            } else {
+              _this.circle.set({
+                BelongedSchool: value
+              });
+            }
+          }
+          _this.validationCreateButton();
+          return console.log(_this.circle.get("BelongedSchool"));
+        };
+      })(this));
       this.circle.on("BelongedSchool", (function(_this) {
         return function() {
           _this.circle.set({
@@ -197,7 +241,7 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
     };
 
     AdminNewCircleView.prototype.validationCreateButton = function() {
-      if (this.circle.get("CircleName") !== "" && this.circle.get("BelongedSchool") !== "" && this.circle.get("LeaderUserName") !== "") {
+      if (this.circle.get("CircleName") !== "" && this.circle.get("LeaderUserName") !== "" && this.circle.get("BelongedSchool") !== "") {
         return this.$("[data-js=createCircle]").prop("disabled", false);
       } else {
         return this.$("[data-js=createCircle]").prop("disabled", true);

@@ -12,7 +12,10 @@ form
     label(for='site_name') ウェブサイト
     input#site_name.form-control(type='text', placeholder='http://unitus-ac.com', data-js="WebAddress")
     label(for='university') 所属大学
-    input#university.form-control(type='text', placeholder='東京理科大学', data-js="BelongedSchool")
+    select.form-control(data-js="circleSelect")
+      option -
+    .form-wrap(data-js="formWrap")
+      input#university.form-control(type='text', placeholder='新しい大学名を入力', data-js="BelongedSchool")
     label(for='remarks') 備考
     textarea#remarks.form-control(placeholder='男ばっかりのサークルです。', data-js="Notes")
     label(for='contact') 連絡先
