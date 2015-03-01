@@ -3,6 +3,7 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
     initialize: (option) ->
       @user = option.user
       @belongingCircles = @user.attributes.circles
+      @notyHelper = new NotyHelper()
       @renderUserPanel()
       @renderUserProfile()
       @renderCircleList()
@@ -66,7 +67,7 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
       $("[data-js=userSideList]").append textSidebar
       $("[data-js=userPanelList]").append textPanel
 
-    deleteCircle: (e)->
+    deleteCircle: (e)=>
       e.preventDefault()
       e.stopPropagation()
       $circleRow = $($($(e.target).get(0)).closest("tr").get(0))
@@ -77,8 +78,10 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
           type: "DELETE",
           url:"https://core.unitus-ac.com/Circle",
           data: sendData,
-          success: (msg)->
+          success: (msg)=>
+            @notyHelper.generate('info', '削除成功', "サークルを削除しました。")
             target = "[data-commonId=" + $circleRow.attr("data-circleId") + "]"
             $(target).remove()
-          error: (msg)->
-            console.log "削除できませんでした。"
+          error: (msg)=>
+            @notyHelper.generate('error', '削除失敗', "何らかの理由でサークルを削除できませんでした。")
+
