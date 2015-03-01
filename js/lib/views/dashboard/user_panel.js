@@ -45,7 +45,6 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
         url: "https://core.unitus-ac.com/Circle",
         data: sendData,
         success: function(msg) {
-          console.log(msg.Content.Circle);
           return $.each(msg.Content.Circle, function() {
             var text;
             text = '';

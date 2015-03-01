@@ -1,20 +1,24 @@
-var __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __hasProp = {}.hasOwnProperty;
 
-define(['jquery', 'backbone', 'templates/dashboard/admin_panel'], function($, Backbone, AdminTemplate) {
+define(['jquery', 'backbone', 'templates/dashboard/admin_panel', 'models/circle'], function($, Backbone, AdminTemplate, Circle) {
   var AdminPanelView;
   return AdminPanelView = (function(_super) {
     __extends(AdminPanelView, _super);
 
     function AdminPanelView() {
+      this.debug2 = __bind(this.debug2, this);
+      this.debug = __bind(this.debug, this);
       return AdminPanelView.__super__.constructor.apply(this, arguments);
     }
 
     AdminPanelView.prototype.initialize = function(option) {
       var sendData;
+      this.circle = new Circle();
+      this.debug2();
       sendData = {
-        count: 40,
-        validationToken: "abc"
+        count: 40
       };
       $.ajax({
         type: "GET",
@@ -48,7 +52,148 @@ define(['jquery', 'backbone', 'templates/dashboard/admin_panel'], function($, Ba
     };
 
     AdminPanelView.prototype.events = {
-      "click [data-js=close_admin]": "closePanel"
+      "click [data-js=close_admin]": "closePanel",
+      "focus #adminNewCircle input": "debug",
+      "focus #adminNewCircle textarea": "debug",
+      "click [data-js=createCircle]": "createCircle"
+    };
+
+    AdminPanelView.prototype.createCircle = function(e) {
+      var sendData;
+      e.preventDefault();
+      e.stopPropagation();
+      $(e.target).html("<img src='./img/send.gif'>");
+      console.log("create!");
+      sendData = {
+        Name: this.circle.get("CircleName"),
+        Description: this.circle.get("CircleDescription"),
+        MemberCount: this.circle.get("MemberCount"),
+        BelongedSchool: this.circle.get("BelongedSchool"),
+        Notes: this.circle.get("Notes"),
+        Contact: this.circle.get("Contact"),
+        CanInterColledge: true,
+        ActivityDate: this.circle.get("ActivityDate"),
+        LeaderUserName: this.circle.get("LeaderUserName")
+      };
+      return $.ajax({
+        type: "POST",
+        url: "https://core.unitus-ac.com/Circle",
+        data: sendData,
+        success: (function(_this) {
+          return function(msg) {
+            console.log("成功したよ");
+            console.log(msg);
+            return $(e.target).html("作成する");
+          };
+        })(this),
+        error: (function(_this) {
+          return function(msg) {
+            console.log("失敗したよ");
+            console.log(msg);
+            return $(e.target).html("作成する");
+          };
+        })(this)
+      });
+    };
+
+    AdminPanelView.prototype.debug = function(e) {
+      var target;
+      console.log("あなたのこゝろにロックオン!");
+      target = $(e.target).attr("data-js");
+      return $(e.target).on("change", (function(_this) {
+        return function() {
+          console.log(target);
+          return _this.circle.trigger(target);
+        };
+      })(this));
+    };
+
+    AdminPanelView.prototype.debug2 = function(e) {
+      this.circle.on("CircleName", (function(_this) {
+        return function() {
+          _this.circle.set({
+            CircleName: _this.$("[data-js=CircleName]").val()
+          });
+          return console.log(_this.circle.get("CircleName"));
+        };
+      })(this));
+      this.circle.on("CircleDescription", (function(_this) {
+        return function() {
+          _this.circle.set({
+            CircleDescription: _this.$("[data-js=CircleDescription]").val()
+          });
+          return console.log(_this.circle.get("CircleDescription"));
+        };
+      })(this));
+      this.circle.on("MemberCount", (function(_this) {
+        return function() {
+          _this.circle.set({
+            MemberCount: _this.$("[data-js=MemberCount]").val()
+          });
+          return console.log(_this.circle.get("MemberCount"));
+        };
+      })(this));
+      this.circle.on("WebAddress", (function(_this) {
+        return function() {
+          return _this.circle.set({
+            WebAddress: _this.$("[data-js=WebAddress]").val()
+          });
+        };
+      })(this));
+      this.circle.on("BelongedSchool", (function(_this) {
+        return function() {
+          _this.circle.set({
+            BelongedSchool: _this.$("[data-js=BelongedSchool]").val()
+          });
+          return console.log(_this.circle.get("BelongedSchool"));
+        };
+      })(this));
+      this.circle.on("Notes", (function(_this) {
+        return function() {
+          _this.circle.set({
+            Notes: _this.$("[data-js=Notes]").val()
+          });
+          return console.log(_this.circle.get("Notes"));
+        };
+      })(this));
+      this.circle.on("Contact", (function(_this) {
+        return function() {
+          _this.circle.set({
+            Contact: _this.$("[data-js=Contact]").val()
+          });
+          return console.log(_this.circle.get("Contact"));
+        };
+      })(this));
+      this.circle.on("CanInterColledge", (function(_this) {
+        return function() {
+          if (_this.$("[data-js=CanInterColledge]").is(':checked')) {
+            _this.circle.set({
+              CanInterColledge: true
+            });
+          } else {
+            _this.circle.set({
+              CanInterColledge: false
+            });
+          }
+          return console.log(_this.circle.get("CanInterColledge"));
+        };
+      })(this));
+      this.circle.on("ActivityDate", (function(_this) {
+        return function() {
+          _this.circle.set({
+            ActivityDate: _this.$("[data-js=ActivityDate]").val()
+          });
+          return console.log(_this.circle.get("ActivityDate"));
+        };
+      })(this));
+      return this.circle.on("LeaderUserName", (function(_this) {
+        return function() {
+          _this.circle.set({
+            LeaderUserName: _this.$("[data-js=LeaderUserName]").val()
+          });
+          return console.log(_this.circle.get("LeaderUserName"));
+        };
+      })(this));
     };
 
     AdminPanelView.prototype.renderAdminPanel = function() {

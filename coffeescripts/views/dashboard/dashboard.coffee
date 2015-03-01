@@ -1,8 +1,6 @@
-define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel', 'models/circle'], ($, Backbone, template, HeaderView, PanelView, User, AdminPanel, Circle) ->
+define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel'], ($, Backbone, template, HeaderView, PanelView, User, AdminPanel) ->
   class DashboadView extends Backbone.View
     initialize: (option) ->
-      @circle = new Circle()
-      console.log @circle.get("CircleName")
       @user = new User()
       $.ajaxSetup
         xhrFields:

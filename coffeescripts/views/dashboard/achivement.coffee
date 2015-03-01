@@ -30,13 +30,12 @@ define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
           data: sendData,
           success: (data)=>
             @achivement.set(isDetailGetting: true)
-            values = data
-            console.log "kokodayo"
+            values = data.Content
+            console.log "koayo"
             console.log values
-
             @achivement.set(Description: values.AchivementDescription, AwardedPerson: values.AwardedPerson, AwardedRate: (if values.AwardedRate == "NaN" then null else values.AwardedRate.toFixed(2)), AcuireRateGraphPoints: values.AcuireRateGraphPoints, AwardedPerson: values.AwardedPerson,  CircleStatistics: values.CircleStatistics, ProgressGraphPoints: values.ProgressGraphPoints, SumPerson: values.SumPerson)
             $(@$el.children("[data-js=achivementPanel]")[0])
-            .html AchivementShowTemplate(achivement: @achivement, user: @user)
+            .html AchivementShowTemplate(achivement: @achivement, data: JSON.stringify(@achivement), user: @user)
             .removeClass("hidden_panel_r")
           error: (data)->
             console.log data

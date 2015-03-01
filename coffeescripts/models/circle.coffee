@@ -9,6 +9,6 @@ define ['jquery', 'backbone'], ($, Backbone) ->
       Notes: 'サークルじゃなくて部活です。'
       Contact: 'twitter: @_HTTP418'
       CanInterColledge: true
-      ActivityDate: 'FRYDAY'
-
+      ActivityDate: ''
+      LeaderUserName: 'trytestjapan@gmail.com'
 

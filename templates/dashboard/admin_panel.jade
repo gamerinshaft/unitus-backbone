@@ -17,27 +17,30 @@
       form
         .form-group
           label(for='circle_name') 団体名
-          input#circle_name.form-control(type='text', placeholder='応用数学研究部')
+          input#circle_name.form-control(type='text', placeholder='応用数学研究部', data-js="CircleName")
           label(for='circle_description') 団体説明を記入
-          textarea#circle_description.form-control(placeholder='団体説明を記入', rows='10')
+          textarea#circle_description.form-control(placeholder='団体説明を記入', rows='10', data-js="CircleDescription")
           label(for='circle_num') 人数
-          input#circle_num.form-control(type='text', placeholder='18')
+          input#circle_num.form-control(type='text', placeholder='18', data-js="MemberCount")
           label(for='site_name') ウェブサイト
-          input#site_name.form-control(type='text', placeholder='http://unitus-ac.com')
+          input#site_name.form-control(type='text', placeholder='http://unitus-ac.com', data-js="WebAddress")
           label(for='university') 所属大学
-          input#university.form-control(type='text', placeholder='東京理科大学')
+          input#university.form-control(type='text', placeholder='東京理科大学', data-js="BelongedSchool")
           label(for='remarks') 備考
-          textarea#remarks.form-control(placeholder='インカレサークルです。')
+          textarea#remarks.form-control(placeholder='男ばっかりのサークルです。', data-js="Notes")
           label(for='contact') 連絡先
-          input#contact.form-control(type='text', placeholder='Tel: 090123456')
+          input#contact.form-control(type='text', placeholder='Tel: 090123456', data-js="Contact")
           label(for='leader') 代表者
-          input#leader.form-control(type='text', placeholder='@hogehoge')
+          input#leader.form-control(type='text', placeholder='yamada@gmail.com', data-js="LeaderUserName")
+          label(for='activityDate') 活動日
+          textarea#activityDate.form-control(type='text', placeholder='#土曜日\n#月曜日', rows='4', data-js="ActivityDate")
           .checkbox
             label
-              input#isAcceptOutside(type='checkbox')
+              input#isAcceptOutside(type='checkbox', data-js="CanInterColledge")
               |  外部生のサークル加入可否
           .pull-right
-            button.btn.btn-primary(type='submit') 保存する
+            button.btn.btn-primary(type='submit', data-js="createCircle")
+              | 作成する
           .clear
 
     #adminUserList.tab-pane.fade(role='tabpanel')

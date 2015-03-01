@@ -55,7 +55,7 @@
       .info_title
         | 達成率の推移
       .info_content
-        #AcuireRateGraph
+        #ProgressGraphPoints
     .info_panel.box
       .info_title
         | サークルメンバーの状況
@@ -69,9 +69,23 @@
         | ステータス
       .info_content
 script(type='text/javascript', src='bower_components/highcharts/theme.js')
+script#data.
+  "#{data}"
 script.
   $(function() {
-    $('#AcuireRateGraph').highcharts({
+    console.log(JSON.parse($("#data").text()));
+    var xAxis = ("#{achivement.get("ProgressGraphPoints").xAxis.categories}").split(',');
+    console.log(xAxis);
+    var userLabel = "#{achivement.get("ProgressGraphPoints").series[0].name}";
+    var userPoints = [#{achivement.get("ProgressGraphPoints").series[0].data}];
+    console.log(userPoints);
+    var allUserLabel = "#{achivement.get("ProgressGraphPoints").series[1].name}";
+    var allUserPoints = [#{achivement.get("ProgressGraphPoints").series[1].data}];
+    console.log(#{achivement.get("ProgressGraphPoints").series.length});
+    var i = 1;
+    var seriesData = [];
+
+    $('#ProgressGraphPoints').highcharts({
       chart: {
         width: 744,
         height: 240
@@ -85,7 +99,7 @@ script.
         x: -20
       },
       xAxis: {
-        categories: ["2月12日", "2月13日", "2月14日", "2月15日", "2月16日", "2月17日", "2月18日", "2月19日", "2月20日", "2月21日", "2月22日", "2月23日"]
+        categories: xAxis
       },
       yAxis: {
         title: {
@@ -110,11 +124,11 @@ script.
       },
       series: [
         {
-          name: '自分',
-          data: [ 0, 0, 0, 0, 0, 0, 0, 0, 4, 6, 7, 7]
+          name: userLabel,
+          data:  userPoints
         }, {
-          name: '全体',
-          data: [ 0, 0, 0, 0, 0, 0, 0, 0, 6, 8, 9, 9]
+          name: allUserLabel,
+          data:  allUserPoints
         }
       ]
     });

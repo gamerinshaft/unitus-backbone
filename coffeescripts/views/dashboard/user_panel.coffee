@@ -17,6 +17,7 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
     renderUserPanel: ->
       @$el.html UserTemplate()
 
+     # サークル一覧
     renderCircleList: ->
       user = @user
       sendData =
@@ -27,7 +28,6 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
         url:"https://core.unitus-ac.com/Circle",
         data: sendData,
         success: (msg)->
-          console.log msg.Content.Circle
           $.each msg.Content.Circle, ->
             text =  ''
             text += '<tr data-circleID="' +this.CircleId + '" data-commonId="' + this.CircleId + '">'
@@ -44,9 +44,11 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
         error: (msg)->
           console.log msg
 
+     # プロフィール
     renderUserProfile: ->
       @$('[data-js="myProfile"]').html UserProfile(user: @user)
 
+     # 所属団体
     renderBelongingCircles: ->
       textSidebar  = ''
       textPanel    = ''

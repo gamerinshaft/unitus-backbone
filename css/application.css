@@ -353,6 +353,11 @@ section#header {
   padding: 0px 2px; }
 #adminNewCircle .checkbox label {
   margin-left: 20px; }
+#adminNewCircle button {
+  width: 82px; }
+  #adminNewCircle button img {
+    margin: 0 auto;
+    height: 18px; }
 
 #profile.fade.active.in .profilebar {
   left: 0px; }
@@ -631,11 +636,11 @@ section#header {
           border: none;
           border-bottom: 2px solid #888;
           height: 296px; }
-          #achivementPanel .main .main_content .info_panel.graph #AcuireRateGraph .highcharts-container {
+          #achivementPanel .main .main_content .info_panel.graph #ProgressGraphPoints .highcharts-container {
             margin: 0 auto; }
-            #achivementPanel .main .main_content .info_panel.graph #AcuireRateGraph .highcharts-container rect {
+            #achivementPanel .main .main_content .info_panel.graph #ProgressGraphPoints .highcharts-container rect {
               fill: transparent; }
-            #achivementPanel .main .main_content .info_panel.graph #AcuireRateGraph .highcharts-container svg > text:nth-child(16) {
+            #achivementPanel .main .main_content .info_panel.graph #ProgressGraphPoints .highcharts-container svg > text:nth-child(16) {
               display: none; }
         #achivementPanel .main .main_content .info_panel .info_title {
           border-bottom: 2px solid #888;
