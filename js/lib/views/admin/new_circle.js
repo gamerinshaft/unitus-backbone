@@ -272,7 +272,11 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
         })(this),
         error: (function(_this) {
           return function(msg) {
-            _this.notyHelper.generate("error", "作成失敗", "既にそのサークルはデータベースに存在しています");
+            if (msg.statusText === "Conflict") {
+              _this.notyHelper.generate("error", "作成失敗", "既にそのサークルはデータベースに存在しています");
+            } else {
+              _this.notyHelper.generate("error", "作成失敗", "データチェックに失敗しました");
+            }
             return true;
           };
         })(this)

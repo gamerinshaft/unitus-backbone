@@ -11,11 +11,13 @@ define(['jquery', 'backbone'], function($, Backbone) {
     }
 
     Circle.prototype.defaults = {
+      CircleId: '',
       CircleName: '',
       CircleDescription: '',
       Membercount: '',
-      WebAddress: '',
       BelongedSchool: '',
+      IsBelonging: '',
+      WebAddress: '',
       Notes: '',
       Contact: '',
       CanInterColledge: false,

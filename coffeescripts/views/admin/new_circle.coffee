@@ -154,6 +154,9 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
         success: (msg)=>
           false
         error: (msg)=>
-          @notyHelper.generate("error", "作成失敗", "既にそのサークルはデータベースに存在しています")
+          if msg.statusText == "Conflict"
+            @notyHelper.generate("error", "作成失敗", "既にそのサークルはデータベースに存在しています")
+          else
+            @notyHelper.generate("error", "作成失敗", "データチェックに失敗しました")
           true
 
