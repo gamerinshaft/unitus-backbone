@@ -67,6 +67,7 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
               _this.notyHelper.generate("error", "作成失敗", (_this.circle.get("CircleName")) + "はすでに存在します。");
             } else if (msg.statusText === "Not Found") {
               _this.notyHelper.generate("error", "作成失敗", "代表者のメールアドレス(" + (_this.circle.get("LeaderUserName")) + ")はデータベースに存在しません。");
+              _this.$("[data-js=LeaderUserName]").addClass("form-danger");
             } else {
               switch (msg.responseText) {
                 case "Name is empty.":

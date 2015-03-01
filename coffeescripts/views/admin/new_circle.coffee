@@ -44,6 +44,7 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
             @notyHelper.generate("error", "作成失敗", "#{@circle.get("CircleName")}はすでに存在します。")
           else if msg.statusText == "Not Found"
             @notyHelper.generate("error", "作成失敗", "代表者のメールアドレス(#{@circle.get("LeaderUserName")})はデータベースに存在しません。")
+            @$("[data-js=LeaderUserName]").addClass "form-danger"
           else
             switch msg.responseText
               when "Name is empty."
