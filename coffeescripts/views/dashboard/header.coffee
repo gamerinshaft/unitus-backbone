@@ -52,7 +52,6 @@ define ['jquery', 'backbone', 'templates/dashboard/header', 'templates/header/co
           @notyHelper.generate 'error', '取得失敗', '範囲設定項目を取得できませんでした。'
 
     renderConfigTemplate: (config)->
-      console.log config
       @$("[data-js=DisclosureList]").append ConfigTemplate(config: config)
 
 

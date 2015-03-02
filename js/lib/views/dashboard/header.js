@@ -89,7 +89,6 @@ define(['jquery', 'backbone', 'templates/dashboard/header', 'templates/header/co
     };
 
     HeaderView.prototype.renderConfigTemplate = function(config) {
-      console.log(config);
       return this.$("[data-js=DisclosureList]").append(ConfigTemplate({
         config: config
       }));
