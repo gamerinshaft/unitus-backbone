@@ -12,6 +12,7 @@ define(['jquery', 'backbone'], function($, Backbone) {
 
     Circle.prototype.defaults = {
       CircleID: '',
+      LastUpdateDate: '',
       CircleName: '',
       CircleDescription: '',
       Membercount: '',

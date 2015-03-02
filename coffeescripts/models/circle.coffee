@@ -1,8 +1,11 @@
 define ['jquery', 'backbone'], ($, Backbone) ->
   class Circle extends Backbone.Model
     defaults:
-      #circleList
+      #auto
       CircleID: ''
+      LastUpdateDate: ''
+
+      #circleList
       CircleName: '' #必須
       CircleDescription: ''
       Membercount: ''

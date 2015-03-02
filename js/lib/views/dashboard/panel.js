@@ -26,7 +26,9 @@ define(['jquery', 'backbone', 'views/dashboard/user_panel', 'views/dashboard/adm
       if (this.dashboard.get("IsAdministrator")) {
         return new AdminPanelView({
           el: $("[data-js=admin]"),
-          admin_panel: this.admin_panel
+          admin_panel: this.admin_panel,
+          circles: this.circles,
+          dashboard: this.dashboard
         });
       }
     };

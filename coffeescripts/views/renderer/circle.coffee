@@ -5,16 +5,16 @@ define ['jquery', 'backbone'], ($, Backbone) ->
       @dashboard = option.dashboard
       @listenTo @circles, 'add', (circle)=>
         @renderCircleList(circle, @dashboard)
-        console.log circle
-        console.log circle.get("IsBelonging")
-        @renderBelongingCircleSidebar circle
+        if circle.get("IsBelonging")
+          @renderBelongingCircleSidebar circle
       @listenTo @circles, 'change', (circle)=>
-        console.log circle
         @renderUpdateCircleList(circle, @dashboard)
+        if circle.get("IsBelonging")
+          @renderUpdateBelongingCircleSidebar circle
 
 
     renderAll: ->
-      console.log "全てをレンダーするぜ"
+      console.log "全てを"
 
     renderCircleList: (circle, dashboard)->
       text =  ''
@@ -57,3 +57,15 @@ define ['jquery', 'backbone'], ($, Backbone) ->
       textPanel   += '</div>'
       $("[data-js=userSideList]").append textSidebar
       $("[data-js=userPanelList]").append textPanel
+
+
+    renderUpdateBelongingCircleSidebar: (circle)->
+      textSidebar = ''
+      textPanel = ''
+      textSidebar += '<a href="#' + circle.get("CircleID") + '" aria-controls="#' + circle.get("CircleId") + '" role="tab" data-toggle="tab">'
+      textSidebar += '<i class="circleIcon">' + circle.get("CircleName").slice(0,1) + '</i>'
+      textSidebar += '<span class="title">' + circle.get("CircleName") + '</span>'
+      textSidebar += '</a>'
+      textPanel   += '<h1>' + circle.get("CircleName") + '</h1>'
+      $($("[data-js=userSideList]").find("[data-commonId=#{circle.get("CircleID")}]")).html textSidebar
+      $($("[data-js=userPanelList]").find("[data-commonId=#{circle.get("CircleID")}]")).html textPanel

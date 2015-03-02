@@ -1,6 +1,8 @@
 define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($, Backbone, NewCircleTemplate, Circle) ->
   class AdminNewCircleView extends Backbone.View
     initialize: (option) ->
+      @circles = option.circles
+      @dashboard = option.dashboard
       @notyHelper = new NotyHelper()
       @circle =  new Circle()
       @render()
@@ -24,10 +26,12 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
     render: ->
       @$el.html NewCircleTemplate()
 
-    createCircle: (e)->
+    createCircle: (e)=>
       e.preventDefault()
       e.stopPropagation()
       $(e.target).html "<img src='./img/send.gif'>"
+      if @circle.get("LeaderUserName") == @dashboard.get("UserName")
+        @circle.set IsBelonging: true
       sendData =
         Name: @circle.get("CircleName")
         Description: @circle.get("CircleDescription")
@@ -35,7 +39,7 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
         BelongedSchool: @circle.get("BelongedSchool")
         Notes: @circle.get("Notes")
         Contact: @circle.get("Contact")
-        CanInterColledge: true
+        CanInterColledge: @circle.get("CanInterColledge")
         ActivityDate: @circle.get("ActivityDate")
         LeaderUserName: @circle.get("LeaderUserName")
       $.ajax
@@ -45,10 +49,13 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
         success: (msg)=>
           @notyHelper.generate("success", "作成完了", "#{@circle.get("CircleName")}を追加しました。")
           console.log "成功したよ"
-          console.log msg
+
+          @circle.set CircleID: msg.Content.CircleId
+          @circle.set LastUpdateDate: msg.Content.LastUpdate
+          @circle.set MemberCount: msg.Content.MemberCount
+          @circles.add @circle
           $(e.target).html "作成する"
         error: (msg)=>
-          console.log "失敗したよ"
           console.log msg
           if msg.statusText == "Conflict"
             @notyHelper.generate("error", "作成失敗", "#{@circle.get("CircleName")}はすでに存在します。")

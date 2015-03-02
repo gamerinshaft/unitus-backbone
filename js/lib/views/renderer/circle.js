@@ -16,21 +16,23 @@ define(['jquery', 'backbone'], function($, Backbone) {
       this.listenTo(this.circles, 'add', (function(_this) {
         return function(circle) {
           _this.renderCircleList(circle, _this.dashboard);
-          console.log(circle);
-          console.log(circle.get("IsBelonging"));
-          return _this.renderBelongingCircleSidebar(circle);
+          if (circle.get("IsBelonging")) {
+            return _this.renderBelongingCircleSidebar(circle);
+          }
         };
       })(this));
       return this.listenTo(this.circles, 'change', (function(_this) {
         return function(circle) {
-          console.log(circle);
-          return _this.renderUpdateCircleList(circle, _this.dashboard);
+          _this.renderUpdateCircleList(circle, _this.dashboard);
+          if (circle.get("IsBelonging")) {
+            return _this.renderUpdateBelongingCircleSidebar(circle);
+          }
         };
       })(this));
     };
 
     CircleRenderView.prototype.renderAll = function() {
-      return console.log("全てをレンダーするぜ");
+      return console.log("全てを");
     };
 
     CircleRenderView.prototype.renderCircleList = function(circle, dashboard) {
@@ -80,6 +82,19 @@ define(['jquery', 'backbone'], function($, Backbone) {
       textPanel += '</div>';
       $("[data-js=userSideList]").append(textSidebar);
       return $("[data-js=userPanelList]").append(textPanel);
+    };
+
+    CircleRenderView.prototype.renderUpdateBelongingCircleSidebar = function(circle) {
+      var textPanel, textSidebar;
+      textSidebar = '';
+      textPanel = '';
+      textSidebar += '<a href="#' + circle.get("CircleID") + '" aria-controls="#' + circle.get("CircleId") + '" role="tab" data-toggle="tab">';
+      textSidebar += '<i class="circleIcon">' + circle.get("CircleName").slice(0, 1) + '</i>';
+      textSidebar += '<span class="title">' + circle.get("CircleName") + '</span>';
+      textSidebar += '</a>';
+      textPanel += '<h1>' + circle.get("CircleName") + '</h1>';
+      $($("[data-js=userSideList]").find("[data-commonId=" + (circle.get("CircleID")) + "]")).html(textSidebar);
+      return $($("[data-js=userPanelList]").find("[data-commonId=" + (circle.get("CircleID")) + "]")).html(textPanel);
     };
 
     return CircleRenderView;

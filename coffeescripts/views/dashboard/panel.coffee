@@ -8,4 +8,4 @@ define ['jquery', 'backbone', 'views/dashboard/user_panel','views/dashboard/admi
     renderDashboard: ->
       new UserPanelView(el: $("[data-js=basic]"), dashboard: @dashboard, circles: @circles)
       if @dashboard.get("IsAdministrator")
-        new AdminPanelView(el: $("[data-js=admin]"), admin_panel: @admin_panel)
+        new AdminPanelView(el: $("[data-js=admin]"), admin_panel: @admin_panel, circles: @circles, dashboard: @dashboard)

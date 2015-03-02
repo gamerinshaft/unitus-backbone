@@ -12,6 +12,8 @@ define(['jquery', 'backbone', 'templates/dashboard/admin_panel', 'views/admin/ne
 
     AdminPanelView.prototype.initialize = function(option) {
       var sendData;
+      this.circles = option.circles;
+      this.dashboard = option.dashboard;
       sendData = {
         count: 40
       };
@@ -46,7 +48,9 @@ define(['jquery', 'backbone', 'templates/dashboard/admin_panel', 'views/admin/ne
       })(this));
       this.renderAdminPanel();
       return new AdminNewCircle({
-        el: $("[data-js=adminNewCircle]")
+        el: $("[data-js=adminNewCircle]"),
+        circles: this.circles,
+        dashboard: this.dashboard
       });
     };
 

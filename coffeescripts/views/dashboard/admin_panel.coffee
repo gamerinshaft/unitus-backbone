@@ -1,6 +1,8 @@
 define ['jquery', 'backbone','templates/dashboard/admin_panel', 'views/admin/new_circle'], ($, Backbone, AdminTemplate, AdminNewCircle) ->
   class AdminPanelView extends Backbone.View
     initialize: (option) ->
+      @circles = option.circles
+      @dashboard = option.dashboard
       sendData =
         count: 40
       $.ajax
@@ -27,7 +29,7 @@ define ['jquery', 'backbone','templates/dashboard/admin_panel', 'views/admin/new
         console.log "open"
         @$el.toggleClass("hidden_panel_l")
       @renderAdminPanel()
-      new AdminNewCircle(el: $("[data-js=adminNewCircle]"))
+      new AdminNewCircle(el: $("[data-js=adminNewCircle]"), circles: @circles, dashboard: @dashboard)
 
     events:
       "click [data-js=close_admin]" : "closePanel"
