@@ -21,7 +21,7 @@ require.config({
   }
 });
 
-require(['jquery', 'bootstrap', 'highcharts', 'noty', 'views/dashboard/dashboard', 'helpers/notyHelper'], function($, bootstrap, highcharts, noty, DashboardView, NotyHelper) {
+require(['jquery', 'bootstrap', 'highcharts', 'noty', 'views/dashboard/dashboard', 'helpers/notyHelper', 'views/renderer/circle'], function($, bootstrap, highcharts, noty, DashboardView, NotyHelper, CircleRenderView) {
   return $(function() {
     return new DashboardView({
       el: $('[data-js=app]')

@@ -31,21 +31,11 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
         data: sendData,
         success: (msg)=>
           console.log msg
+          circleRenderer = new  CircleRenderView()
           $.each msg.Content.Circle, (index, obj)=>
             circle = new Circle(CircleID: obj.CircleId, CircleName: obj.CircleName, MemberCount: obj.MemberCount, BelongedUniversity: obj.BelongedUniversity, LastUpdateDate: obj.LastUpdateDate, IsBelonging: obj.IsBelonging)
             @circles.add circle
-            text =  ''
-            text += '<tr data-circleID="' +circle.get("CircleId") + '" data-commonId="' + circle.get("CircleId") + '">'
-            text += '<td class="name name_w">' + circle.get("CircleName") + '<i class="glyphicon glyphicon-eye-open"></i></td>'
-            text += '<td class="author author_w">' + "閲覧者" + '</td>'
-            text += '<td class="number number_w">' + circle.get("MemberCount") + '</td>'
-            text += '<td class="university university_w">' + circle.get("BelongedUniversity") + '</td>'
-            if user.get("isAdmin")
-              text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '<i class="fa fa-times-circle" data-js="deleteCircle"></i></td>'
-            else
-              text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '</td>'
-            text += '</tr>'
-            $("[data-js=circleList]").append(text);
+            circleRenderer.renderCircleList(circle, user)
         error: (msg)->
           console.log msg
 
@@ -88,4 +78,3 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
             $(target).remove()
           error: (msg)=>
             @notyHelper.generate('error', '削除失敗', "何らかの理由でサークルを削除できませんでした。")
-

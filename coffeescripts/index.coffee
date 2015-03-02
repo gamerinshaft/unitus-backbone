@@ -15,6 +15,6 @@ require.config
       deps: ["jquery"]
     'noty':
       deps: ["jquery"]
-require ['jquery', 'bootstrap', 'highcharts', 'noty', 'views/dashboard/dashboard', 'helpers/notyHelper'], ($, bootstrap, highcharts, noty, DashboardView, NotyHelper) ->
+require ['jquery', 'bootstrap', 'highcharts', 'noty', 'views/dashboard/dashboard', 'helpers/notyHelper', 'views/renderer/circle'], ($, bootstrap, highcharts, noty, DashboardView, NotyHelper, CircleRenderView) ->
   $ ->
     new DashboardView(el: $('[data-js=app]'))

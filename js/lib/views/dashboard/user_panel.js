@@ -51,9 +51,11 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
         data: sendData,
         success: (function(_this) {
           return function(msg) {
+            var circleRenderer;
             console.log(msg);
+            circleRenderer = new CircleRenderView();
             return $.each(msg.Content.Circle, function(index, obj) {
-              var circle, text;
+              var circle;
               circle = new Circle({
                 CircleID: obj.CircleId,
                 CircleName: obj.CircleName,
@@ -63,19 +65,7 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
                 IsBelonging: obj.IsBelonging
               });
               _this.circles.add(circle);
-              text = '';
-              text += '<tr data-circleID="' + circle.get("CircleId") + '" data-commonId="' + circle.get("CircleId") + '">';
-              text += '<td class="name name_w">' + circle.get("CircleName") + '<i class="glyphicon glyphicon-eye-open"></i></td>';
-              text += '<td class="author author_w">' + "閲覧者" + '</td>';
-              text += '<td class="number number_w">' + circle.get("MemberCount") + '</td>';
-              text += '<td class="university university_w">' + circle.get("BelongedUniversity") + '</td>';
-              if (user.get("isAdmin")) {
-                text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '<i class="fa fa-times-circle" data-js="deleteCircle"></i></td>';
-              } else {
-                text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '</td>';
-              }
-              text += '</tr>';
-              return $("[data-js=circleList]").append(text);
+              return circleRenderer.renderCircleList(circle, user);
             });
           };
         })(this),
