@@ -14,7 +14,7 @@ define ['jquery', 'backbone','templates/dashboard/admin_panel', 'views/admin/new
             text += '<td class="name name_w">' + this.Name + '<i data-js="deleteAccount" class="fa fa-times"></i></td>'
             text += '<td class="author author_w">' + "閲覧者" + '</td>'
             text += '<td class="number number_w">' + this.Grade + '</td>'
-            text += '<td class="university university_w">' + this.BelongedTo + '</td>'
+            text += '<td class="university university_w">' + this.BelongedSchool + '</td>'
             text += '<td class="mail mail_w">' + this.UserName + '<i class="fa fa-clipboard" data-js="copyMail" data-clipboard-text="' + this.UserName + '"></i></td>'
             text += '</tr>'
             $("[data-js=userList]").append(text);
