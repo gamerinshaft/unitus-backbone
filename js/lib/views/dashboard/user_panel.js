@@ -17,7 +17,6 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
     UserPanelView.prototype.initialize = function(option) {
       this.dashboard = option.dashboard;
       this.circles = option.circles;
-      console.log(this.dashboard);
       this.belongingCircles = this.dashboard.get("CircleBelonging");
       this.notyHelper = new NotyHelper();
       this.renderUserPanel();
@@ -55,16 +54,31 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
         success: (function(_this) {
           return function(msg) {
             return $.each(msg.Content.Circle, function(index, obj) {
-              var circle;
-              circle = new Circle({
-                CircleID: obj.CircleId,
-                CircleName: obj.CircleName,
-                MemberCount: obj.MemberCount,
-                BelongedSchool: obj.BelongedSchool,
-                LastUpdateDate: obj.LastUpdateDate,
-                IsBelonging: obj.IsBelonging
+              var circle, existCircle;
+              existCircle = _this.circles.where({
+                CircleID: obj.CircleId
               });
-              return _this.circles.add(circle);
+              if (existCircle.length <= 0) {
+                circle = new Circle({
+                  CircleID: obj.CircleId,
+                  CircleName: obj.CircleName,
+                  MemberCount: obj.MemberCount,
+                  BelongedSchool: obj.BelongedSchool,
+                  LastUpdateDate: obj.LastUpdateDate,
+                  IsBelonging: obj.IsBelonging
+                });
+                return _this.circles.add(circle);
+              } else {
+                console.log("これです。");
+                return existCircle[0].set({
+                  CircleID: obj.CircleId,
+                  CircleName: obj.CircleName,
+                  MemberCount: obj.MemberCount,
+                  BelongedSchool: obj.BelongedSchool,
+                  LastUpdateDate: obj.LastUpdateDate,
+                  IsBelonging: obj.IsBelonging
+                });
+              }
             });
           };
         })(this),
@@ -84,14 +98,29 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
       var textPanel, textSidebar;
       $.each(this.belongingCircles, (function(_this) {
         return function(index, obj) {
-          var circle;
-          circle = new Circle({
-            CircleID: obj.CircleId,
-            CircleName: obj.CircleName,
-            HasAuthority: true,
-            CircleTags: obj.CircleTags
+          var circle, existCircle;
+          existCircle = _this.circles.where({
+            CircleID: obj.CircleId
           });
-          return _this.circles.add(circle);
+          if (existCircle.length <= 0) {
+            circle = new Circle({
+              CircleID: obj.CircleId,
+              CircleName: obj.CircleName,
+              HasAuthority: true,
+              CircleTags: obj.CircleTags
+            });
+            return _this.circles.add(circle);
+          } else {
+            console.log("これです。");
+            return existCircle[0].set({
+              CircleID: obj.CircleId,
+              CircleName: obj.CircleName,
+              MemberCount: obj.MemberCount,
+              BelongedSchool: obj.BelongedSchool,
+              LastUpdateDate: obj.LastUpdateDate,
+              IsBelonging: obj.IsBelonging
+            });
+          }
         };
       })(this));
       textSidebar = '';

@@ -2,25 +2,41 @@ define ['jquery', 'backbone'], ($, Backbone) ->
   class CircleRenderView extends Backbone.View
     initialize: (option)->
       @circles = option.circles
-      @listenTo @circles, 'add', (circle)->
-        console.log "ついかされましたたたたたたt"
+      @dashboard = option.dashboard
+      @listenTo @circles, 'add', (circle)=>
+        @renderCircleList(circle, @dashboard)
+      @listenTo @circles, 'change', (circle)=>
+        @renderUpdateCircleList(circle, @dashboard)
 
     renderAll: ->
       console.log "全てをレンダーするぜ"
 
-    renderCircleList: (circle, user)->
+    renderCircleList: (circle, dashboard)->
       text =  ''
-      text += '<tr data-circleID="' +circle.get("CircleId") + '" data-commonId="' + circle.get("CircleId") + '">'
+      text += '<tr data-circleListID="' +circle.get("CircleID") + '" data-commonId="' + circle.get("CircleID") + '">'
       text += '<td class="name name_w">' + circle.get("CircleName") + '<i class="glyphicon glyphicon-eye-open"></i></td>'
       text += '<td class="author author_w">' + "閲覧者" + '</td>'
       text += '<td class="number number_w">' + circle.get("MemberCount") + '</td>'
       text += '<td class="university university_w">' + circle.get("BelongedSchool") + '</td>'
-      if user.get("isAdmin")
+      if dashboard.get("IsAdministrator")
         text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '<i class="fa fa-times-circle" data-js="deleteCircle"></i></td>'
       else
         text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '</td>'
       text += '</tr>'
       $("[data-js=circleList]").append(text);
+
+    renderUpdateCircleList: (circle, dashboard)->
+      text = ''
+      text += '<td class="name name_w">' + circle.get("CircleName") + '<i class="glyphicon glyphicon-eye-open"></i></td>'
+      text += '<td class="author author_w">' + "閲覧者" + '</td>'
+      text += '<td class="number number_w">' + circle.get("MemberCount") + '</td>'
+      text += '<td class="university university_w">' + circle.get("BelongedSchool") + '</td>'
+      if dashboard.get("IsAdministrator")
+        text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '<i class="fa fa-times-circle" data-js="deleteCircle"></i></td>'
+      else
+        text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '</td>'
+
+      $("[data-circleListID=#{circle.get("CircleID")}]").html text
 
     renderBelongingCircleSidebar: ->
       textSidebar  = ''

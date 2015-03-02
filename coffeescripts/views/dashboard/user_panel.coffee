@@ -3,7 +3,6 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
     initialize: (option) ->
       @dashboard = option.dashboard
       @circles = option.circles
-      console.log @dashboard
       @belongingCircles = @dashboard.get("CircleBelonging")
       @notyHelper = new NotyHelper()
       @renderUserPanel()
@@ -33,8 +32,13 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
         data: sendData,
         success: (msg)=>
           $.each msg.Content.Circle, (index, obj)=>
-            circle = new Circle(CircleID: obj.CircleId, CircleName: obj.CircleName, MemberCount: obj.MemberCount, BelongedSchool: obj.BelongedSchool, LastUpdateDate: obj.LastUpdateDate, IsBelonging: obj.IsBelonging)
-            @circles.add circle
+            existCircle = @circles.where(CircleID: obj.CircleId)
+            if existCircle.length <= 0
+              circle = new Circle(CircleID: obj.CircleId, CircleName: obj.CircleName, MemberCount: obj.MemberCount, BelongedSchool: obj.BelongedSchool, LastUpdateDate: obj.LastUpdateDate, IsBelonging: obj.IsBelonging)
+              @circles.add circle
+            else
+              console.log "これです。"
+              existCircle[0].set CircleID: obj.CircleId, CircleName: obj.CircleName, MemberCount: obj.MemberCount, BelongedSchool: obj.BelongedSchool, LastUpdateDate: obj.LastUpdateDate, IsBelonging: obj.IsBelonging
         error: (msg)->
           console.log msg
      # プロフィール
@@ -44,9 +48,13 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
      # 所属団体
     renderBelongingCircles: =>
       $.each @belongingCircles, (index, obj)=>
-        circle = new Circle(CircleID: obj.CircleId, CircleName: obj.CircleName, HasAuthority: true, CircleTags: obj.CircleTags)
-        @circles.add circle
-
+        existCircle = @circles.where(CircleID: obj.CircleId)
+        if existCircle.length <= 0
+          circle = new Circle(CircleID: obj.CircleId, CircleName: obj.CircleName, HasAuthority: true, CircleTags: obj.CircleTags)
+          @circles.add circle
+        else
+          console.log "これです。"
+          existCircle[0].set CircleID: obj.CircleId, CircleName: obj.CircleName, MemberCount: obj.MemberCount, BelongedSchool: obj.BelongedSchool, LastUpdateDate: obj.LastUpdateDate, IsBelonging: obj.IsBelonging
 
       textSidebar  = ''
       textPanel    = ''

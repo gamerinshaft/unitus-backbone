@@ -12,30 +12,53 @@ define(['jquery', 'backbone'], function($, Backbone) {
 
     CircleRenderView.prototype.initialize = function(option) {
       this.circles = option.circles;
-      return this.listenTo(this.circles, 'add', function(circle) {
-        return console.log("ついかされましたたたたたたt");
-      });
+      this.dashboard = option.dashboard;
+      this.listenTo(this.circles, 'add', (function(_this) {
+        return function(circle) {
+          return _this.renderCircleList(circle, _this.dashboard);
+        };
+      })(this));
+      return this.listenTo(this.circles, 'change', (function(_this) {
+        return function(circle) {
+          return _this.renderUpdateCircleList(circle, _this.dashboard);
+        };
+      })(this));
     };
 
     CircleRenderView.prototype.renderAll = function() {
       return console.log("全てをレンダーするぜ");
     };
 
-    CircleRenderView.prototype.renderCircleList = function(circle, user) {
+    CircleRenderView.prototype.renderCircleList = function(circle, dashboard) {
       var text;
       text = '';
-      text += '<tr data-circleID="' + circle.get("CircleId") + '" data-commonId="' + circle.get("CircleId") + '">';
+      text += '<tr data-circleListID="' + circle.get("CircleID") + '" data-commonId="' + circle.get("CircleID") + '">';
       text += '<td class="name name_w">' + circle.get("CircleName") + '<i class="glyphicon glyphicon-eye-open"></i></td>';
       text += '<td class="author author_w">' + "閲覧者" + '</td>';
       text += '<td class="number number_w">' + circle.get("MemberCount") + '</td>';
       text += '<td class="university university_w">' + circle.get("BelongedSchool") + '</td>';
-      if (user.get("isAdmin")) {
+      if (dashboard.get("IsAdministrator")) {
         text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '<i class="fa fa-times-circle" data-js="deleteCircle"></i></td>';
       } else {
         text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '</td>';
       }
       text += '</tr>';
       return $("[data-js=circleList]").append(text);
+    };
+
+    CircleRenderView.prototype.renderUpdateCircleList = function(circle, dashboard) {
+      var text;
+      text = '';
+      text += '<td class="name name_w">' + circle.get("CircleName") + '<i class="glyphicon glyphicon-eye-open"></i></td>';
+      text += '<td class="author author_w">' + "閲覧者" + '</td>';
+      text += '<td class="number number_w">' + circle.get("MemberCount") + '</td>';
+      text += '<td class="university university_w">' + circle.get("BelongedSchool") + '</td>';
+      if (dashboard.get("IsAdministrator")) {
+        text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '<i class="fa fa-times-circle" data-js="deleteCircle"></i></td>';
+      } else {
+        text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '</td>';
+      }
+      return $("[data-circleListID=" + (circle.get("CircleID")) + "]").html(text);
     };
 
     CircleRenderView.prototype.renderBelongingCircleSidebar = function() {

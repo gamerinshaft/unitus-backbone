@@ -1,7 +1,7 @@
-define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/dashboard', 'models/admin_panel'], ($, Backbone, template, HeaderView, PanelView, Dashboard, AdminPanel) ->
+define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/admin_panel'], ($, Backbone, template, HeaderView, PanelView, AdminPanel) ->
   class DashboadView extends Backbone.View
     initialize: (option) ->
-      @Dashboard = new Dashboard()
+      @dashboard = option.dashboard
       @circles = option.circles
       $.ajaxSetup
         xhrFields:
@@ -18,19 +18,19 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
           console.log msg
           $("[data-js=loading]").fadeOut()
           data = msg.Content
-          @Dashboard.set Name: data.Name
-          @Dashboard.set UserName: data.UserName
-          @Dashboard.set AvatarUri: data.AvatarUri
-          @Dashboard.set IsAdministrator: data.IsAdministrator
-          @Dashboard.set CircleBelonging: data.CircleBelonging
-          @Dashboard.set Profile: data.Profile
+          @dashboard.set Name: data.Name
+          @dashboard.set UserName: data.UserName
+          @dashboard.set AvatarUri: data.AvatarUri
+          @dashboard.set IsAdministrator: data.IsAdministrator
+          @dashboard.set CircleBelonging: data.CircleBelonging
+          @dashboard.set Profile: data.Profile
 
-          if @Dashboard.get("IsAdministrator")
+          if @dashboard.get("IsAdministrator")
             @admin_panel = new AdminPanel()
 
           @renderDashboard();
-          new HeaderView(el: $("[data-js=header]"), dashboard: @Dashboard, admin_panel:  @admin_panel)
-          new PanelView(el: $("[data-js=panel]"), dashboard: @Dashboard, admin_panel: @admin_panel, circles: @circles)
+          new HeaderView(el: $("[data-js=header]"), dashboard: @dashboard, admin_panel:  @admin_panel)
+          new PanelView(el: $("[data-js=panel]"), dashboard: @dashboard, admin_panel: @admin_panel, circles: @circles)
           @$el.fadeIn()
         error: (XMLHttpRequest, textStatus) ->
           console.log XMLHttpRequest
