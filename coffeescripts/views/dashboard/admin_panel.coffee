@@ -24,6 +24,7 @@ define ['jquery', 'backbone','templates/dashboard/admin_panel', 'views/admin/new
 
       @admin_panel = option.admin_panel
       @admin_panel.on "change:isOpen", =>
+        console.log "open"
         @$el.toggleClass("hidden_panel_l")
       @renderAdminPanel()
       new AdminNewCircle(el: $("[data-js=adminNewCircle]"))

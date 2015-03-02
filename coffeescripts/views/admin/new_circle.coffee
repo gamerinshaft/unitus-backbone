@@ -10,13 +10,10 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
         type: "GET"
         url:  "https://core.unitus-ac.com/Candidate/University"
         success: (msg)=>
-          console.log "栄光"
-          console.log msg
           $.each msg.Content, (index, obj)=>
             @$("[data-js=circleSelect]").append "<option>#{obj}</option>"
           @$("[data-js=circleSelect]").append "<option>その他</option>"
         error: (msg)=>
-          console.log "栄光ジャナイ"
           console.log msg
     events:
       "change input"    : "watchChangeValue"
@@ -145,7 +142,7 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
       console.log "isCircles"
       sendData =
         circleName: "#{@circle.get("CircleName")}"
-        universityName: "#{@circle.get("BelongedSchool")}"
+        belongedSchool: "#{@circle.get("BelongedSchool")}"
       $.ajax
         type: "GET",
         url:"https://core.unitus-ac.com/Circle/CheckExist",

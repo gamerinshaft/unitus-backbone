@@ -1,7 +1,7 @@
 var __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __hasProp = {}.hasOwnProperty;
 
-define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel', 'collections/circles'], function($, Backbone, template, HeaderView, PanelView, User, AdminPanel, Circles) {
+define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/dashboard', 'models/admin_panel'], function($, Backbone, template, HeaderView, PanelView, Dashboard, AdminPanel) {
   var DashboadView;
   return DashboadView = (function(_super) {
     __extends(DashboadView, _super);
@@ -11,8 +11,8 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
     }
 
     DashboadView.prototype.initialize = function(option) {
-      this.user = new User();
-      this.circles = new Circles();
+      this.Dashboard = new Dashboard();
+      this.circles = option.circles;
       $.ajaxSetup({
         xhrFields: {
           withCredentials: true
@@ -31,33 +31,36 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
             console.log(msg);
             $("[data-js=loading]").fadeOut();
             data = msg.Content;
-            _this.user.set({
-              name: data.Name
+            _this.Dashboard.set({
+              Name: data.Name
             });
-            _this.user.set({
-              mail: data.UserName
+            _this.Dashboard.set({
+              UserName: data.UserName
             });
-            _this.user.set({
-              avatar: data.AvatarUri
+            _this.Dashboard.set({
+              AvatarUri: data.AvatarUri
             });
-            _this.user.set({
-              isAdmin: data.IsAdministrator
+            _this.Dashboard.set({
+              IsAdministrator: data.IsAdministrator
             });
-            _this.user.set({
-              circles: data.CircleBelonging
+            _this.Dashboard.set({
+              CircleBelonging: data.CircleBelonging
             });
-            if (_this.user.get("isAdmin")) {
+            _this.Dashboard.set({
+              Profile: data.Profile
+            });
+            if (_this.Dashboard.get("IsAdministrator")) {
               _this.admin_panel = new AdminPanel();
             }
             _this.renderDashboard();
             new HeaderView({
               el: $("[data-js=header]"),
-              user: _this.user,
+              dashboard: _this.Dashboard,
               admin_panel: _this.admin_panel
             });
             new PanelView({
               el: $("[data-js=panel]"),
-              user: _this.user,
+              dashboard: _this.Dashboard,
               admin_panel: _this.admin_panel,
               circles: _this.circles
             });
@@ -76,7 +79,7 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
 
     DashboadView.prototype.renderDashboard = function() {
       return this.$el.html(template({
-        user: this.user
+        dashboard: this.Dashboard
       }));
     };
 

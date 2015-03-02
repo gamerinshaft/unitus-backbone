@@ -1,7 +1,7 @@
 define ['jquery', 'backbone', 'templates/dashboard/header'], ($, Backbone, HeaderTemplate) ->
   class HeaderView extends Backbone.View
     initialize: (option) ->
-      @user = option.user
+      @dashboard = option.dashboard
       @admin_panel = option.admin_panel
       @renderTemplate()
 
@@ -10,12 +10,12 @@ define ['jquery', 'backbone', 'templates/dashboard/header'], ($, Backbone, Heade
       "click [data-js=adminToggle]" : "adminOpen"
 
     renderTemplate: ->
-      @$el.html HeaderTemplate(user: @user)
+      @$el.html HeaderTemplate(dashboard: @dashboard)
     dropdownToggle: (event)->
 
     adminOpen: (e)->
       e.preventDefault()
       e.stopPropagation()
-
+      console.log @admin_panel
       @admin_panel.set isOpen: true
 

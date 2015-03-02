@@ -22,7 +22,9 @@ define(['jquery', 'backbone'], function($, Backbone) {
       Contact: '',
       CanInterColledge: false,
       ActivityDate: '',
-      LeaderUserName: ''
+      LeaderUserName: '',
+      HasAuthority: true,
+      CircleTags: ''
     };
 
     return Circle;

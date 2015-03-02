@@ -1,14 +1,15 @@
 define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashboard/user_profile', 'views/dashboard/achivement', 'models/circle'], ($, Backbone, UserTemplate, UserProfile, AchivementView, Circle) ->
   class UserPanelView extends Backbone.View
     initialize: (option) ->
-      @user = option.user
+      @dashboard = option.dashboard
       @circles = option.circles
-      @belongingCircles = @user.attributes.circles
+      console.log @dashboard
+      @belongingCircles = @dashboard.get("CircleBelonging")
       @notyHelper = new NotyHelper()
       @renderUserPanel()
       @renderUserProfile()
       @renderCircleList()
-      new AchivementView(el: '[data-js=achivementList]', user: @user)
+      new AchivementView(el: '[data-js=achivementList]', dashboard: @dashboard)
 
       if @belongingCircles.length > 0
         @renderBelongingCircles()
@@ -21,7 +22,8 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
 
      # サークル一覧
     renderCircleList:=>
-      user = @user
+      circleList = []
+      dashboard = @dashboard
       sendData =
         count: 40
         offset: 0
@@ -30,21 +32,22 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
         url:"https://core.unitus-ac.com/Circle",
         data: sendData,
         success: (msg)=>
-          console.log msg
-          circleRenderer = new  CircleRenderView()
           $.each msg.Content.Circle, (index, obj)=>
-            circle = new Circle(CircleID: obj.CircleId, CircleName: obj.CircleName, MemberCount: obj.MemberCount, BelongedUniversity: obj.BelongedUniversity, LastUpdateDate: obj.LastUpdateDate, IsBelonging: obj.IsBelonging)
+            circle = new Circle(CircleID: obj.CircleId, CircleName: obj.CircleName, MemberCount: obj.MemberCount, BelongedSchool: obj.BelongedSchool, LastUpdateDate: obj.LastUpdateDate, IsBelonging: obj.IsBelonging)
             @circles.add circle
-            circleRenderer.renderCircleList(circle, user)
         error: (msg)->
           console.log msg
-
      # プロフィール
     renderUserProfile: ->
-      @$('[data-js="myProfile"]').html UserProfile(user: @user)
+      @$('[data-js="myProfile"]').html UserProfile(dashboard: @dashboard)
 
      # 所属団体
-    renderBelongingCircles: ->
+    renderBelongingCircles: =>
+      $.each @belongingCircles, (index, obj)=>
+        circle = new Circle(CircleID: obj.CircleId, CircleName: obj.CircleName, HasAuthority: true, CircleTags: obj.CircleTags)
+        @circles.add circle
+
+
       textSidebar  = ''
       textPanel    = ''
       textSidebar += '<li class="divider"><h1>所属サークル</h1></li>'

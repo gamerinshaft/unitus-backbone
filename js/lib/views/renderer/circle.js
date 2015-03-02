@@ -2,7 +2,8 @@ var __extends = function(child, parent) { for (var key in parent) { if (__hasPro
   __hasProp = {}.hasOwnProperty;
 
 define(['jquery', 'backbone'], function($, Backbone) {
-  return window.CircleRenderView = (function(_super) {
+  var CircleRenderView;
+  return CircleRenderView = (function(_super) {
     __extends(CircleRenderView, _super);
 
     function CircleRenderView() {
@@ -10,7 +11,10 @@ define(['jquery', 'backbone'], function($, Backbone) {
     }
 
     CircleRenderView.prototype.initialize = function(option) {
-      return console.log("this is CircleRenderView!!!!!!!");
+      this.circles = option.circles;
+      return this.listenTo(this.circles, 'add', function(circle) {
+        return console.log("ついかされましたたたたたたt");
+      });
     };
 
     CircleRenderView.prototype.renderAll = function() {
@@ -24,7 +28,7 @@ define(['jquery', 'backbone'], function($, Backbone) {
       text += '<td class="name name_w">' + circle.get("CircleName") + '<i class="glyphicon glyphicon-eye-open"></i></td>';
       text += '<td class="author author_w">' + "閲覧者" + '</td>';
       text += '<td class="number number_w">' + circle.get("MemberCount") + '</td>';
-      text += '<td class="university university_w">' + circle.get("BelongedUniversity") + '</td>';
+      text += '<td class="university university_w">' + circle.get("BelongedSchool") + '</td>';
       if (user.get("isAdmin")) {
         text += '<td class="update update_w">' + circle.get("LastUpdateDate") + '<i class="fa fa-times-circle" data-js="deleteCircle"></i></td>';
       } else {

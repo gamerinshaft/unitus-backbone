@@ -25,8 +25,6 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
         url: "https://core.unitus-ac.com/Candidate/University",
         success: (function(_this) {
           return function(msg) {
-            console.log("栄光");
-            console.log(msg);
             $.each(msg.Content, function(index, obj) {
               return _this.$("[data-js=circleSelect]").append("<option>" + obj + "</option>");
             });
@@ -35,7 +33,6 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
         })(this),
         error: (function(_this) {
           return function(msg) {
-            console.log("栄光ジャナイ");
             return console.log(msg);
           };
         })(this)
@@ -258,7 +255,7 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
       console.log("isCircles");
       sendData = {
         circleName: "" + (this.circle.get("CircleName")),
-        universityName: "" + (this.circle.get("BelongedSchool"))
+        belongedSchool: "" + (this.circle.get("BelongedSchool"))
       };
       return $.ajax({
         type: "GET",

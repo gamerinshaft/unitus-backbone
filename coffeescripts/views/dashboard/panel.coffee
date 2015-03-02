@@ -2,10 +2,10 @@ define ['jquery', 'backbone', 'views/dashboard/user_panel','views/dashboard/admi
   class PanelView extends Backbone.View
     initialize: (option) ->
       @circles = option.circles
-      @user = option.user
+      @dashboard = option.dashboard
       @admin_panel = option.admin_panel
       @renderDashboard();
     renderDashboard: ->
-      new UserPanelView(el: $("[data-js=basic]"), user: @user, circles: @circles)
-      if @user.get("isAdmin")
+      new UserPanelView(el: $("[data-js=basic]"), dashboard: @dashboard, circles: @circles)
+      if @dashboard.get("IsAdministrator")
         new AdminPanelView(el: $("[data-js=admin]"), admin_panel: @admin_panel)

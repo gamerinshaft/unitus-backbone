@@ -1,8 +1,8 @@
 .profilebar
   h1.profile_name
     i.glyphicon.glyphicon-chevron-right
-    = user.get("name")
-  img(src="#{user.get('avatar')}")
+    = dashboard.get("Name")
+  img(src="#{dashboard.get('AvatarUri')}")
 
   #accordion.panel-group(role='tablist', aria-multiselectable='true')
     .panel.panel-default

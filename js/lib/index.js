@@ -21,10 +21,16 @@ require.config({
   }
 });
 
-require(['jquery', 'bootstrap', 'highcharts', 'noty', 'views/dashboard/dashboard', 'helpers/notyHelper', 'views/renderer/circle'], function($, bootstrap, highcharts, noty, DashboardView, NotyHelper, CircleRenderView) {
+require(['jquery', 'bootstrap', 'highcharts', 'noty', 'views/dashboard/dashboard', 'helpers/notyHelper', 'views/renderer/circle', 'collections/circles'], function($, bootstrap, highcharts, noty, DashboardView, NotyHelper, CircleRenderView, Circles) {
   return $(function() {
-    return new DashboardView({
-      el: $('[data-js=app]')
+    var circles;
+    circles = new Circles();
+    new DashboardView({
+      el: $('[data-js=app]'),
+      circles: circles
+    });
+    return new CircleRenderView({
+      circles: circles
     });
   });
 });

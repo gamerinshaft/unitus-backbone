@@ -15,6 +15,8 @@ require.config
       deps: ["jquery"]
     'noty':
       deps: ["jquery"]
-require ['jquery', 'bootstrap', 'highcharts', 'noty', 'views/dashboard/dashboard', 'helpers/notyHelper', 'views/renderer/circle'], ($, bootstrap, highcharts, noty, DashboardView, NotyHelper, CircleRenderView) ->
+require ['jquery', 'bootstrap', 'highcharts', 'noty', 'views/dashboard/dashboard', 'helpers/notyHelper', 'views/renderer/circle', 'collections/circles'], ($, bootstrap, highcharts, noty, DashboardView, NotyHelper, CircleRenderView, Circles) ->
   $ ->
-    new DashboardView(el: $('[data-js=app]'))
+    circles = new Circles()
+    new DashboardView(el: $('[data-js=app]'), circles: circles)
+    new CircleRenderView(circles: circles)

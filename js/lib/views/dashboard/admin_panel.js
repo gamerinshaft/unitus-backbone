@@ -40,6 +40,7 @@ define(['jquery', 'backbone', 'templates/dashboard/admin_panel', 'views/admin/ne
       this.admin_panel = option.admin_panel;
       this.admin_panel.on("change:isOpen", (function(_this) {
         return function() {
+          console.log("open");
           return _this.$el.toggleClass("hidden_panel_l");
         };
       })(this));

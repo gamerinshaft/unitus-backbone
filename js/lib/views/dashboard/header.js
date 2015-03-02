@@ -11,7 +11,7 @@ define(['jquery', 'backbone', 'templates/dashboard/header'], function($, Backbon
     }
 
     HeaderView.prototype.initialize = function(option) {
-      this.user = option.user;
+      this.dashboard = option.dashboard;
       this.admin_panel = option.admin_panel;
       return this.renderTemplate();
     };
@@ -23,7 +23,7 @@ define(['jquery', 'backbone', 'templates/dashboard/header'], function($, Backbon
 
     HeaderView.prototype.renderTemplate = function() {
       return this.$el.html(HeaderTemplate({
-        user: this.user
+        dashboard: this.dashboard
       }));
     };
 
@@ -32,6 +32,7 @@ define(['jquery', 'backbone', 'templates/dashboard/header'], function($, Backbon
     HeaderView.prototype.adminOpen = function(e) {
       e.preventDefault();
       e.stopPropagation();
+      console.log(this.admin_panel);
       return this.admin_panel.set({
         isOpen: true
       });

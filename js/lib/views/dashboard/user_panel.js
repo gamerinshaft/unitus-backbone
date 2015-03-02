@@ -9,21 +9,23 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
 
     function UserPanelView() {
       this.deleteCircle = __bind(this.deleteCircle, this);
+      this.renderBelongingCircles = __bind(this.renderBelongingCircles, this);
       this.renderCircleList = __bind(this.renderCircleList, this);
       return UserPanelView.__super__.constructor.apply(this, arguments);
     }
 
     UserPanelView.prototype.initialize = function(option) {
-      this.user = option.user;
+      this.dashboard = option.dashboard;
       this.circles = option.circles;
-      this.belongingCircles = this.user.attributes.circles;
+      console.log(this.dashboard);
+      this.belongingCircles = this.dashboard.get("CircleBelonging");
       this.notyHelper = new NotyHelper();
       this.renderUserPanel();
       this.renderUserProfile();
       this.renderCircleList();
       new AchivementView({
         el: '[data-js=achivementList]',
-        user: this.user
+        dashboard: this.dashboard
       });
       if (this.belongingCircles.length > 0) {
         return this.renderBelongingCircles();
@@ -39,8 +41,9 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
     };
 
     UserPanelView.prototype.renderCircleList = function() {
-      var sendData, user;
-      user = this.user;
+      var circleList, dashboard, sendData;
+      circleList = [];
+      dashboard = this.dashboard;
       sendData = {
         count: 40,
         offset: 0
@@ -51,21 +54,17 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
         data: sendData,
         success: (function(_this) {
           return function(msg) {
-            var circleRenderer;
-            console.log(msg);
-            circleRenderer = new CircleRenderView();
             return $.each(msg.Content.Circle, function(index, obj) {
               var circle;
               circle = new Circle({
                 CircleID: obj.CircleId,
                 CircleName: obj.CircleName,
                 MemberCount: obj.MemberCount,
-                BelongedUniversity: obj.BelongedUniversity,
+                BelongedSchool: obj.BelongedSchool,
                 LastUpdateDate: obj.LastUpdateDate,
                 IsBelonging: obj.IsBelonging
               });
-              _this.circles.add(circle);
-              return circleRenderer.renderCircleList(circle, user);
+              return _this.circles.add(circle);
             });
           };
         })(this),
@@ -77,12 +76,24 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
 
     UserPanelView.prototype.renderUserProfile = function() {
       return this.$('[data-js="myProfile"]').html(UserProfile({
-        user: this.user
+        dashboard: this.dashboard
       }));
     };
 
     UserPanelView.prototype.renderBelongingCircles = function() {
       var textPanel, textSidebar;
+      $.each(this.belongingCircles, (function(_this) {
+        return function(index, obj) {
+          var circle;
+          circle = new Circle({
+            CircleID: obj.CircleId,
+            CircleName: obj.CircleName,
+            HasAuthority: true,
+            CircleTags: obj.CircleTags
+          });
+          return _this.circles.add(circle);
+        };
+      })(this));
       textSidebar = '';
       textPanel = '';
       textSidebar += '<li class="divider"><h1>所属サークル</h1></li>';

@@ -1,8 +1,8 @@
-define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/user', 'models/admin_panel', 'collections/circles'], ($, Backbone, template, HeaderView, PanelView, User, AdminPanel, Circles) ->
+define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/header', 'views/dashboard/panel', 'models/dashboard', 'models/admin_panel'], ($, Backbone, template, HeaderView, PanelView, Dashboard, AdminPanel) ->
   class DashboadView extends Backbone.View
     initialize: (option) ->
-      @user = new User()
-      @circles = new Circles()
+      @Dashboard = new Dashboard()
+      @circles = option.circles
       $.ajaxSetup
         xhrFields:
           withCredentials: true
@@ -18,18 +18,19 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
           console.log msg
           $("[data-js=loading]").fadeOut()
           data = msg.Content
-          @user.set name: data.Name
-          @user.set mail: data.UserName
-          @user.set avatar: data.AvatarUri
-          @user.set isAdmin: data.IsAdministrator
-          @user.set circles: data.CircleBelonging
+          @Dashboard.set Name: data.Name
+          @Dashboard.set UserName: data.UserName
+          @Dashboard.set AvatarUri: data.AvatarUri
+          @Dashboard.set IsAdministrator: data.IsAdministrator
+          @Dashboard.set CircleBelonging: data.CircleBelonging
+          @Dashboard.set Profile: data.Profile
 
-          if @user.get("isAdmin")
+          if @Dashboard.get("IsAdministrator")
             @admin_panel = new AdminPanel()
 
           @renderDashboard();
-          new HeaderView(el: $("[data-js=header]"), user: @user, admin_panel:  @admin_panel)
-          new PanelView(el: $("[data-js=panel]"), user: @user, admin_panel: @admin_panel, circles: @circles)
+          new HeaderView(el: $("[data-js=header]"), dashboard: @Dashboard, admin_panel:  @admin_panel)
+          new PanelView(el: $("[data-js=panel]"), dashboard: @Dashboard, admin_panel: @admin_panel, circles: @circles)
           @$el.fadeIn()
         error: (XMLHttpRequest, textStatus) ->
           console.log XMLHttpRequest
@@ -37,5 +38,5 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
           if textStatus == "error" || XMLHttpRequest.ErrorMessage == "Unauthorized API Access"
              location.assign "https://core.unitus-ac.com/Account/Login"
     renderDashboard: ->
-      @$el.html template(user: @user)
+      @$el.html template(dashboard: @Dashboard)
 
