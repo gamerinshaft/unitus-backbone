@@ -15,11 +15,15 @@ define(['jquery', 'backbone'], function($, Backbone) {
       this.dashboard = option.dashboard;
       this.listenTo(this.circles, 'add', (function(_this) {
         return function(circle) {
-          return _this.renderCircleList(circle, _this.dashboard);
+          _this.renderCircleList(circle, _this.dashboard);
+          console.log(circle);
+          console.log(circle.get("IsBelonging"));
+          return _this.renderBelongingCircleSidebar(circle);
         };
       })(this));
       return this.listenTo(this.circles, 'change', (function(_this) {
         return function(circle) {
+          console.log(circle);
           return _this.renderUpdateCircleList(circle, _this.dashboard);
         };
       })(this));
@@ -61,22 +65,19 @@ define(['jquery', 'backbone'], function($, Backbone) {
       return $("[data-circleListID=" + (circle.get("CircleID")) + "]").html(text);
     };
 
-    CircleRenderView.prototype.renderBelongingCircleSidebar = function() {
+    CircleRenderView.prototype.renderBelongingCircleSidebar = function(circle) {
       var textPanel, textSidebar;
       textSidebar = '';
       textPanel = '';
-      textSidebar += '<li class="divider"><h1>所属サークル</h1></li>';
-      $.each(this.belongingCircles, function() {
-        textSidebar += '<li role="presentation" data-commonId="' + this.CircleId + '">';
-        textSidebar += '<a href="#' + this.CircleId + '" aria-controls="#' + this.CircleId + '" role="tab" data-toggle="tab">';
-        textSidebar += '<i class="circleIcon">' + this.CircleName.slice(0, 1) + '</i>';
-        textSidebar += '<span class="title">' + this.CircleName + '</span>';
-        textSidebar += '</a>';
-        textSidebar += '</li>';
-        textPanel += '<div id="' + this.CircleId + '" class="tab-pane fade in" role="tabpanel" data-commonId="' + this.CircleId + '">';
-        textPanel += '<h1>' + this.CircleName + '</h1>';
-        return textPanel += '</div>';
-      });
+      textSidebar += '<li role="presentation" data-commonId="' + circle.get("CircleID") + '">';
+      textSidebar += '<a href="#' + circle.get("CircleID") + '" aria-controls="#' + circle.get("CircleId") + '" role="tab" data-toggle="tab">';
+      textSidebar += '<i class="circleIcon">' + circle.get("CircleName").slice(0, 1) + '</i>';
+      textSidebar += '<span class="title">' + circle.get("CircleName") + '</span>';
+      textSidebar += '</a>';
+      textSidebar += '</li>';
+      textPanel += '<div id="' + circle.get("CircleID") + '" class="tab-pane fade in" role="tabpanel" data-commonId="' + circle.get("CircleID") + '">';
+      textPanel += '<h1>' + circle.get("CircleName") + '</h1>';
+      textPanel += '</div>';
       $("[data-js=userSideList]").append(textSidebar);
       return $("[data-js=userPanelList]").append(textPanel);
     };

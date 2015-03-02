@@ -5,8 +5,13 @@ define ['jquery', 'backbone'], ($, Backbone) ->
       @dashboard = option.dashboard
       @listenTo @circles, 'add', (circle)=>
         @renderCircleList(circle, @dashboard)
+        console.log circle
+        console.log circle.get("IsBelonging")
+        @renderBelongingCircleSidebar circle
       @listenTo @circles, 'change', (circle)=>
+        console.log circle
         @renderUpdateCircleList(circle, @dashboard)
+
 
     renderAll: ->
       console.log "全てをレンダーするぜ"
@@ -38,19 +43,17 @@ define ['jquery', 'backbone'], ($, Backbone) ->
 
       $("[data-circleListID=#{circle.get("CircleID")}]").html text
 
-    renderBelongingCircleSidebar: ->
-      textSidebar  = ''
-      textPanel    = ''
-      textSidebar += '<li class="divider"><h1>所属サークル</h1></li>'
-      $.each @belongingCircles, ->
-        textSidebar += '<li role="presentation" data-commonId="' + this.CircleId + '">'
-        textSidebar += '<a href="#' + this.CircleId + '" aria-controls="#' + this.CircleId + '" role="tab" data-toggle="tab">'
-        textSidebar += '<i class="circleIcon">' + this.CircleName.slice(0,1) + '</i>'
-        textSidebar += '<span class="title">' + this.CircleName + '</span>'
-        textSidebar += '</a>'
-        textSidebar += '</li>'
-        textPanel   += '<div id="' + this.CircleId + '" class="tab-pane fade in" role="tabpanel" data-commonId="' + this.CircleId + '">'
-        textPanel   += '<h1>' + this.CircleName + '</h1>'
-        textPanel   += '</div>'
+    renderBelongingCircleSidebar: (circle)->
+      textSidebar = ''
+      textPanel = ''
+      textSidebar += '<li role="presentation" data-commonId="' + circle.get("CircleID") + '">'
+      textSidebar += '<a href="#' + circle.get("CircleID") + '" aria-controls="#' + circle.get("CircleId") + '" role="tab" data-toggle="tab">'
+      textSidebar += '<i class="circleIcon">' + circle.get("CircleName").slice(0,1) + '</i>'
+      textSidebar += '<span class="title">' + circle.get("CircleName") + '</span>'
+      textSidebar += '</a>'
+      textSidebar += '</li>'
+      textPanel   += '<div id="' + circle.get("CircleID") + '" class="tab-pane fade in" role="tabpanel" data-commonId="' + circle.get("CircleID") + '">'
+      textPanel   += '<h1>' + circle.get("CircleName") + '</h1>'
+      textPanel   += '</div>'
       $("[data-js=userSideList]").append textSidebar
       $("[data-js=userPanelList]").append textPanel

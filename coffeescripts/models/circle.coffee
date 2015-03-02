@@ -2,7 +2,7 @@ define ['jquery', 'backbone'], ($, Backbone) ->
   class Circle extends Backbone.Model
     defaults:
       #circleList
-      CircleId: ''
+      CircleID: ''
       CircleName: '' #必須
       CircleDescription: ''
       Membercount: ''

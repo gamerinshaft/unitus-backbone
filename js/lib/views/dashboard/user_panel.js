@@ -9,7 +9,6 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
 
     function UserPanelView() {
       this.deleteCircle = __bind(this.deleteCircle, this);
-      this.renderBelongingCircles = __bind(this.renderBelongingCircles, this);
       this.renderCircleList = __bind(this.renderCircleList, this);
       return UserPanelView.__super__.constructor.apply(this, arguments);
     }
@@ -22,13 +21,10 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
       this.renderUserPanel();
       this.renderUserProfile();
       this.renderCircleList();
-      new AchivementView({
+      return new AchivementView({
         el: '[data-js=achivementList]',
         dashboard: this.dashboard
       });
-      if (this.belongingCircles.length > 0) {
-        return this.renderBelongingCircles();
-      }
     };
 
     UserPanelView.prototype.events = {
@@ -94,61 +90,15 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
       }));
     };
 
-    UserPanelView.prototype.renderBelongingCircles = function() {
-      var textPanel, textSidebar;
-      $.each(this.belongingCircles, (function(_this) {
-        return function(index, obj) {
-          var circle, existCircle;
-          existCircle = _this.circles.where({
-            CircleID: obj.CircleId
-          });
-          if (existCircle.length <= 0) {
-            circle = new Circle({
-              CircleID: obj.CircleId,
-              CircleName: obj.CircleName,
-              HasAuthority: true,
-              CircleTags: obj.CircleTags
-            });
-            return _this.circles.add(circle);
-          } else {
-            console.log("これです。");
-            return existCircle[0].set({
-              CircleID: obj.CircleId,
-              CircleName: obj.CircleName,
-              MemberCount: obj.MemberCount,
-              BelongedSchool: obj.BelongedSchool,
-              LastUpdateDate: obj.LastUpdateDate,
-              IsBelonging: obj.IsBelonging
-            });
-          }
-        };
-      })(this));
-      textSidebar = '';
-      textPanel = '';
-      textSidebar += '<li class="divider"><h1>所属サークル</h1></li>';
-      $.each(this.belongingCircles, function() {
-        textSidebar += '<li role="presentation" data-commonId="' + this.CircleId + '">';
-        textSidebar += '<a href="#' + this.CircleId + '" aria-controls="#' + this.CircleId + '" role="tab" data-toggle="tab">';
-        textSidebar += '<i class="circleIcon">' + this.CircleName.slice(0, 1) + '</i>';
-        textSidebar += '<span class="title">' + this.CircleName + '</span>';
-        textSidebar += '</a>';
-        textSidebar += '</li>';
-        textPanel += '<div id="' + this.CircleId + '" class="tab-pane fade in" role="tabpanel" data-commonId="' + this.CircleId + '">';
-        textPanel += '<h1>' + this.CircleName + '</h1>';
-        return textPanel += '</div>';
-      });
-      $("[data-js=userSideList]").append(textSidebar);
-      return $("[data-js=userPanelList]").append(textPanel);
-    };
-
     UserPanelView.prototype.deleteCircle = function(e) {
-      var $circleRow, sendData;
+      var $circleRow, id, sendData;
       e.preventDefault();
       e.stopPropagation();
       $circleRow = $($($(e.target).get(0)).closest("tr").get(0));
       if (confirm($($circleRow.children("td.name").get(0)).text() + "を削除しますか？")) {
+        id = $circleRow.attr("data-circleListID");
         sendData = {
-          circleID: $circleRow.attr("data-circleId")
+          circleID: id
         };
         return $.ajax({
           type: "DELETE",
@@ -158,7 +108,8 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'templates/dashb
             return function(msg) {
               var target;
               _this.notyHelper.generate('info', '削除成功', "サークルを削除しました。");
-              target = "[data-commonId=" + $circleRow.attr("data-circleId") + "]";
+              target = "[data-commonId=" + id + "]";
+              console.log(target);
               return $(target).remove();
             };
           })(this),

@@ -10,9 +10,6 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
       @renderCircleList()
       new AchivementView(el: '[data-js=achivementList]', dashboard: @dashboard)
 
-      if @belongingCircles.length > 0
-        @renderBelongingCircles()
-
     events:
       "click [data-js=deleteCircle]" : "deleteCircle"
 
@@ -45,47 +42,22 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
     renderUserProfile: ->
       @$('[data-js="myProfile"]').html UserProfile(dashboard: @dashboard)
 
-     # 所属団体
-    renderBelongingCircles: =>
-      $.each @belongingCircles, (index, obj)=>
-        existCircle = @circles.where(CircleID: obj.CircleId)
-        if existCircle.length <= 0
-          circle = new Circle(CircleID: obj.CircleId, CircleName: obj.CircleName, HasAuthority: true, CircleTags: obj.CircleTags)
-          @circles.add circle
-        else
-          console.log "これです。"
-          existCircle[0].set CircleID: obj.CircleId, CircleName: obj.CircleName, MemberCount: obj.MemberCount, BelongedSchool: obj.BelongedSchool, LastUpdateDate: obj.LastUpdateDate, IsBelonging: obj.IsBelonging
-
-      textSidebar  = ''
-      textPanel    = ''
-      textSidebar += '<li class="divider"><h1>所属サークル</h1></li>'
-      $.each @belongingCircles, ->
-        textSidebar += '<li role="presentation" data-commonId="' + this.CircleId + '">'
-        textSidebar += '<a href="#' + this.CircleId + '" aria-controls="#' + this.CircleId + '" role="tab" data-toggle="tab">'
-        textSidebar += '<i class="circleIcon">' + this.CircleName.slice(0,1) + '</i>'
-        textSidebar += '<span class="title">' + this.CircleName + '</span>'
-        textSidebar += '</a>'
-        textSidebar += '</li>'
-        textPanel   += '<div id="' + this.CircleId + '" class="tab-pane fade in" role="tabpanel" data-commonId="' + this.CircleId + '">'
-        textPanel   += '<h1>' + this.CircleName + '</h1>'
-        textPanel   += '</div>'
-      $("[data-js=userSideList]").append textSidebar
-      $("[data-js=userPanelList]").append textPanel
-
     deleteCircle: (e)=>
       e.preventDefault()
       e.stopPropagation()
       $circleRow = $($($(e.target).get(0)).closest("tr").get(0))
       if confirm $($circleRow.children("td.name").get(0)).text() + "を削除しますか？"
+        id = $circleRow.attr("data-circleListID")
         sendData =
-          circleID: $circleRow.attr("data-circleId")
+          circleID: id
         $.ajax
           type: "DELETE",
           url:"https://core.unitus-ac.com/Circle",
           data: sendData,
           success: (msg)=>
             @notyHelper.generate('info', '削除成功', "サークルを削除しました。")
-            target = "[data-commonId=" + $circleRow.attr("data-circleId") + "]"
+            target = "[data-commonId=" + id + "]"
+            console.log target
             $(target).remove()
           error: (msg)=>
             @notyHelper.generate('error', '削除失敗', "何らかの理由でサークルを削除できませんでした。")
