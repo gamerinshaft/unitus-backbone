@@ -6,12 +6,17 @@ define ['jquery', 'backbone', 'templates/dashboard/header'], ($, Backbone, Heade
       @renderTemplate()
 
     events:
-      "click [data-js=dropdown]" : "dropdownToggle"
       "click [data-js=adminToggle]" : "adminOpen"
+      "click [data-js=setting]" : "settingModalOpen"
 
     renderTemplate: ->
       @$el.html HeaderTemplate(dashboard: @dashboard)
-    dropdownToggle: (event)->
+
+    settingModalOpen: (e)->
+      e.preventDefault()
+      e.stopPropagation()
+      $("[data-js=settingModal]").modal("show")
+
 
     adminOpen: (e)->
       e.preventDefault()

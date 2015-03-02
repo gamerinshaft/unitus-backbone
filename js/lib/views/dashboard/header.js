@@ -17,8 +17,8 @@ define(['jquery', 'backbone', 'templates/dashboard/header'], function($, Backbon
     };
 
     HeaderView.prototype.events = {
-      "click [data-js=dropdown]": "dropdownToggle",
-      "click [data-js=adminToggle]": "adminOpen"
+      "click [data-js=adminToggle]": "adminOpen",
+      "click [data-js=setting]": "settingModalOpen"
     };
 
     HeaderView.prototype.renderTemplate = function() {
@@ -27,7 +27,11 @@ define(['jquery', 'backbone', 'templates/dashboard/header'], function($, Backbon
       }));
     };
 
-    HeaderView.prototype.dropdownToggle = function(event) {};
+    HeaderView.prototype.settingModalOpen = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      return $("[data-js=settingModal]").modal("show");
+    };
 
     HeaderView.prototype.adminOpen = function(e) {
       e.preventDefault();

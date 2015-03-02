@@ -3,3 +3,17 @@ section#main(role='tabpanel')
   section#panel(data-js='panel')
     #basicUser(data-js="basic")
     #adminUser.hidden_panel_l(data-js="admin")
+
+//- 設定
+#settingModal.modal.fade(data-js="settingModal")
+  .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;
+          h4#settingModalLabel.modal-title Modal title
+        .modal-body
+          | ...
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') Close
+          button.btn.btn-primary(type='button') Save changes

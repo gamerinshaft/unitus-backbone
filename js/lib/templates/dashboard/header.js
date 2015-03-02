@@ -10,7 +10,7 @@ if ( dashboard.get('IsAdministrator'))
 {
 buf.push("<li class=\"author menu\">管理者メニュー</li><li data-js=\"adminToggle\" class=\"item\">管理画面を開く</li><li class=\"divider\"></li>");
 }
-buf.push("<!-- (管理者用ここまで)--><li class=\"author menu\">アカウントメニュー</li><li class=\"item\">設定</li><li class=\"divider\"></li><li data-js=\"logout\" class=\"item\">ログアウト</li><li class=\"divider\"></li></ul></div>");}.call(this,"dashboard" in locals_for_with?locals_for_with.dashboard:typeof dashboard!=="undefined"?dashboard:undefined));;return buf.join("");
+buf.push("<!-- (管理者用ここまで)--><li class=\"author menu\">アカウントメニュー</li><li data-js=\"setting\" class=\"item\">設定</li><li class=\"divider\"></li><li data-js=\"logout\" class=\"item\">ログアウト</li><li class=\"divider\"></li></ul></div>");}.call(this,"dashboard" in locals_for_with?locals_for_with.dashboard:typeof dashboard!=="undefined"?dashboard:undefined));;return buf.join("");
 };
 
 });
