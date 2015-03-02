@@ -32,18 +32,29 @@ h1.text-center(data-js='logoTitle') UNITUS
                 a(href='#settingDisclosure', aria-controls='settingDisclosure', role='tab', data-toggle='tab') 公開設定
             .tab-content
               #settingGithub.tab-pane.active(role='tabpanel')
-                h1 Github認証
-                p
-                | あなたはまだGithub認証をしていません。
-                | Github認証をすると、以下のようなことが出来るようになります。
+                if dashboard.get("GithubAssociation")
+                  h1 Github認証済み
+                  p
+                    | あなたは既にGithub認証を完了しています。
+                    | 以下のようなことが可能になりました。
+                else
+                  h1 Github未認証
+                  p
+                    | あなたはまだGithub認証をしていません。
+                    | Github認証をすると、以下のようなことが出来るようになります。
+
                 ul
-                  li プロフィール画像の自動設定されます。
-                  li 統計をみることができます。
-                  li プロジェクトへの自分の関与率がわかります。
-                  li ランキングとやる気がでます。
+                  li プロフィール画像の自動設定
+                  li 統計情報の表示
+                  li プロジェクトへの自分の関与率の表示
+                  li ランキングとやる気の出現
                 .pull-right
-                  .btn.btn-success(data-js="authorizeGithub")
-                    | Github認証する
+                  if dashboard.get("GithubAssociation")
+                    .btn.btn-success(data-js="authorizeGithub" disabled)
+                      | Github認証済み
+                  else
+                    .btn.btn-success(data-js="authorizeGithub")
+                      | Github認証する
                 .clear
               #settingDisclosure.tab-pane(role='tabpanel')
                 .btn-group(data-toggle='buttons')

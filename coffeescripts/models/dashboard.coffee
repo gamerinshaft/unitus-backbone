@@ -10,3 +10,7 @@ define ['jquery', 'backbone'], ($, Backbone) ->
 
       #profile
       Profile: ''
+
+
+      #original
+      GithubAssociation: false

@@ -17,7 +17,8 @@ define(['jquery', 'backbone'], function($, Backbone) {
       IsAdministrator: '',
       Name: '',
       UserName: '',
-      Profile: ''
+      Profile: '',
+      GithubAssociation: false
     };
 
     return Dashboard;

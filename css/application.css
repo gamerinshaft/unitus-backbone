@@ -166,7 +166,8 @@ section#panel {
       padding: 16px; }
       #settingModal .modal-body .tab-pane h1 {
         font-size: 32px;
-        margin: 0; }
+        margin: 0;
+        text-align: left; }
       #settingModal .modal-body .tab-pane ul {
         border: solid 1px #888;
         padding: 8px 24px;

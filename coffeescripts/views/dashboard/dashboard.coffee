@@ -24,6 +24,7 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
           @dashboard.set IsAdministrator: data.IsAdministrator
           @dashboard.set CircleBelonging: data.CircleBelonging
           @dashboard.set Profile: data.Profile
+          @dashboard.set GithubAssociation: data.Profile.GithubProfie.AssociationEnabled
 
           if @dashboard.get("IsAdministrator")
             @admin_panel = new AdminPanel()

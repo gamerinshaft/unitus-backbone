@@ -4,6 +4,8 @@ define ['jquery', 'backbone', 'templates/dashboard/header'], ($, Backbone, Heade
       @dashboard = option.dashboard
       @admin_panel = option.admin_panel
       @renderTemplate()
+      unless @dashboard.get("GithubAssociation")
+        @settingModalOpen()
 
     events:
       "click [data-js=adminToggle]" : "adminOpen"
@@ -14,8 +16,6 @@ define ['jquery', 'backbone', 'templates/dashboard/header'], ($, Backbone, Heade
       @$el.html HeaderTemplate(dashboard: @dashboard)
 
     settingModalOpen: (e)->
-      e.preventDefault()
-      e.stopPropagation()
       $("[data-js=settingModal]").modal("show")
 
 
@@ -24,7 +24,7 @@ define ['jquery', 'backbone', 'templates/dashboard/header'], ($, Backbone, Heade
       e.stopPropagation()
       @admin_panel.set isOpen: true
 
-    authorizeGithub: (e)->
+    authorizeGithub: ()->
       e.preventDefault()
       e.stopPropagation()
       location.assign 'https://core.unitus-ac.com/Github/Authorize'

@@ -13,7 +13,10 @@ define(['jquery', 'backbone', 'templates/dashboard/header'], function($, Backbon
     HeaderView.prototype.initialize = function(option) {
       this.dashboard = option.dashboard;
       this.admin_panel = option.admin_panel;
-      return this.renderTemplate();
+      this.renderTemplate();
+      if (!this.dashboard.get("GithubAssociation")) {
+        return this.settingModalOpen();
+      }
     };
 
     HeaderView.prototype.events = {
@@ -29,8 +32,6 @@ define(['jquery', 'backbone', 'templates/dashboard/header'], function($, Backbon
     };
 
     HeaderView.prototype.settingModalOpen = function(e) {
-      e.preventDefault();
-      e.stopPropagation();
       return $("[data-js=settingModal]").modal("show");
     };
 
@@ -42,7 +43,7 @@ define(['jquery', 'backbone', 'templates/dashboard/header'], function($, Backbon
       });
     };
 
-    HeaderView.prototype.authorizeGithub = function(e) {
+    HeaderView.prototype.authorizeGithub = function() {
       e.preventDefault();
       e.stopPropagation();
       return location.assign('https://core.unitus-ac.com/Github/Authorize');

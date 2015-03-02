@@ -49,6 +49,9 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
             _this.dashboard.set({
               Profile: data.Profile
             });
+            _this.dashboard.set({
+              GithubAssociation: data.Profile.GithubProfie.AssociationEnabled
+            });
             if (_this.dashboard.get("IsAdministrator")) {
               _this.admin_panel = new AdminPanel();
             }
