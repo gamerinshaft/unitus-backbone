@@ -8,6 +8,7 @@ define ['jquery', 'backbone', 'templates/dashboard/header'], ($, Backbone, Heade
     events:
       "click [data-js=adminToggle]" : "adminOpen"
       "click [data-js=setting]" : "settingModalOpen"
+      "click [data-js=authorizeGithub]" : "authorizeGithub"
 
     renderTemplate: ->
       @$el.html HeaderTemplate(dashboard: @dashboard)
@@ -21,6 +22,12 @@ define ['jquery', 'backbone', 'templates/dashboard/header'], ($, Backbone, Heade
     adminOpen: (e)->
       e.preventDefault()
       e.stopPropagation()
-      console.log @admin_panel
       @admin_panel.set isOpen: true
+
+    authorizeGithub: (e)->
+      e.preventDefault()
+      e.stopPropagation()
+      location.assign 'https://core.unitus-ac.com/Github/Authorize'
+
+
 

@@ -15,3 +15,44 @@ h1.text-center(data-js='logoTitle') UNITUS
     li.item(data-js='logout') ログアウト
     li.divider
 
+//- 設定
+#settingModal.modal.fade(data-js="settingModal")
+  .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;
+          h4#settingModalLabel.modal-title 設定メニュー
+        .modal-body
+          div(role='tabpanel')
+            ul.nav.nav-tabs(role='tablist')
+              li.active(role='presentation')
+                a(href='#settingGithub', aria-controls='settingGithub', role='tab', data-toggle='tab') Github連携
+              li(role='presentation')
+                a(href='#settingDisclosure', aria-controls='settingDisclosure', role='tab', data-toggle='tab') 公開設定
+            .tab-content
+              #settingGithub.tab-pane.active(role='tabpanel')
+                h1 Github認証
+                p
+                | あなたはまだGithub認証をしていません。
+                | Github認証をすると、以下のようなことが出来るようになります。
+                ul
+                  li プロフィール画像の自動設定されます。
+                  li 統計をみることができます。
+                  li プロジェクトへの自分の関与率がわかります。
+                  li ランキングとやる気がでます。
+                .pull-right
+                  .btn.btn-success(data-js="authorizeGithub")
+                    | Github認証する
+                .clear
+              #settingDisclosure.tab-pane(role='tabpanel')
+                .btn-group(data-toggle='buttons')
+                  label.btn.btn-success.active
+                    input#option1(type='radio', name='options', autocomplete='off', checked='')
+                    |  Public
+                  label.btn.btn-success
+                    input#option2(type='radio', name='options', autocomplete='off')
+                    |  CircleOnly
+                  label.btn.btn-success
+                    input#option3(type='radio', name='options', autocomplete='off')
+                    |  Private

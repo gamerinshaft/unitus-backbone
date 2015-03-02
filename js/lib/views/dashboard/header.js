@@ -18,7 +18,8 @@ define(['jquery', 'backbone', 'templates/dashboard/header'], function($, Backbon
 
     HeaderView.prototype.events = {
       "click [data-js=adminToggle]": "adminOpen",
-      "click [data-js=setting]": "settingModalOpen"
+      "click [data-js=setting]": "settingModalOpen",
+      "click [data-js=authorizeGithub]": "authorizeGithub"
     };
 
     HeaderView.prototype.renderTemplate = function() {
@@ -36,10 +37,15 @@ define(['jquery', 'backbone', 'templates/dashboard/header'], function($, Backbon
     HeaderView.prototype.adminOpen = function(e) {
       e.preventDefault();
       e.stopPropagation();
-      console.log(this.admin_panel);
       return this.admin_panel.set({
         isOpen: true
       });
+    };
+
+    HeaderView.prototype.authorizeGithub = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      return location.assign('https://core.unitus-ac.com/Github/Authorize');
     };
 
     return HeaderView;
