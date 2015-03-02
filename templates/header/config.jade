@@ -1,0 +1,29 @@
+.col-xs-6
+  p
+    = config.DisplayConfigureName
+.col-xs-6
+  .btn-group(data-toggle='buttons', data-property=config.Property)
+    if config.ConfigString == "Public"
+      label.btn.active
+        input#Public(type='radio', name='disclosure', autocomplete='off' checked)
+        |  公開
+    else
+      label.btn
+        input#Public(type='radio', name='disclosure', autocomplete='off')
+        |  公開
+    if config.ConfigString == "CircleOnly"
+      label.btn.active
+        input#CircleOnly(type='radio', name='disclosure', autocomplete='off' checked)
+        |  サークルのみ
+    else
+      label.btn
+        input#CircleOnly(type='radio', name='disclosure', autocomplete='off')
+        |  サークルのみ
+    if config.ConfigString == "Private"
+      label.btn.active
+        input#Private(type='radio', name='disclosure', autocomplete='off' checked)
+        |  非公開
+    else
+      label.btn
+        input#Private(type='radio', name='disclosure', autocomplete='off')
+        |  非公開

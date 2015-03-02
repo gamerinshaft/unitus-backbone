@@ -57,13 +57,4 @@ h1.text-center(data-js='logoTitle') UNITUS
                       | Github認証する
                 .clear
               #settingDisclosure.tab-pane(role='tabpanel')
-                .btn-group(data-toggle='buttons')
-                  label.btn.btn-success.active
-                    input#option1(type='radio', name='options', autocomplete='off', checked='')
-                    |  Public
-                  label.btn.btn-success
-                    input#option2(type='radio', name='options', autocomplete='off')
-                    |  CircleOnly
-                  label.btn.btn-success
-                    input#option3(type='radio', name='options', autocomplete='off')
-                    |  Private
+                .row(data-js="DisclosureList")

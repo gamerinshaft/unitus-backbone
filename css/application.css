@@ -165,6 +165,9 @@ section#panel {
     #settingModal .modal-body .tab-pane {
       padding: 16px; }
       #settingModal .modal-body .tab-pane h1 {
+        letter-spacing: normal;
+        font-family: inherit;
+        padding: 8px 0px;
         font-size: 32px;
         margin: 0;
         text-align: left; }
@@ -175,6 +178,19 @@ section#panel {
         background-color: rgba(0, 0, 0, 0.2); }
       #settingModal .modal-body .tab-pane .btn.btn-success {
         border-radius: 0px; }
+    #settingModal .modal-body #settingDisclosure .col-xs-6 {
+      margin: 4px 0px; }
+    #settingModal .modal-body #settingDisclosure .col-xs-6 p {
+      padding: 7px;
+      background-color: #262b34;
+      margin: 0px; }
+    #settingModal .modal-body #settingDisclosure .col-xs-6 .btn {
+      border: solid 1px #262b34;
+      border: solid 1px #262b34;
+      border-radius: 0px;
+      color: #888; }
+      #settingModal .modal-body #settingDisclosure .col-xs-6 .btn:hover, #settingModal .modal-body #settingDisclosure .col-xs-6 .btn.active {
+        color: white; }
 
 #app {
   width: 100%;

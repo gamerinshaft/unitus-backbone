@@ -192,6 +192,9 @@ section#panel{
     .tab-pane{
       padding: 16px;
       h1{
+        letter-spacing: normal;
+        font-family: inherit;
+        padding: 8px 0px;
         font-size: 32px;
         margin: 0;
         text-align: left;
@@ -204,6 +207,27 @@ section#panel{
       }
       .btn.btn-success{
         border-radius: 0px;
+      }
+    }
+    #settingDisclosure{
+      .col-xs-6{
+        margin: 4px 0px;
+      }
+      .col-xs-6{
+        p{
+          padding: 7px;
+          background-color: rgb(38, 43, 52);
+          margin: 0px;
+        }
+        .btn{
+          border: solid 1px rgb(38, 43, 52);
+          border: solid 1px #262b34;
+          border-radius: 0px;
+          color: #888;
+          &:hover, &.active{
+            color: white;
+          }
+        }
       }
     }
   }

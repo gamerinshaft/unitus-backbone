@@ -28,7 +28,7 @@ else
 {
 buf.push("<div data-js=\"authorizeGithub\" class=\"btn btn-success\">Github認証する</div>");
 }
-buf.push("</div><div class=\"clear\"></div></div><div id=\"settingDisclosure\" role=\"tabpanel\" class=\"tab-pane\"><div data-toggle=\"buttons\" class=\"btn-group\"><label class=\"btn btn-success active\"><input id=\"option1\" type=\"radio\" name=\"options\" autocomplete=\"off\" checked=\"\"/> Public</label><label class=\"btn btn-success\"><input id=\"option2\" type=\"radio\" name=\"options\" autocomplete=\"off\"/> CircleOnly</label><label class=\"btn btn-success\"><input id=\"option3\" type=\"radio\" name=\"options\" autocomplete=\"off\"/> Private</label></div></div></div></div></div></div></div></div>");}.call(this,"dashboard" in locals_for_with?locals_for_with.dashboard:typeof dashboard!=="undefined"?dashboard:undefined));;return buf.join("");
+buf.push("</div><div class=\"clear\"></div></div><div id=\"settingDisclosure\" role=\"tabpanel\" class=\"tab-pane\"><div data-js=\"DisclosureList\" class=\"row\"></div></div></div></div></div></div></div></div>");}.call(this,"dashboard" in locals_for_with?locals_for_with.dashboard:typeof dashboard!=="undefined"?dashboard:undefined));;return buf.join("");
 };
 
 });
