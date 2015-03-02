@@ -146,21 +146,21 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
         @$("[data-js=createCircle]").prop("disabled", true)
 
     isCircleExist: =>
-      console.log "isCircles"
-      sendData =
-        circleName: "#{@circle.get("CircleName")}"
-        belongedSchool: "#{@circle.get("BelongedSchool")}"
-      $.ajax
-        type: "GET",
-        url:"https://core.unitus-ac.com/Circle/CheckExist",
-        dataType: "text"
-        data: sendData
-        success: (msg)=>
-          false
-        error: (msg)=>
-          if msg.statusText == "Conflict"
-            @notyHelper.generate("error", "作成失敗", "既にそのサークルはデータベースに存在しています")
-          else
-            @notyHelper.generate("error", "作成失敗", "データチェックに失敗しました")
-          true
+      unless @circle.get("BelongedSchool") == ''
+        sendData =
+          circleName: "#{@circle.get("CircleName")}"
+          belongedSchool: "#{@circle.get("BelongedSchool")}"
+        $.ajax
+          type: "GET",
+          url:"https://core.unitus-ac.com/Circle/CheckExist",
+          dataType: "text"
+          data: sendData
+          success: (msg)=>
+            false
+          error: (msg)=>
+            if msg.statusText == "Conflict"
+              @notyHelper.generate("error", "作成失敗", "既にそのサークルはデータベースに存在しています")
+            else
+              @notyHelper.generate("error", "作成失敗", "データチェックに失敗しました")
+            true
 

@@ -268,32 +268,33 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
 
     AdminNewCircleView.prototype.isCircleExist = function() {
       var sendData;
-      console.log("isCircles");
-      sendData = {
-        circleName: "" + (this.circle.get("CircleName")),
-        belongedSchool: "" + (this.circle.get("BelongedSchool"))
-      };
-      return $.ajax({
-        type: "GET",
-        url: "https://core.unitus-ac.com/Circle/CheckExist",
-        dataType: "text",
-        data: sendData,
-        success: (function(_this) {
-          return function(msg) {
-            return false;
-          };
-        })(this),
-        error: (function(_this) {
-          return function(msg) {
-            if (msg.statusText === "Conflict") {
-              _this.notyHelper.generate("error", "作成失敗", "既にそのサークルはデータベースに存在しています");
-            } else {
-              _this.notyHelper.generate("error", "作成失敗", "データチェックに失敗しました");
-            }
-            return true;
-          };
-        })(this)
-      });
+      if (this.circle.get("BelongedSchool") !== '') {
+        sendData = {
+          circleName: "" + (this.circle.get("CircleName")),
+          belongedSchool: "" + (this.circle.get("BelongedSchool"))
+        };
+        return $.ajax({
+          type: "GET",
+          url: "https://core.unitus-ac.com/Circle/CheckExist",
+          dataType: "text",
+          data: sendData,
+          success: (function(_this) {
+            return function(msg) {
+              return false;
+            };
+          })(this),
+          error: (function(_this) {
+            return function(msg) {
+              if (msg.statusText === "Conflict") {
+                _this.notyHelper.generate("error", "作成失敗", "既にそのサークルはデータベースに存在しています");
+              } else {
+                _this.notyHelper.generate("error", "作成失敗", "データチェックに失敗しました");
+              }
+              return true;
+            };
+          })(this)
+        });
+      }
     };
 
     return AdminNewCircleView;
