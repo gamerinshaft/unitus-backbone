@@ -11,13 +11,13 @@ define(['jquery', 'backbone'], function($, Backbone) {
     }
 
     Profile.prototype.defaults = {
-      BelongedSchoo: '',
+      BelongedSchool: '',
       CreatedDateInfo: '',
       CreatedDateInfoByDateOffset: '',
       CurrentGrade: '',
       Email: '',
       Faculty: '',
-      GithubProfie: '',
+      GithubProfile: '',
       Major: '',
       Notes: '',
       Url: '',

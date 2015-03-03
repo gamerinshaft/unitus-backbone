@@ -23,15 +23,15 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
             console.log(data);
             _this.achivements = new Achivements();
             achivements = _this.achivements;
-            $.each(data.Content.Achivements, function() {
+            $.each(data.Content.Achivements, function(index, obj) {
               var achivement;
               achivement = new Achivement({
-                Name: this.AchivementName,
-                AwardedDate: this.AwardedDate,
-                BadgeImageUrl: this.BadgeImageUrl,
-                CurrentProgress: (this.CurrentProgress === "NaN" ? null : this.CurrentProgress.toFixed(2)),
-                IsAwarded: this.IsAwarded,
-                ProgressDiff: (this.ProgressDiff === "NaN" ? null : this.ProgressDiff.toFixed(2))
+                Name: obj.AchivementName,
+                AwardedDate: obj.AwardedDate,
+                BadgeImageUrl: obj.BadgeImageUrl,
+                CurrentProgress: (obj.CurrentProgress === "NaN" ? null : obj.CurrentProgress.toFixed(2)),
+                IsAwarded: obj.IsAwarded,
+                ProgressDiff: (obj.ProgressDiff === "NaN" ? null : obj.ProgressDiff.toFixed(2))
               });
               return achivements.add(achivement);
             });
@@ -42,7 +42,9 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
             });
           };
         })(this),
-        error: function(data) {}
+        error: function(data) {
+          return console.log(data);
+        }
       });
     };
 

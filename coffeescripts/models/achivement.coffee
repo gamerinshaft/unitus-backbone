@@ -15,3 +15,7 @@ define ['jquery', 'backbone'], ($, Backbone) ->
       ProgressGraphPoints: '達成率の変化グラフ'
       SumPerson: 'Unitus合計人数'
       isDetailGetting: false
+
+      #original
+      belongedAll: true
+      belongedGithub: false

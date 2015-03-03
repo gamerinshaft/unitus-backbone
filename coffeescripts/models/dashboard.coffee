@@ -8,9 +8,5 @@ define ['jquery', 'backbone'], ($, Backbone) ->
       Name: ''
       UserName: ''
 
-      #profile
-      Profile: ''
-
-
       #original
       GithubAssociation: false

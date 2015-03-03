@@ -9,12 +9,13 @@ define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
           console.log data
           @achivements = new Achivements()
           achivements = @achivements
-          $.each data.Content.Achivements, ->
-            achivement = new Achivement(Name: this.AchivementName, AwardedDate: this.AwardedDate, BadgeImageUrl: this.BadgeImageUrl, CurrentProgress: (if this.CurrentProgress == "NaN" then null else this.CurrentProgress.toFixed(2)), IsAwarded: this.IsAwarded, ProgressDiff: (if this.ProgressDiff == "NaN" then null else this.ProgressDiff.toFixed(2)) )
+          $.each data.Content.Achivements, (index, obj)=>
+            achivement = new Achivement(Name: obj.AchivementName, AwardedDate: obj.AwardedDate, BadgeImageUrl: obj.BadgeImageUrl, CurrentProgress: (if obj.CurrentProgress == "NaN" then null else obj.CurrentProgress.toFixed(2)), IsAwarded: obj.IsAwarded, ProgressDiff: (if obj.ProgressDiff == "NaN" then null else obj.ProgressDiff.toFixed(2)) )
             achivements.add achivement
           achivements.each (a) =>
             @$el.append AchivementListTemplate(achivement: a)
         error: (data)->
+          console.log data
     events:
       "click [data-js=badge]" : "achiveShow"
       "click [data-js=closePanel]" : "closePanel"
