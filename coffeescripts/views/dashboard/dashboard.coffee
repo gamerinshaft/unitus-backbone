@@ -15,10 +15,10 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
         type: 'GET'
 
         success: (msg) =>
-          console.log msg
           $("[data-js=loading]").fadeOut()
           data = msg.Content
           @dashboard.set Name: data.Name
+          @dashboard.set AchivementCategories: data.AchivementCategories
           @dashboard.set UserName: data.UserName
           @dashboard.set AvatarUri: data.AvatarUri
           @dashboard.set IsAdministrator: data.IsAdministrator
@@ -34,8 +34,6 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
           new PanelView(el: $("[data-js=panel]"), dashboard: @dashboard, admin_panel: @admin_panel, circles: @circles)
           @$el.fadeIn()
         error: (XMLHttpRequest, textStatus) ->
-          console.log XMLHttpRequest
-          console.log textStatus
           if textStatus == "error" || XMLHttpRequest.ErrorMessage == "Unauthorized API Access"
              location.assign "https://core.unitus-ac.com/Account/Login"
     renderDashboard: ->

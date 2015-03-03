@@ -20,6 +20,7 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
         success: (function(_this) {
           return function(data) {
             var achivements;
+            console.log(data);
             _this.achivements = new Achivements();
             achivements = _this.achivements;
             $.each(data.Content.Achivements, function() {
@@ -93,10 +94,9 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
           }
         });
       } else {
-        $(this.$el.children("[data-js=achivementPanel]")[0]).html(AchivementShowTemplate({
+        return $(this.$el.children("[data-js=achivementPanel]")[0]).html(AchivementShowTemplate({
           achivement: this.achivement
         })).removeClass("hidden_panel_r");
-        return console.log("取得済み");
       }
     };
 

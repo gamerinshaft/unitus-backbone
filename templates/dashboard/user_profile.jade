@@ -16,10 +16,6 @@
           li.list-group-item(data-js="sendMail")
             i.fa.fa-envelope-o
             = dashboard.get("UserName")
-          li.list-group-item
-            | hoge
-          li.list-group-item
-            | hoge
     .panel.panel-default
       #achievementAccordion.panel-heading(role='tab')
         h4.panel-title
@@ -28,9 +24,10 @@
             | 実績
       #achivementCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='achievementAccordion')
         ul.list-group(role="tablist")
-          a(href='#allUserAchivement', aria-controls='allUserAchivement', role='tab', data-toggle='tab')
-            li.list-group-item
-              | 全て
+          for categoryName, index in dashboard.get("AchivementCategories")
+            a(data-js="achivementCategory", href="#allUserAchivement", area-controls="allUserAchivement")
+              li.list-group-item
+                = categoryName
     .panel.panel-default
       #accountAccordion.panel-heading(role='tab')
         h4.panel-title
@@ -46,7 +43,7 @@
           li.list-group-item
             | hoge
 .panels
-  #allUserAchivement.panelcontent.tab-pane.fade.in.active(role='tabpanel' data-js='achivementList')
+  #allUserAchivement.panelcontent.tab-pane.fade(role="tabpanel", data-js='achivementList')
     .row
       .col-xs-12
         .title.text-center

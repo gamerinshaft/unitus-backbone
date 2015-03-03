@@ -28,11 +28,13 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
         success: (function(_this) {
           return function(msg) {
             var data;
-            console.log(msg);
             $("[data-js=loading]").fadeOut();
             data = msg.Content;
             _this.dashboard.set({
               Name: data.Name
+            });
+            _this.dashboard.set({
+              AchivementCategories: data.AchivementCategories
             });
             _this.dashboard.set({
               UserName: data.UserName
@@ -71,8 +73,6 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
           };
         })(this),
         error: function(XMLHttpRequest, textStatus) {
-          console.log(XMLHttpRequest);
-          console.log(textStatus);
           if (textStatus === "error" || XMLHttpRequest.ErrorMessage === "Unauthorized API Access") {
             return location.assign("https://core.unitus-ac.com/Account/Login");
           }

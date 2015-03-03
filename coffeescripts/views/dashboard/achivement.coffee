@@ -6,6 +6,7 @@ define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
         type: "GET",
         url:"https://core.unitus-ac.com/Achivements",
         success: (data)=>
+          console.log data
           @achivements = new Achivements()
           achivements = @achivements
           $.each data.Content.Achivements, ->
@@ -41,7 +42,6 @@ define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
         $(@$el.children("[data-js=achivementPanel]")[0])
         .html AchivementShowTemplate(achivement: @achivement)
         .removeClass("hidden_panel_r")
-        console.log "取得済み"
 
     closePanel: (e)->
       $(@$el.children("[data-js=achivementPanel]")[0]).addClass("hidden_panel_r")
