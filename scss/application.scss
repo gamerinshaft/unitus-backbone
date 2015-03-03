@@ -169,9 +169,10 @@ section#panel{
         margin-left: 10px;
       }
       li:last-child a{
-        margin-left: 10px;
+        margin-right: 10px;
       }
       li{
+        margin-left: -3px;
         &.active a{
           border-radius: 0px;
           border-color: #888;

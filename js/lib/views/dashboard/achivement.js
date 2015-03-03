@@ -71,8 +71,6 @@ define(['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
                 isDetailGetting: true
               });
               values = data.Content;
-              console.log("koayo");
-              console.log(values);
               _this.achivement.set({
                 Description: values.AchivementDescription,
                 AwardedPerson: values.AwardedPerson,

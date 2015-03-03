@@ -149,19 +149,21 @@ section#panel {
       #settingModal .modal-body ul li:first-child a {
         margin-left: 10px; }
       #settingModal .modal-body ul li:last-child a {
-        margin-left: 10px; }
-      #settingModal .modal-body ul li.active a {
-        border-radius: 0px;
-        border-color: #888;
-        color: white;
-        background-color: transparent; }
-      #settingModal .modal-body ul li:hover a {
-        border-radius: 0px;
-        border-color: #888;
-        color: white;
-        background-color: transparent; }
-      #settingModal .modal-body ul li a {
-        color: #888; }
+        margin-right: 10px; }
+      #settingModal .modal-body ul li {
+        margin-left: -3px; }
+        #settingModal .modal-body ul li.active a {
+          border-radius: 0px;
+          border-color: #888;
+          color: white;
+          background-color: transparent; }
+        #settingModal .modal-body ul li:hover a {
+          border-radius: 0px;
+          border-color: #888;
+          color: white;
+          background-color: transparent; }
+        #settingModal .modal-body ul li a {
+          color: #888; }
     #settingModal .modal-body .tab-pane {
       padding: 16px; }
       #settingModal .modal-body .tab-pane h1 {

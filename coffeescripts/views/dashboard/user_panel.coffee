@@ -1,4 +1,4 @@
-define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashboard/user_profile', 'views/dashboard/achivement', 'models/circle'], ($, Backbone, UserTemplate, UserProfile, AchivementView, Circle) ->
+define ['jquery', 'backbone','templates/dashboard/user_panel', 'views/dashboard/achivement', 'models/circle', 'views/dashboard/profilebar'], ($, Backbone, UserTemplate, AchivementView, Circle, ProfilebarView) ->
   class UserPanelView extends Backbone.View
     initialize: (option) ->
       @dashboard = option.dashboard
@@ -6,7 +6,7 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
       @belongingCircles = @dashboard.get("CircleBelonging")
       @notyHelper = new NotyHelper()
       @renderUserPanel()
-      @renderUserProfile()
+      new ProfilebarView(el: '[data-js="myProfile"]', dashboard: @dashboard)
       @renderCircleList()
       new AchivementView(el: '[data-js=achivementList]', dashboard: @dashboard)
 
@@ -38,9 +38,6 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'templates/dashbo
               existCircle[0].set CircleID: obj.CircleId, CircleName: obj.CircleName, MemberCount: obj.MemberCount, BelongedSchool: obj.BelongedSchool, LastUpdateDate: obj.LastUpdateDate, IsBelonging: obj.IsBelonging
         error: (msg)->
           console.log msg
-     # プロフィール
-    renderUserProfile: ->
-      @$('[data-js="myProfile"]').html UserProfile(dashboard: @dashboard)
 
     deleteCircle: (e)=>
       e.preventDefault()

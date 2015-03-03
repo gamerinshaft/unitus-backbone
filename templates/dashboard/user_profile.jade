@@ -10,11 +10,13 @@
         h4.panel-title
           a(data-toggle='collapse', data-parent='#accordion', href='#profileCollapse', aria-expanded='false', aria-controls='profileCollapse')
             i.glyphicon.glyphicon-chevron-right
-            | プロフィール
+            | 基本情報
       #profileCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='profileAccordion')
         ul.list-group(role='tablist')
-          li.list-group-item
-            | Archi
+          a(href="mailto:#{dashboard.get('UserName')}")
+            li.list-group-item
+              i.fa.fa-envelope-o
+              = dashboard.get("UserName")
           li.list-group-item
             | hoge
           li.list-group-item
