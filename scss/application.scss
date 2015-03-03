@@ -695,6 +695,15 @@ section#header{
       }
       .list-group{
         border: none;
+        li{
+          cursor: pointer;
+          i{
+            font-size: 18px;
+            margin-right: 10px;
+            color: #555;
+            vertical-align: bottom;
+          }
+        }
       }
     }
     a[aria-expanded="true"]{

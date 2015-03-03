@@ -13,10 +13,9 @@
             | 基本情報
       #profileCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='profileAccordion')
         ul.list-group(role='tablist')
-          a(href="mailto:#{dashboard.get('UserName')}")
-            li.list-group-item
-              i.fa.fa-envelope-o
-              = dashboard.get("UserName")
+          li.list-group-item(data-js="sendMail")
+            i.fa.fa-envelope-o
+            = dashboard.get("UserName")
           li.list-group-item
             | hoge
           li.list-group-item

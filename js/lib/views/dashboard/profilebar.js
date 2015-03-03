@@ -14,13 +14,28 @@ define(['jquery', 'backbone', 'templates/dashboard/user_profile'], function($, B
 
     ProfilebarView.prototype.initialize = function(option) {
       this.dashboard = option.dashboard;
-      return this.renderUserProfile();
+      this.renderUserProfile();
+      return console.log(this.$el.html());
+    };
+
+    ProfilebarView.prototype.events = {
+      "click [data-js=sendMail]": "sendMail"
     };
 
     ProfilebarView.prototype.renderUserProfile = function() {
       return this.$el.html(Template({
         dashboard: this.dashboard
       }));
+    };
+
+    ProfilebarView.prototype.sendMail = function(e) {
+      var address;
+      e.preventDefault();
+      e.stopPropagation();
+      address = $(e.target).text();
+      if (confirm(address + "宛にメールを送信致しますか？")) {
+        return location.assign("mailto:" + address);
+      }
     };
 
     return ProfilebarView;

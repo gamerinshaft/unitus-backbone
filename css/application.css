@@ -551,6 +551,13 @@ section#header {
         transition: transform 0.3s ease-out; }
     #profile .profilebar .panel .list-group {
       border: none; }
+      #profile .profilebar .panel .list-group li {
+        cursor: pointer; }
+        #profile .profilebar .panel .list-group li i {
+          font-size: 18px;
+          margin-right: 10px;
+          color: #555;
+          vertical-align: bottom; }
   #profile .profilebar a[aria-expanded="true"] i {
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
