@@ -2,6 +2,7 @@ define ['jquery', 'backbone', 'templates/dashboard/user_profile'], ($, Backbone,
   class ProfilebarView extends Backbone.View
     initialize: (option) ->
       @dashboard = option.dashboard
+      @achivements = option.achivements
       @renderUserProfile()
       console.log @dashboard
     events:

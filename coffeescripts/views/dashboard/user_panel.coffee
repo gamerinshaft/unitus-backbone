@@ -1,14 +1,15 @@
-define ['jquery', 'backbone','templates/dashboard/user_panel', 'views/dashboard/achivement', 'models/circle', 'views/dashboard/profilebar'], ($, Backbone, UserTemplate, AchivementView, Circle, ProfilebarView) ->
+define ['jquery', 'backbone','templates/dashboard/user_panel', 'views/dashboard/achivement', 'models/circle', 'views/dashboard/profilebar', 'collections/achivements'], ($, Backbone, UserTemplate, AchivementView, Circle, ProfilebarView, Achivements) ->
   class UserPanelView extends Backbone.View
     initialize: (option) ->
       @dashboard = option.dashboard
       @circles = option.circles
       @belongingCircles = @dashboard.get("CircleBelonging")
+      @achivements = new Achivements()
       @notyHelper = new NotyHelper()
       @renderUserPanel()
-      new ProfilebarView(el: '[data-js="myProfile"]', dashboard: @dashboard)
+      new ProfilebarView(el: '[data-js="myProfile"]', dashboard: @dashboard, achivements: @achivements)
       @renderCircleList()
-      new AchivementView(el: '[data-js=achivementList]', dashboard: @dashboard)
+      new AchivementView(el: '[data-js=achivementList]', dashboard: @dashboard, achivements: @achivements)
 
     events:
       "click [data-js=deleteCircle]" : "deleteCircle"

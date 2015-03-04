@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __hasProp = {}.hasOwnProperty;
 
-define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'views/dashboard/achivement', 'models/circle', 'views/dashboard/profilebar'], function($, Backbone, UserTemplate, AchivementView, Circle, ProfilebarView) {
+define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'views/dashboard/achivement', 'models/circle', 'views/dashboard/profilebar', 'collections/achivements'], function($, Backbone, UserTemplate, AchivementView, Circle, ProfilebarView, Achivements) {
   var UserPanelView;
   return UserPanelView = (function(_super) {
     __extends(UserPanelView, _super);
@@ -17,16 +17,19 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'views/dashboard
       this.dashboard = option.dashboard;
       this.circles = option.circles;
       this.belongingCircles = this.dashboard.get("CircleBelonging");
+      this.achivements = new Achivements();
       this.notyHelper = new NotyHelper();
       this.renderUserPanel();
       new ProfilebarView({
         el: '[data-js="myProfile"]',
-        dashboard: this.dashboard
+        dashboard: this.dashboard,
+        achivements: this.achivements
       });
       this.renderCircleList();
       return new AchivementView({
         el: '[data-js=achivementList]',
-        dashboard: this.dashboard
+        dashboard: this.dashboard,
+        achivements: this.achivements
       });
     };
 

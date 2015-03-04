@@ -14,6 +14,7 @@ define(['jquery', 'backbone', 'templates/dashboard/user_profile'], function($, B
 
     ProfilebarView.prototype.initialize = function(option) {
       this.dashboard = option.dashboard;
+      this.achivements = option.achivements;
       this.renderUserProfile();
       return console.log(this.dashboard);
     };

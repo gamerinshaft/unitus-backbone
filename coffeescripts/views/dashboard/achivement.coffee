@@ -1,19 +1,25 @@
-define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 'templates/achivement/index', 'templates/achivement/show'], ($, Backbone, Achivement, Achivements, AchivementListTemplate, AchivementShowTemplate) ->
+define ['jquery', 'backbone', 'models/achivement', 'templates/achivement/index', 'templates/achivement/show'], ($, Backbone, Achivement, AchivementListTemplate, AchivementShowTemplate) ->
   class AchivementView extends Backbone.View
     initialize: (option) ->
       @dashboard = option.dashboard
+      @achivements = option.achivements
       $.ajax
         type: "GET",
         url:"https://core.unitus-ac.com/Achivements",
         success: (data)=>
           console.log data
-          @achivements = new Achivements()
-          achivements = @achivements
-          $.each data.Content.Achivements, (index, obj)=>
-            achivement = new Achivement(Name: obj.AchivementName, AwardedDate: obj.AwardedDate, BadgeImageUrl: obj.BadgeImageUrl, CurrentProgress: (if obj.CurrentProgress == "NaN" then null else obj.CurrentProgress.toFixed(2)), IsAwarded: obj.IsAwarded, ProgressDiff: (if obj.ProgressDiff == "NaN" then null else obj.ProgressDiff.toFixed(2)) )
-            achivements.add achivement
-          achivements.each (a) =>
-            @$el.append AchivementListTemplate(achivement: a)
+          $.each data.Content.AchivementCategories, (parentIndex, parentObj)=>
+            categoryName = "belonged" + parentObj.CategoryName
+            $.each parentObj.Achivements, (index, obj)=>
+              if parentIndex == 0
+                achivement = new Achivement(Name: obj.AchivementName, AwardedDate: obj.AwardedDate, BadgeImageUrl: obj.BadgeImageUrl, CurrentProgress: (if obj.CurrentProgress == "NaN" then null else obj.CurrentProgress.toFixed(2)), IsAwarded: obj.IsAwarded, ProgressDiff: (if obj.ProgressDiff == "NaN" then null else obj.ProgressDiff.toFixed(2)) )
+                achivement.set @hash(categoryName, true)
+                @achivements.add achivement
+              else
+                achivement = @achivements.where(Name: obj.AchivementName)[0]
+                achivement.set @hash(categoryName, true)
+
+          @render @achivements
         error: (data)->
           console.log data
     events:
@@ -47,5 +53,14 @@ define ['jquery', 'backbone', 'models/achivement', 'collections/achivements', 't
     closePanel: (e)->
       $(@$el.children("[data-js=achivementPanel]")[0]).addClass("hidden_panel_r")
 
+
+    hash: (key, value) ->
+      h = {};
+      h[key] = value
+      h
+
+    render: (achivements)->
+      achivements.each (a) =>
+        @$el.append AchivementListTemplate(achivement: a)
 
 
