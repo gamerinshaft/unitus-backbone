@@ -21,5 +21,6 @@ define ['jquery', 'backbone', 'templates/dashboard/user_profile'], ($, Backbone,
     renderCategoryAchivement: (e)->
       e.preventDefault()
       e.stopPropagation()
+      @achivements.trigger $(e.target).text()
       @$($(e.target)).parent("a").tab('show')
 

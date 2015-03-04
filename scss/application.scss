@@ -740,7 +740,7 @@ section#header{
 //=======================
 //      Achivement
 //=======================
-#allUserAchivement{
+#userAchivement{
   overflow-x: hidden;
   overflow-y: scroll;
   .title{
@@ -749,6 +749,10 @@ section#header{
     border-bottom: 2px solid #888;
     -webkit-font-smoothing: antialiased;
     padding: 4px 0px;
+    span{
+      color: #888;
+      font-size: 18px;
+    }
   }
   .achive_badge{
     position: relative;
@@ -763,7 +767,7 @@ section#header{
     &:hover .image-wrap{
       margin-top: -4px;
     }
-    &:nth-of-type(4n+2){
+    &:nth-of-type(4n){
       border-right: none;
     }
     .image-wrap{
@@ -816,10 +820,10 @@ section#header{
   @media (max-width: 1200px){
     .achive_badge{
       width: 33.33%;
-      &:nth-of-type(4n+2){
+      &:nth-of-type(4n){
         border-right: solid 2px #888;
       }
-      &:nth-of-type(3n+2){
+      &:nth-of-type(3n){
         border-right: none;
       }
     }
@@ -827,10 +831,10 @@ section#header{
   @media (max-width: 984px){
     .achive_badge{
       width: 50%;
-      &:nth-of-type(3n+2){
+      &:nth-of-type(3n){
         border-right: solid 2px #888;
       }
-      &:nth-of-type(2n+2){
+      &:nth-of-type(2n){
         border-right: none;
       }
     }

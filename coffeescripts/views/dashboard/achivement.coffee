@@ -19,9 +19,12 @@ define ['jquery', 'backbone', 'models/achivement', 'templates/achivement/index',
                 achivement = @achivements.where(Name: obj.AchivementName)[0]
                 achivement.set @hash(categoryName, true)
 
-          @render @achivements
+            @listenTo @achivements, parentObj.CategoryName, =>
+              @render @achivements.where(@hash("belonged"+parentObj.CategoryName, true)), parentObj.CategoryName
+
         error: (data)->
           console.log data
+
     events:
       "click [data-js=badge]" : "achiveShow"
       "click [data-js=closePanel]" : "closePanel"
@@ -59,8 +62,9 @@ define ['jquery', 'backbone', 'models/achivement', 'templates/achivement/index',
       h[key] = value
       h
 
-    render: (achivements)->
-      achivements.each (a) =>
-        @$el.append AchivementListTemplate(achivement: a)
-
+    render: (achivements, categoryName)->
+      $(@$el.find("[data-js=categoryName]")).html "（" + categoryName + "）"
+      $(@$el.find("[data-js=badges]")).html ''
+      $.each achivements, (index, a) =>
+        $(@$el.find("[data-js=badges]")).append AchivementListTemplate(achivement: a)
 

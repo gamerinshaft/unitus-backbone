@@ -43,6 +43,7 @@ define(['jquery', 'backbone', 'templates/dashboard/user_profile'], function($, B
     ProfilebarView.prototype.renderCategoryAchivement = function(e) {
       e.preventDefault();
       e.stopPropagation();
+      this.achivements.trigger($(e.target).text());
       return this.$($(e.target)).parent("a").tab('show');
     };
 

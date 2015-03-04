@@ -25,7 +25,7 @@
       #achivementCollapse.panel-collapse.collapse(role='tabpanel', aria-labelledby='achievementAccordion')
         ul.list-group(role="tablist")
           for categoryName, index in dashboard.get("AchivementCategories")
-            a(data-js="achivementCategory", href="#allUserAchivement", area-controls="allUserAchivement")
+            a(data-js="achivementCategory", href="#userAchivement", area-controls="userAchivement")
               li.list-group-item
                 = categoryName
     .panel.panel-default
@@ -43,9 +43,11 @@
           li.list-group-item
             | hoge
 .panels
-  #allUserAchivement.panelcontent.tab-pane.fade(role="tabpanel", data-js='achivementList')
+  #userAchivement.panelcontent.tab-pane.fade(role="tabpanel", data-js='achivementList')
     .row
       .col-xs-12
         .title.text-center
           | 実績一覧
+          span(data-js="categoryName")
+      .col-xs-12(data-js="badges")
     #achivementPanel.hidden_panel_r(data-js="achivementPanel")

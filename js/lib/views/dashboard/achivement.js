@@ -21,10 +21,10 @@ define(['jquery', 'backbone', 'models/achivement', 'templates/achivement/index',
         success: (function(_this) {
           return function(data) {
             console.log(data);
-            $.each(data.Content.AchivementCategories, function(parentIndex, parentObj) {
+            return $.each(data.Content.AchivementCategories, function(parentIndex, parentObj) {
               var categoryName;
               categoryName = "belonged" + parentObj.CategoryName;
-              return $.each(parentObj.Achivements, function(index, obj) {
+              $.each(parentObj.Achivements, function(index, obj) {
                 var achivement;
                 if (parentIndex === 0) {
                   achivement = new Achivement({
@@ -44,8 +44,10 @@ define(['jquery', 'backbone', 'models/achivement', 'templates/achivement/index',
                   return achivement.set(_this.hash(categoryName, true));
                 }
               });
+              return _this.listenTo(_this.achivements, parentObj.CategoryName, function() {
+                return _this.render(_this.achivements.where(_this.hash("belonged" + parentObj.CategoryName, true)), parentObj.CategoryName);
+              });
             });
-            return _this.render(_this.achivements);
           };
         })(this),
         error: function(data) {
@@ -119,10 +121,12 @@ define(['jquery', 'backbone', 'models/achivement', 'templates/achivement/index',
       return h;
     };
 
-    AchivementView.prototype.render = function(achivements) {
-      return achivements.each((function(_this) {
-        return function(a) {
-          return _this.$el.append(AchivementListTemplate({
+    AchivementView.prototype.render = function(achivements, categoryName) {
+      $(this.$el.find("[data-js=categoryName]")).html("（" + categoryName + "）");
+      $(this.$el.find("[data-js=badges]")).html('');
+      return $.each(achivements, (function(_this) {
+        return function(index, a) {
+          return $(_this.$el.find("[data-js=badges]")).append(AchivementListTemplate({
             achivement: a
           }));
         };
