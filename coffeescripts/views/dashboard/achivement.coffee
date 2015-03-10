@@ -56,15 +56,14 @@ define ['jquery', 'backbone', 'models/achivement', 'templates/achivement/index',
     closePanel: (e)->
       $(@$el.children("[data-js=achivementPanel]")[0]).addClass("hidden_panel_r")
 
-
-    hash: (key, value) ->
-      h = {};
-      h[key] = value
-      h
-
     render: (achivements, categoryName)->
       $(@$el.find("[data-js=categoryName]")).html "（" + categoryName + "）"
       $(@$el.find("[data-js=badges]")).html ''
       $.each achivements, (index, a) =>
         $(@$el.find("[data-js=badges]")).append AchivementListTemplate(achivement: a)
+
+    hash: (key, value) ->
+      h = {};
+      h[key] = value
+      h
 

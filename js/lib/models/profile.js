@@ -21,6 +21,7 @@ define(['jquery', 'backbone'], function($, Backbone) {
       Major: '',
       Notes: '',
       Url: '',
+      Skills: '',
       UserName: '',
       IsSelf: true
     };

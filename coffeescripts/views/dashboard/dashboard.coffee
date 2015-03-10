@@ -2,7 +2,7 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
   class DashboadView extends Backbone.View
     initialize: (option) ->
       @dashboard = option.dashboard
-      @profile = new Profile()
+      @selfProfile = new Profile()
       @profiles = new Profiles()
       @circles = option.circles
       $.ajaxSetup
@@ -27,15 +27,15 @@ define ['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
           @dashboard.set CircleBelonging: data.CircleBelonging
           @dashboard.set GithubAssociation: data.Profile.GithubProfile.AssociationEnabled
           profile = data.Profile
-          @profile.set BelongedSchool: profile.BelongedSchool, CreatedDateInfo: profile.CreatedDateInfo, CreatedDateInfoByDateOffset: profile.CreatedDateInfoByDateOffset, CurrentGrade: profile.CurrentGrade, Email: profile.Email, Faculty: profile.Faculty, GithubProfile: profile.GithubProfile, Major: profile.Major, Notes: profile.Notes, Url: profile.Url, IsSelf: true
-          @profiles.add @profile
+          @selfProfile.set BelongedSchool: profile.BelongedSchool, CreatedDateInfo: profile.CreatedDateInfo, CreatedDateInfoByDateOffset: profile.CreatedDateInfoByDateOffset, CurrentGrade: profile.CurrentGrade, Email: profile.Email, Faculty: profile.Faculty, GithubProfile: profile.GithubProfile, Major: profile.Major, Notes: profile.Notes, Url: profile.Url, IsSelf: true
+          @profiles.add @selfProfile
 
           if @dashboard.get("IsAdministrator")
             @admin_panel = new AdminPanel()
 
           @renderDashboard();
           new HeaderView(el: $("[data-js=header]"), dashboard: @dashboard, admin_panel:  @admin_panel)
-          new PanelView(el: $("[data-js=panel]"), dashboard: @dashboard, admin_panel: @admin_panel, circles: @circles)
+          new PanelView(el: $("[data-js=panel]"), dashboard: @dashboard, admin_panel: @admin_panel, circles: @circles, selfProfile: @selfProfile)
           @$el.fadeIn()
         error: (XMLHttpRequest, textStatus) ->
           if textStatus == "error" || XMLHttpRequest.ErrorMessage == "Unauthorized API Access"

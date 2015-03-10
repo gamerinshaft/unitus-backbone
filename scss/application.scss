@@ -94,6 +94,10 @@ body, html{
   background-color: white;
   margin: 0;
 }
+.form-control{
+  box-shadow: none;
+  border-radius: 0px !important;
+}
 .list-group .list-group-item:hover{
   background-color: #eee;
 }

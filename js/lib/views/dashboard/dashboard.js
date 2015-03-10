@@ -12,7 +12,7 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
 
     DashboadView.prototype.initialize = function(option) {
       this.dashboard = option.dashboard;
-      this.profile = new Profile();
+      this.selfProfile = new Profile();
       this.profiles = new Profiles();
       this.circles = option.circles;
       $.ajaxSetup({
@@ -54,7 +54,7 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
               GithubAssociation: data.Profile.GithubProfile.AssociationEnabled
             });
             profile = data.Profile;
-            _this.profile.set({
+            _this.selfProfile.set({
               BelongedSchool: profile.BelongedSchool,
               CreatedDateInfo: profile.CreatedDateInfo,
               CreatedDateInfoByDateOffset: profile.CreatedDateInfoByDateOffset,
@@ -67,7 +67,7 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
               Url: profile.Url,
               IsSelf: true
             });
-            _this.profiles.add(_this.profile);
+            _this.profiles.add(_this.selfProfile);
             if (_this.dashboard.get("IsAdministrator")) {
               _this.admin_panel = new AdminPanel();
             }
@@ -81,7 +81,8 @@ define(['jquery', 'backbone', 'templates/dashboard/dashboard', 'views/dashboard/
               el: $("[data-js=panel]"),
               dashboard: _this.dashboard,
               admin_panel: _this.admin_panel,
-              circles: _this.circles
+              circles: _this.circles,
+              selfProfile: _this.selfProfile
             });
             return _this.$el.fadeIn();
           };

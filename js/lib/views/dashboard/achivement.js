@@ -114,13 +114,6 @@ define(['jquery', 'backbone', 'models/achivement', 'templates/achivement/index',
       return $(this.$el.children("[data-js=achivementPanel]")[0]).addClass("hidden_panel_r");
     };
 
-    AchivementView.prototype.hash = function(key, value) {
-      var h;
-      h = {};
-      h[key] = value;
-      return h;
-    };
-
     AchivementView.prototype.render = function(achivements, categoryName) {
       $(this.$el.find("[data-js=categoryName]")).html("（" + categoryName + "）");
       $(this.$el.find("[data-js=badges]")).html('');
@@ -131,6 +124,13 @@ define(['jquery', 'backbone', 'models/achivement', 'templates/achivement/index',
           }));
         };
       })(this));
+    };
+
+    AchivementView.prototype.hash = function(key, value) {
+      var h;
+      h = {};
+      h[key] = value;
+      return h;
     };
 
     return AchivementView;

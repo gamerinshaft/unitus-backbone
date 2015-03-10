@@ -15,8 +15,10 @@ define(['jquery', 'backbone', 'templates/dashboard/user_profile'], function($, B
     ProfilebarView.prototype.initialize = function(option) {
       this.dashboard = option.dashboard;
       this.achivements = option.achivements;
-      this.renderUserProfile();
-      return console.log(this.dashboard);
+      this.selfProfile = option.selfProfile;
+      console.log("ここまでこれたかな？");
+      console.log(this.selfProfile);
+      return this.renderUserProfile();
     };
 
     ProfilebarView.prototype.events = {
@@ -26,7 +28,8 @@ define(['jquery', 'backbone', 'templates/dashboard/user_profile'], function($, B
 
     ProfilebarView.prototype.renderUserProfile = function() {
       return this.$el.html(Template({
-        dashboard: this.dashboard
+        dashboard: this.dashboard,
+        profile: this.selfProfile
       }));
     };
 

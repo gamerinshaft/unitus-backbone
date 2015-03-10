@@ -19,3 +19,4 @@ define ['jquery', 'backbone'], ($, Backbone) ->
       #original
       belongedAll: true
       belongedGithub: false
+

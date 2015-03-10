@@ -3,13 +3,15 @@ define ['jquery', 'backbone', 'templates/dashboard/user_profile'], ($, Backbone,
     initialize: (option) ->
       @dashboard = option.dashboard
       @achivements = option.achivements
+      @selfProfile = option.selfProfile
+      console.log "ここまでこれたかな？"
+      console.log @selfProfile
       @renderUserProfile()
-      console.log @dashboard
     events:
       "click [data-js=sendMail]" : "sendMail"
       "click [data-js=achivementCategory]" : "renderCategoryAchivement"
     renderUserProfile: =>
-      @$el.html Template(dashboard: @dashboard)
+      @$el.html Template(dashboard: @dashboard, profile: @selfProfile)
 
     sendMail: (e)->
       e.preventDefault()

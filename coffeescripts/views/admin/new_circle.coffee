@@ -79,7 +79,6 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
 
     watchChangeValue: (e) =>
       $target = $(e.target)
-      console.log $target.attr("data-js")
       $target.removeClass "form-danger"
       @circle.trigger $target.attr("data-js")
 
@@ -163,4 +162,3 @@ define ['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], ($
             else
               @notyHelper.generate("error", "作成失敗", "データチェックに失敗しました")
             true
-

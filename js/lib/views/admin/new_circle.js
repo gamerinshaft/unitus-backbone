@@ -130,7 +130,6 @@ define(['jquery', 'backbone', 'templates/admin/new_circle', 'models/circle'], fu
     AdminNewCircleView.prototype.watchChangeValue = function(e) {
       var $target;
       $target = $(e.target);
-      console.log($target.attr("data-js"));
       $target.removeClass("form-danger");
       return this.circle.trigger($target.attr("data-js"));
     };

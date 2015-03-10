@@ -14,6 +14,7 @@ define(['jquery', 'backbone', 'views/dashboard/user_panel', 'views/dashboard/adm
       this.circles = option.circles;
       this.dashboard = option.dashboard;
       this.admin_panel = option.admin_panel;
+      this.selfProfile = option.selfProfile;
       return this.renderDashboard();
     };
 
@@ -21,7 +22,8 @@ define(['jquery', 'backbone', 'views/dashboard/user_panel', 'views/dashboard/adm
       new UserPanelView({
         el: $("[data-js=basic]"),
         dashboard: this.dashboard,
-        circles: this.circles
+        circles: this.circles,
+        selfProfile: this.selfProfile
       });
       if (this.dashboard.get("IsAdministrator")) {
         return new AdminPanelView({

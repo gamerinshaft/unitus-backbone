@@ -3,11 +3,12 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'views/dashboard/
     initialize: (option) ->
       @dashboard = option.dashboard
       @circles = option.circles
+      @selfProfile = option.selfProfile
       @belongingCircles = @dashboard.get("CircleBelonging")
       @achivements = new Achivements()
       @notyHelper = new NotyHelper()
       @renderUserPanel()
-      new ProfilebarView(el: '[data-js="myProfile"]', dashboard: @dashboard, achivements: @achivements)
+      new ProfilebarView(el: '[data-js="myProfile"]', dashboard: @dashboard, achivements: @achivements, selfProfile: @selfProfile)
       @renderCircleList()
       new AchivementView(el: '[data-js=achivementList]', dashboard: @dashboard, achivements: @achivements)
 
@@ -35,7 +36,6 @@ define ['jquery', 'backbone','templates/dashboard/user_panel', 'views/dashboard/
               circle = new Circle(CircleID: obj.CircleId, CircleName: obj.CircleName, MemberCount: obj.MemberCount, BelongedSchool: obj.BelongedSchool, LastUpdateDate: obj.LastUpdateDate, IsBelonging: obj.IsBelonging)
               @circles.add circle
             else
-              console.log "これです。"
               existCircle[0].set CircleID: obj.CircleId, CircleName: obj.CircleName, MemberCount: obj.MemberCount, BelongedSchool: obj.BelongedSchool, LastUpdateDate: obj.LastUpdateDate, IsBelonging: obj.IsBelonging
         error: (msg)->
           console.log msg

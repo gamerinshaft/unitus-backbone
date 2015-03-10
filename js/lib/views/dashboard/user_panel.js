@@ -16,6 +16,7 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'views/dashboard
     UserPanelView.prototype.initialize = function(option) {
       this.dashboard = option.dashboard;
       this.circles = option.circles;
+      this.selfProfile = option.selfProfile;
       this.belongingCircles = this.dashboard.get("CircleBelonging");
       this.achivements = new Achivements();
       this.notyHelper = new NotyHelper();
@@ -23,7 +24,8 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'views/dashboard
       new ProfilebarView({
         el: '[data-js="myProfile"]',
         dashboard: this.dashboard,
-        achivements: this.achivements
+        achivements: this.achivements,
+        selfProfile: this.selfProfile
       });
       this.renderCircleList();
       return new AchivementView({
@@ -71,7 +73,6 @@ define(['jquery', 'backbone', 'templates/dashboard/user_panel', 'views/dashboard
                 });
                 return _this.circles.add(circle);
               } else {
-                console.log("これです。");
                 return existCircle[0].set({
                   CircleID: obj.CircleId,
                   CircleName: obj.CircleName,

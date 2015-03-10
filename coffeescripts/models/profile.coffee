@@ -11,6 +11,7 @@ define ['jquery', 'backbone'], ($, Backbone) ->
       Major: '' #CanAccess, Content, DisclosureConfig
       Notes: ''
       Url: '' #CanAccess, Content, DisclosureConfig
+      Skills: '' #CanAccess, Content(Array), DisclosureConfig
       UserName: ''
 
       #original
