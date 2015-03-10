@@ -4,6 +4,7 @@ require.config
     underscore: '../../bower_components/underscore/underscore'
     bootstrap: '../../bower_components/bootstrap/dist/js/bootstrap'
     backbone: '../../bower_components/backbone/backbone'
+    backbone_relational: '../../bower_components/backbone-relational/backbone-relational'
     jade: '../../bower_components/jade/runtime'
     highcharts: '../../bower_components/highcharts/highcharts'
     noty: '../../bower_components/noty/noty'
